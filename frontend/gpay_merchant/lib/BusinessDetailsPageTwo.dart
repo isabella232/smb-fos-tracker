@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'BusinessDetailsPageThree.dart';
-import 'Store.dart';
 import 'maptry.dart';
 class BusinessDetailsPageTwo extends StatefulWidget {
-  BusinessDetailsPageTwo({Key key, this.googleSignIn, this.store}) : super(key: key);
-  GoogleSignIn googleSignIn;
-  Store store;
   @override
   _BusinessDetailsPageTwoState createState() => _BusinessDetailsPageTwoState();
 }
 
 class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
-  TextEditingController pin = TextEditingController();
-    TextEditingController street = TextEditingController();
-    TextEditingController area = TextEditingController();
-    TextEditingController city = TextEditingController();
-    TextEditingController county = TextEditingController();
+  TextEditingController pincodeController = TextEditingController();
+    TextEditingController streetController = TextEditingController();
+    TextEditingController areaController = TextEditingController();
+    TextEditingController cityController = TextEditingController();
+    TextEditingController stateController = TextEditingController();
     final _formKey = GlobalKey<FormState>();
     bool validate = false;
-    bool mapvalid = true;
+    bool isMapValid = true;
 
   
   @override
@@ -30,17 +25,6 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
     double height = MediaQuery.of(context).size.height;
     TextStyle styleBold = GoogleFonts.montserrat(fontWeight: FontWeight.w500);
     TextStyle style = GoogleFonts.montserrat();
-    
-
-    bool buttonpressed = false;
-    bool sName = false;
-    bool bName = false;
-    String sNameValid(String val) {
-      if (validate == false && (val == null || val.length == 0)) {
-        return "Registered business name required";
-      }
-      return null;
-    }
     showAlertDialog(String title, String alertMessage, BuildContext context) {
 
       // set up the button
@@ -107,7 +91,7 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
                 height: (height * 0.03),
               ),
               TextFormField(
-                controller: pin,
+                controller: pincodeController,
                 style: style,
                 keyboardType: TextInputType.number,
                 validator: (value) {
@@ -135,7 +119,7 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
                 height: (height * 0.015),
               ),
               TextFormField(
-                controller: street,
+                controller: streetController,
                 style: style,
                 validator: (value) {
                   if (value.isEmpty) {
@@ -153,7 +137,7 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
                 height: (height * 0.015),
               ),
               TextFormField(
-                controller: area,
+                controller: areaController,
                 style: style,
                 validator: (value) {
                   if (value.isEmpty) {
@@ -171,7 +155,7 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
                 height: (height * 0.015),
               ),
               TextFormField(
-                controller: city,
+                controller: cityController,
                 style: style,
                 validator: (value) {
                   if (value.isEmpty) {
@@ -189,7 +173,7 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
                 height: (height * 0.015),
               ),
               TextFormField(
-                controller: county,
+                controller: stateController,
                 style: style,
                 validator: (value) {
                   if (value.isEmpty) {
@@ -209,13 +193,13 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
               FloatingActionButton.extended(
                 icon: validate? Icon(Icons.check) : Icon(Icons.map),
                 label: Text("Confirm on map"),
-                backgroundColor: mapvalid ? Colors.blue : Colors.red,
+                backgroundColor: isMapValid ? Colors.blue : Colors.red,
                 onPressed: () async{
-                 if  ((city.text == null || city.text.isEmpty) || (street.text == null || street.text.isEmpty))
+                 if  ((cityController.text == null || cityController.text.isEmpty) || (streetController.text == null || streetController.text.isEmpty))
                    showAlertDialog("Error", "Select city and street", context);
 
                   else {
-                      final query = street.text + ", " + city.text;
+                      final query = streetController.text + ", " + cityController.text;
                       var addresses;
                       try {
                         addresses = await Geocoder.local.findAddressesFromQuery(query);}
@@ -226,11 +210,11 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
                       print("${first.featureName} : ${first.coordinates}");
                     var result = await Navigator.push(context, MaterialPageRoute(
                       builder: (context) =>
-                          MapSample(city: city.text, street: street.text, latitude: first.coordinates.latitude, longitude: first.coordinates.longitude,)));
+                          MapSample(city: cityController.text, street: streetController.text, latitude: first.coordinates.latitude, longitude: first.coordinates.longitude,)));
                     showAlertDialog("Success","Location Selected", context);
                     setState(() {
                       validate = true;
-                      mapvalid = true;
+                      isMapValid = true;
                     });
                   }
                 },
@@ -242,13 +226,13 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
                     textColor: Colors.white,
                     splashColor: Colors.blueAccent,
                     onPressed: () {
-                      //TODO: create store object and pass it
+                      //TODO: UPDATE STORE OBJECT
                       if (_formKey.currentState.validate() && validate)
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                              BusinessDetailsPageThree(googleSignIn: widget.googleSignIn, store: widget.store,)));
+                              BusinessDetailsPageThree()));
                               else setState(() {
-                                mapvalid = false;
+                                isMapValid = false;
                               });;
                     },
                     child: Text(

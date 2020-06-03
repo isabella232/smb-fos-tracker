@@ -1,21 +1,17 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'globals.dart' as globals;
 
 import 'BusinessDetailsPageTwo.dart';
 import 'Store.dart';
 class BusinessDetailsPageOne extends StatefulWidget {
-  BusinessDetailsPageOne({Key key, this.googleSignIn}) : super(key: key);
-  GoogleSignIn googleSignIn;
   @override
   _BusinessDetailsPageOneState createState() => _BusinessDetailsPageOneState();
 }
 
 class _BusinessDetailsPageOneState extends State<BusinessDetailsPageOne> {  
-    TextEditingController bname = TextEditingController();
-    TextEditingController sname = TextEditingController();
-    TextEditingController oname = TextEditingController();
+    TextEditingController storeNameController = TextEditingController();
+    TextEditingController ownerNameController = TextEditingController();
     final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -60,35 +56,11 @@ class _BusinessDetailsPageOneState extends State<BusinessDetailsPageOne> {
               SizedBox(
                 height: (height * 0.03),
               ),
-//               TextFormField(
-//                 validator: (value) {
-//                   if (value.isEmpty) {
-//                     return "Cannot be empty";
-//                   }
-//                   return null;
-//                 },
-//                 controller: bname,
-//                 style: style,
-//                 decoration: InputDecoration(
-//                   border: OutlineInputBorder(),
-//                   hintText: 'Registered business name',
-//                   hintStyle: style,
-//                 ),
-//               ),
-//               Text(
-//                 "Eg. A-B-C Pvt Ltd",
-//                 style: styleBold.copyWith(
-// //                    fontSize: 12,
-//                   color: Colors.black26,
-//                   fontSize: 12,
-//                 ),
-//                 textAlign: TextAlign.left,
-//               ),
               SizedBox(
                 height: (height * 0.015),
               ),
               TextFormField(
-                controller: sname,
+                controller: storeNameController,
                 style: style,
                validator: (value) {
                   if (value.isEmpty) {
@@ -115,7 +87,7 @@ class _BusinessDetailsPageOneState extends State<BusinessDetailsPageOne> {
                 height: (height * 0.015),
               ),
               TextFormField(
-                controller: oname,
+                controller: ownerNameController,
                 style: style,
                  validator: (value) {
                   if (value.isEmpty) {
@@ -148,11 +120,11 @@ class _BusinessDetailsPageOneState extends State<BusinessDetailsPageOne> {
                   textColor: Colors.white,
                   splashColor: Colors.blueAccent,
                   onPressed: () {
-                    //TODO: create store object and pass it
                     if (_formKey.currentState.validate()) {
-                      Store store = Store(sname.text, widget.googleSignIn.currentUser.email, 0, null, null, null, bname.text, null, null, null, null, null, null, null, null);
+                      Store store = Store(storeNameController.text, globals.googleSignIn.currentUser.email, 0, null, ownerNameController.text, null, null, null, null, null, null, null, null, null, null);
+                      globals.store = store;
                       Navigator.push(context, MaterialPageRoute( builder: (context) =>
-                      BusinessDetailsPageTwo(googleSignIn: widget.googleSignIn, store: store,)));
+                      BusinessDetailsPageTwo()));
                     }
                   },
                   child: Text(

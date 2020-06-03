@@ -17,7 +17,6 @@ class _SignInHomePageState extends State<SignInHomePage> {
     double height = MediaQuery.of(context).size.height;
     TextStyle style = GoogleFonts.montserrat();
     TextStyle styleBold = GoogleFonts.montserrat(fontWeight: FontWeight.w500);
-    bool isSignedIn = false;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       resizeToAvoidBottomPadding: true,
@@ -94,11 +93,10 @@ class _SignInHomePageState extends State<SignInHomePage> {
                           print(googleSignIn.currentUser.displayName);
                           print(googleSignIn.currentUser.displayName);
                           Navigator.pop(context);
+                          globals.googleSignIn = googleSignIn;
                           Navigator.push(context, MaterialPageRoute(
                               builder: (context) =>
-                                  SelectBusinessPage(
-                                    googleSignIn: googleSignIn,
-                                  )
+                                  SelectBusinessPage()
                           )
                           );
                         }

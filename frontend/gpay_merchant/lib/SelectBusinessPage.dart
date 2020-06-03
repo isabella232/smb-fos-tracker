@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:gpay_merchant/maptry.dart';
-
+import 'globals.dart' as globals;
 import 'BusinessDetailsPageOne.dart';
 import 'SignInHomePage.dart';
 
 class SelectBusinessPage extends StatefulWidget {
-  SelectBusinessPage({Key key, this.googleSignIn}) : super(key: key);
-  GoogleSignIn googleSignIn;
   @override
   _SelectBusinessPageState createState() => _SelectBusinessPageState();
 }
@@ -27,7 +23,8 @@ class _SelectBusinessPageState extends State<SelectBusinessPage> {
             color: Colors.black,
             onPressed: () async {
               try {
-                await widget.googleSignIn.signOut();
+                await globals.googleSignIn.signOut();
+                globals.googleSignIn = null;
               } catch (e) {
                 print(e);
               }
@@ -46,8 +43,8 @@ class _SelectBusinessPageState extends State<SelectBusinessPage> {
 //          mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 FittedBox(
-                  child: Text(((widget.googleSignIn.currentUser.displayName) != null ?
-                  widget.googleSignIn.currentUser.displayName.split(" ").first
+                  child: Text(((globals.googleSignIn.currentUser.displayName) != null ?
+                  globals.googleSignIn.currentUser.displayName.split(" ").first
                       + ", set up your business" : "Set up your business"),
                     style: styleBold.copyWith(
 //                    fontSize: 12,
@@ -66,22 +63,13 @@ class _SelectBusinessPageState extends State<SelectBusinessPage> {
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(
                             builder: (context) =>
-                                BusinessDetailsPageOne(googleSignIn: widget.googleSignIn,)));
+                                BusinessDetailsPageOne()));
                       },
                     ),
                     SizedBox(width: (width * 0.1),),
                     Text("Add a new business", style: style.copyWith(color: Colors.black), textAlign: TextAlign.center,)
                   ],
                 ),
-//                IconButton(
-//                  icon: Icon(Icons.map),
-//                  onPressed: () {
-//
-//                      Navigator.push(context, MaterialPageRoute(
-//                          builder: (context) =>
-//                              MapSample()));
-//                  },
-//                ),
               ],
             ),
           )
@@ -89,6 +77,6 @@ class _SelectBusinessPageState extends State<SelectBusinessPage> {
     );
   }
   Future<void> logout() async {
-    await widget.googleSignIn.signOut();
+    await globals.googleSignIn.signOut();
   }
 }

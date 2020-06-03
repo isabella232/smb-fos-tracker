@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:geocoder/geocoder.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'Store.dart';
 import 'FinalPage.dart';
-import 'package:flutter_otp/flutter_otp.dart';
 class BusinessDetailsPageThree extends StatefulWidget {
-  BusinessDetailsPageThree({Key key, this.googleSignIn, this.store}) : super(key: key);
-  GoogleSignIn googleSignIn;
-  Store store;
+
   @override
   _BusinessDetailsPageThreeState createState() => _BusinessDetailsPageThreeState();
 }
 
 class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
-    TextEditingController phone = TextEditingController();
+    TextEditingController phoneController = TextEditingController();
     final _formKey = GlobalKey<FormState>();
     bool validate = false;
-    bool mapvalid = true;
-    
   
   @override
   Widget build(BuildContext context) {
@@ -53,14 +45,6 @@ class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
                 ),
                 textAlign: TextAlign.left,
               ),
-//               Text("put location and confirm on map",
-//                 style: styleBold.copyWith(
-// //                    fontSize: 12,
-//                   color: Colors.black26,
-//                   fontSize: 12,
-//                 ),
-//                 textAlign: TextAlign.left,
-//               ),
               SizedBox(
                 height: (height * 0.03),
               ),
@@ -75,7 +59,7 @@ class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
                 SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                 SizedBox(width: 0.01,),
                 Flexible(child: TextFormField(
-                controller: phone,
+                controller: phoneController,
                 style: GoogleFonts.montserrat(),
                 validator: (value) {
                   if (value.isEmpty) {
@@ -112,7 +96,8 @@ class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
                     textColor: Colors.white,
                     splashColor: Colors.blueAccent,
                     onPressed: () {
-                      //TODO: create store object and pass it
+                      //TODO: UPDATE STORE OBJECT
+                      // TODO: HTTP POST
                       if (_formKey.currentState.validate())
                         {
                           Navigator.pop(context);
@@ -120,10 +105,7 @@ class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
                           Navigator.pop(context);
                           Navigator.push(context, MaterialPageRoute(
                               builder: (context) =>
-                                  FinalPage(
-                                    googleSignIn: widget.googleSignIn,
-                                    store: widget.store
-                                  )
+                                  FinalPage()
                           )
                           );
                           }
