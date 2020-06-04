@@ -46,7 +46,7 @@ class _VerificationSuccessState extends State<VerificationSuccess> {
               height: 50.0,
               child: const Center(
                 child: Text(
-                  'Verification Success!',
+                  'Verification Successful!',
                   style: TextStyle(
                     fontSize: 20.0,
                   ),
