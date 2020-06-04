@@ -4,27 +4,8 @@ import 'package:verification/menuItems.dart';
 import 'package:verification/verificationSuccess.dart';
 import 'package:verification/verificationFailed.dart';
 
-//class verificationPage2 extends StatelessWidget {
-//  // This widget is the root of your application.
-//  @override
-//  Widget build(BuildContext context) {
-//    return MaterialApp(
-//      theme: ThemeData(
-//        textTheme: GoogleFonts.montserratTextTheme(
-//          Theme.of(context).textTheme,
-//        ),
-//      ),
-//      home: VerificationHomePage2(),
-//    );
-//  }
-//}
-
 class VerificationPage2 extends StatefulWidget {
-//  VerificationHomePage2({Key key, this.title}) : super(key: key);
-
-//  final String title;
-
-  @override
+ @override
   _VerificationPage2State createState() => _VerificationPage2State();
 }
 
@@ -163,7 +144,7 @@ class _VerificationPage2State extends State<VerificationPage2> {
               fontSize: 16.0,
           ),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ), 
     );
   }
 
@@ -181,13 +162,12 @@ class _VerificationPage2State extends State<VerificationPage2> {
   Future<void> _showVerifyDialog() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false, 
       builder: (BuildContext context) {
         return AlertDialog(
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-//                Text('Make sure above information is correct before verifying'),
                 Text('Verify the merchant'),
               ],
             ),
@@ -214,13 +194,12 @@ class _VerificationPage2State extends State<VerificationPage2> {
   Future<void> _showCancelVerificationDialog() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false, 
       builder: (BuildContext context) {
         return AlertDialog(
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-//                Text('Make sure above information is correct before verifying'),
                 Text('Delete the verification'),
               ],
             ),
