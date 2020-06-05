@@ -8,6 +8,8 @@ class LoadingMerchant extends StatefulWidget{
   LoadingMerchantState createState() => LoadingMerchantState();
 }
 
+///Builds a loading circle widget that shows on screen while
+///fetching complete registered information of store in database.
 class LoadingMerchantState extends State<LoadingMerchant>{
   final slider = SleekCircularSlider(
       appearance: CircularSliderAppearance(
@@ -28,5 +30,4 @@ class LoadingMerchantState extends State<LoadingMerchant>{
       ),
     );
   }
-
 }

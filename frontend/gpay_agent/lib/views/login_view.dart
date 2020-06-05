@@ -4,14 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+///Creates [LoginViewState] object.
 class LoginView extends StatefulWidget{
-  GoogleSignIn _googleSignIn;
-  Agent _agent;
   @override
-  _LoginViewState createState() => _LoginViewState();
+  LoginViewState createState() => LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView>{
+///Creates the widgets that are visible at the running state of
+///login view interface.
+class LoginViewState extends State<LoginView>{
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   Agent _agent;
   @override
@@ -63,6 +64,10 @@ class _LoginViewState extends State<LoginView>{
     );
   }
 
+  ///Calls signIn function of Google Sign in plugin.
+  ///Navigates to [WelcomeAgent] interface if signed in account is authenticated
+  ///by firebase authentication otherwise prints error on console and stays
+  ///on the [LoginViewState] interface.
   _login() async {
     try {
       await _googleSignIn.signIn();
@@ -78,5 +83,4 @@ class _LoginViewState extends State<LoginView>{
       print(err);
     }
   }
-
 }

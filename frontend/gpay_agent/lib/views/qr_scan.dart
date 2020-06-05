@@ -22,7 +22,6 @@
 
 import 'dart:async';
 import 'dart:typed_data';
-
 import 'package:agent_app/views/merchant_found_notfound.dart';
 import 'package:flutter/material.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
@@ -32,6 +31,7 @@ class QrScan extends StatefulWidget {
   _QrScanState createState() => _QrScanState();
 }
 
+///Builds UI elements for QR code scan and function [_scan] for calling QR code API.
 class _QrScanState extends State<QrScan> {
   String barcode = '';
   Uint8List bytes = Uint8List(200);
@@ -75,12 +75,14 @@ class _QrScanState extends State<QrScan> {
     );
   }
 
+  ///Fetches text of QR code by calling scan() API of qr_scan plugin.
+  ///Navigate to [MerchantFound] interface if [qrcode] is registered with any store,
+  ///else navigate to [MerchantNotFound] interface.
   Future _scan() async {
-    String barcode = await scanner.scan();
-    print(barcode);
-    // use bar code to get merchant, if merchant present, pass merchant name, fou,d, else not found
+    String qrcode = await scanner.scan();
+    //Use QR code to get store, if store is registered, pass merchant name found, else not found
     Navigator.pop(context);
-    if(barcode == "73"){      //73 is a valid merchant - to be checked in database
+    if(qrcode == "73"){      //73 is a hard coded as a valid store QR code currently
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -97,5 +99,4 @@ class _QrScanState extends State<QrScan> {
       );
     }
   }
-
 }

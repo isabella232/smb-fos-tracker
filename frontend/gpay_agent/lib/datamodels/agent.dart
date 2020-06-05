@@ -1,5 +1,4 @@
-import 'package:google_sign_in/google_sign_in.dart';
-
+///Model class for storing agent details.
 class Agent{
   int AgentID;
   String AgentFirstName;

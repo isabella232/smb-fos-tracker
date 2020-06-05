@@ -1,13 +1,13 @@
 import 'package:agent_app/views/login_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 void main() {
-  runApp(MyApp());
+  runApp(AgentApp());
 }
 
-class MyApp extends StatelessWidget {
+///Defines the the theme of application and directs to [LoginView] interface.
+class AgentApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

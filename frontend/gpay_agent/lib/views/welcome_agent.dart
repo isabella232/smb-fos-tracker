@@ -1,14 +1,13 @@
 import 'package:agent_app/datamodels/agent.dart';
 import 'package:agent_app/datamodels/text_widget.dart';
-
 import 'package:agent_app/views/fetch_store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-
-
+///Builds the UI elements for Welcome Agent user interface and
+///defines function for fetching number of store verified by agent.
 class WelcomeAgent extends StatelessWidget{
   WelcomeAgent({this.googleSignIn, this.agent});
   final GoogleSignIn googleSignIn;
@@ -79,9 +78,10 @@ class WelcomeAgent extends StatelessWidget{
     );
   }
 
+  ///Fetches the number of merchants verified by the agent signed in [agent]
+  ///using google spanner APIs.
   int getMerchantVerified(){
     //Makes a call to server sending AgentID. Server sends back the number of merchants verified by this agent
     return 20;
   }
-
 }
