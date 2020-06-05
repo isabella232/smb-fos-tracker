@@ -1,85 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:gpay_merchant/SignInButton.dart';
-import 'SelectBusinessPage.dart';
-import 'SignInButton.dart';
+import 'select_business_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'globals.dart' as globals;
+
 class SignInHomePage extends StatefulWidget {
   @override
   _SignInHomePageState createState() => _SignInHomePageState();
 }
 
+/*
+ * This class contains the view to allow the user to sign in with Google.
+ */
 class _SignInHomePageState extends State<SignInHomePage> {
+
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    TextStyle style = GoogleFonts.montserrat();
-    TextStyle styleBold = GoogleFonts.montserrat(fontWeight: FontWeight.w500);
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    TextStyle montserratBasicStyle = GoogleFonts.montserrat();
+    TextStyle montserratBoldStyle = GoogleFonts.montserrat(fontWeight: FontWeight.w500);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       resizeToAvoidBottomPadding: true,
       backgroundColor: Colors.white,
       body: Center(
         child: Padding (
-//            padding: const EdgeInsets.all(25),
-            padding: EdgeInsets.fromLTRB(width * 0.05, height * 0.05, width * 0.05, height * 0.05),
+            padding: EdgeInsets.fromLTRB(screenWidth * 0.05, screenHeight * 0.05, screenWidth * 0.05, screenHeight * 0.05),
             child: Column(
-//          mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: (height * 0.1),),
+                SizedBox(height: (screenHeight * 0.1),),
                 Image.asset(
                   'images/download.png',
-//              height: height * 0.3,
-                  width: width * 0.2,
+                  width: screenWidth * 0.2,
                 ),
-                SizedBox(height: (height * 0.01)),
+                SizedBox(height: (screenHeight * 0.01)),
                 FittedBox(
                   child: Text("Welcome to Google Pay for Business",
-                    style: styleBold.copyWith(fontSize: 20),
+                    style: montserratBoldStyle.copyWith(fontSize: 20),
                     textAlign: TextAlign.center,
                   ),),
-                SizedBox(height: (height * 0.01)),
+                SizedBox(height: (screenHeight * 0.01)),
                 FittedBox(
                     child: Text("Receive payments directly to your bank account"
                         " without any fee",
-                      style: style.copyWith(
-//                    fontSize: 12,
-                          color: Colors.black38),
+                      style: montserratBasicStyle.copyWith(color: Colors.black38),
                       textAlign: TextAlign.center,
                     )),
-                SizedBox(height: (height * 0.05)),
+                SizedBox(height: (screenHeight * 0.05)),
                 Image.asset('images/f8c422a0a0e6793b3f9113d419c5143a.gif',
-                  height: (height * 0.4),
-//                width: (width),
+                  height: (screenHeight * 0.4),
                 ),
-                SizedBox(height: (height * 0.08)),
+                SizedBox(height: (screenHeight * 0.08)),
                 FittedBox(
                   child: Text("Sign in with the email that you used for Google "
                       "My Business to save\ntime filling in some details.",
-                    style: style.copyWith(
+                    style: montserratBasicStyle.copyWith(
 //                    fontSize: 12,
                         color: Colors.black38),
                   ),
                 ),
-//            FittedBox(
-//              child: Text( "time filling in some details.",
-//                style: style.copyWith(
-////                    fontSize: 12,
-//                    color: Colors.black38),
-//              ),
-//            ),
-                SizedBox(height: (height * 0.015)),
-                SignInButtonBuilder(
-                  image: Image.asset('images/google_icon_2048-715x715.png',
-//                height: 40,
-                    width: (width * 0.1),
-                  ),
-                  text: 'Sign in with Google',
-                  textColor: Colors.black,
-                  backgroundColor: Color(0xfff5ffff),
-//                backgroundColor: Colors.white,
+                SizedBox(height: (screenHeight * 0.015)),
+                OutlineButton(
+                  child: Image.asset('images/sign_in.png', width: screenWidth * 0.8,),
                   onPressed: () async {
                     GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
                     try {
@@ -90,8 +73,6 @@ class _SignInHomePageState extends State<SignInHomePage> {
                           await googleSignIn.signIn();
                         }
                         if (googleSignIn.currentUser.displayName != null) {
-                          print(googleSignIn.currentUser.displayName);
-                          print(googleSignIn.currentUser.displayName);
                           Navigator.pop(context);
                           globals.googleSignIn = googleSignIn;
                           Navigator.push(context, MaterialPageRoute(
@@ -102,14 +83,10 @@ class _SignInHomePageState extends State<SignInHomePage> {
                         }
                       }
                     } catch (e) {
-                      print(e);
+                      print('There was an error with Google sign in' + e);
                     }
                   },
-                  height: (height * 0.06),
-                  width: width * 0.9,
-                  elevation: 2,
                 ),
-
               ],
             )),
       ),

@@ -27,7 +27,6 @@ dependencies:
   google_sign_in: ^4.5.1
   google_maps_flutter: ^0.5.28+1
   geocoder: ^0.2.1
-  flutter_otp: ^0.3.2
   http: ^0.12.1
 
 
@@ -84,4 +83,3 @@ flutter:
   assets:
     - fonts/
     - images/
-    - assets/

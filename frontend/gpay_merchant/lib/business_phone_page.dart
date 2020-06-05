@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'FinalPage.dart';
+import 'registration_success_page.dart';
+
 class BusinessDetailsPageThree extends StatefulWidget {
 
   @override
   _BusinessDetailsPageThreeState createState() => _BusinessDetailsPageThreeState();
 }
 
+/*
+ * This class contains the view to accept the business phone number.
+ */
 class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
-    TextEditingController phoneController = TextEditingController();
-    final _formKey = GlobalKey<FormState>();
-    bool validate = false;
+  TextEditingController phoneController = TextEditingController();
+  final formValidationKey = GlobalKey<FormState>();
+  bool validate = false;
   
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,7 @@ class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
         elevation: 0,
       ),
       backgroundColor: Colors.white,
-      body: Form(key: _formKey,
+      body: Form(key: formValidationKey,
     child: Center(
         child: Padding(
           padding: EdgeInsets.fromLTRB(width * 0.05, height * 0.01, width * 0.05, height * 0.05),
@@ -39,7 +43,6 @@ class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
             children: <Widget>[
               Text("Business mobile number (3/3)",
                 style: styleBold.copyWith(
-//                    fontSize: 12,
                   color: Colors.black,
                   fontSize: 20,
                 ),
@@ -98,7 +101,7 @@ class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
                     onPressed: () {
                       //TODO: UPDATE STORE OBJECT
                       // TODO: HTTP POST
-                      if (_formKey.currentState.validate())
+                      if (formValidationKey.currentState.validate())
                         {
                           Navigator.pop(context);
                           Navigator.pop(context);
