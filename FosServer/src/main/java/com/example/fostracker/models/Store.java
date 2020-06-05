@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+/** Serves as a model for store objects that will be used in to communicate information about GPay Merchants' stores
+ * and businesses */
 public class Store {
     Name ownerName;
     String email;
@@ -13,7 +15,15 @@ public class Store {
     String storeName;
     Timestamp creationDateTime;
 
-
+    /**
+     * @param ownerName
+     * @param address
+     * @param email
+     * @param coordinates
+     * @param phone
+     * @param storeName
+     * creationDateTime is set by default to the current time of Asia/Kolkata and cannot be changed later
+     */
     public Store(Name ownerName,
                  Address address,
                  String email,

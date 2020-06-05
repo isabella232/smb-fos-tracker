@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+/** Serves as a model for agent objects that will be used in to communicate information about FOS Agents */
 public class Agent {
     Name name;
     String email;
@@ -11,6 +12,13 @@ public class Agent {
     Coordinates coordinates;
     Timestamp agentCreationDateTime;
 
+    /**
+     * @param name
+     * @param email
+     * @param phone
+     * @param coordinates
+     * agentCreationDateTime is set by default to the current time of Asia/Kolkata and cannot be changed later
+     */
     public Agent(Name name, String email, String phone, Coordinates coordinates) {
         this.name = name;
         this.email = email;
@@ -53,9 +61,5 @@ public class Agent {
 
     public Timestamp getAgentCreationDateTime() {
         return agentCreationDateTime;
-    }
-
-    public void setAgentCreationDateTime(Timestamp agentCreationDateTime) {
-        this.agentCreationDateTime = agentCreationDateTime;
     }
 }
