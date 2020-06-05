@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:verification/menuItems.dart';
-import 'package:verification/verificationSuccess.dart';
-import 'package:verification/verificationFailed.dart';
+import 'package:verification/business_verification_menu_items.dart';
+import 'package:verification/business_verification_success_view.dart';
+import 'package:verification/business_verification_failure_view.dart';
 
 class VerificationPage2 extends StatefulWidget {
  @override
