@@ -13,10 +13,10 @@ public class Agent {
     Timestamp agentCreationDateTime;
 
     /**
-     * @param name
-     * @param email
-     * @param phone
-     * @param coordinates
+     * @param name - The agent's name
+     * @param email - the gmail address associated with the agent's account
+     * @param phone - The phone number associated with the agent's account
+     * @param coordinates - The live coordinates of the agent at the time of creation. They can be updated later
      * agentCreationDateTime is set by default to the current time of Asia/Kolkata and cannot be changed later
      */
     public Agent(Name name, String email, String phone, Coordinates coordinates) {

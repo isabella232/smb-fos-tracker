@@ -14,10 +14,10 @@ public class Verification {
     Timestamp verificationDateTime;
 
     /**
-     * @param agentID
-     * @param storeID
-     * @param verificationCoordinates
-     * @param verificationStatus
+     * @param agentID - the agent who completed the verification
+     * @param storeID - the store that was verified
+     * @param verificationCoordinates - the location the agent was at at the time of verification
+     * @param verificationStatus - whether the verification was successful/unsuccessful/incomplete
      * verificationDateTime is set by default to the current time of Asia/Kolkata and cannot be changed later
      */
     public Verification(String agentID, String storeID, Coordinates verificationCoordinates, String verificationStatus) {

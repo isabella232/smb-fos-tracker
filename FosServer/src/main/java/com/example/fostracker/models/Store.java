@@ -16,12 +16,12 @@ public class Store {
     Timestamp creationDateTime;
 
     /**
-     * @param ownerName
-     * @param address
-     * @param email
-     * @param coordinates
-     * @param phone
-     * @param storeName
+     * @param ownerName - the name of the business owner
+     * @param address - the address of the store/business
+     * @param email - the gmail address associated with the account of the business owner
+     * @param coordinates - the coordinates of the business taken when the owner confirms the business location
+     * @param phone - the phone number associated with the store. It is the primary identifier
+     * @param storeName - the name that is displayed on the store
      * creationDateTime is set by default to the current time of Asia/Kolkata and cannot be changed later
      */
     public Store(Name ownerName,
