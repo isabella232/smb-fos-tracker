@@ -1,36 +1,24 @@
+import 'address.dart';
 import 'coordinates.dart';
+import 'name.dart';
 
 class Store {
+  Name ownerName;
+  String email;
+  Address storeAddress;
+  Coordinates coordinates;
+  String phone;
   String storeName;
-  String merchantEmail;
-  int storePhoneNumber;
-  Coordinates storeCoordinates;
-  String merchantFirstName;
-  String merchantLastName;
-  String merchantMiddleName;
-  String merchantName;
-  String storeStreet;
-  String storePincode;
-  String storeArea;
-  String storeCity;
-  String storeState;
-  String storeCountry;
-  DateTime storeCreationDateTime;
 
-  Store(
-      this.storeName,
-      this.merchantEmail,
-      this.storePhoneNumber,
-      this.storeCoordinates,
-      this.merchantName,
-      this.merchantFirstName,
-      this.merchantLastName,
-      this.merchantMiddleName,
-      this.storeStreet,
-      this.storePincode,
-      this.storeArea,
-      this.storeCity,
-      this.storeState,
-      this.storeCountry,
-      this.storeCreationDateTime);
+  Store(this.ownerName, this.email, this.storeAddress, this.coordinates,
+      this.phone, this.storeName);
+
+  Map<String, dynamic> toJson() => {
+        'ownerName': ownerName,
+        'email': email,
+        'storeAddress': storeAddress,
+        'coordinates': coordinates,
+        'phone': phone,
+        'storeName': storeName
+      };
 }

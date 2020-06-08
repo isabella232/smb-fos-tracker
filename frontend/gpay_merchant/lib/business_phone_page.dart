@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
+import 'globals.dart' as globals;
 import 'registration_success_page.dart';
 
 class BusinessDetailsPageThree extends StatefulWidget {
@@ -16,6 +20,7 @@ class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
   TextEditingController phoneController = TextEditingController();
   final formValidationKey = GlobalKey<FormState>();
   bool validate = false;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -112,25 +117,45 @@ class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
                         color: Colors.blue,
                         textColor: Colors.white,
                         splashColor: Colors.blueAccent,
-                        onPressed: () {
-                          //TODO: UPDATE STORE OBJECT
+                        onPressed: () async {
                           // TODO: HTTP POST
+                          setState(() {
+                            isLoading = true;
+                          });
                           if (formValidationKey.currentState.validate()) {
-                            //Since the reference to the latest  pages (business basic details, business location and business phone) are not needed, they are popped.
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FinalPage()));
+                            globals.store.phone = phoneController.text;
+                            String storeJson = jsonEncode(globals.store);
+                            print(json);
+                            http.Response response = await http.post(
+                                "http://fos-tracker-278709.an.r.appspot.com/stores/add",
+                                body: storeJson);
+                            setState(() {
+                              isLoading = false;
+                            });
+                            print(response.statusCode);
+                            if (response.statusCode != 200) {
+                              globals.showAlertDialog(
+                                  "Error", "Could not register store", context);
+                            } else {
+                              //Since the reference to the latest  pages (business basic details, business location and business phone) are not needed, they are popped.
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FinalPage()));
+                            }
                           }
                         },
                         child: Text(
                           "Next",
                           style: GoogleFonts.montserrat(),
                         ),
-                      ))
+                      )),
+                  isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : SizedBox(),
                 ],
               ),
             ),
