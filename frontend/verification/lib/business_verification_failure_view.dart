@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///Displays Verification failure page.
 class VerificationFailureView extends StatefulWidget {
   _VerificationFailureViewState createState() => _VerificationFailureViewState();
 }

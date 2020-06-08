@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:verification/business_verification_view.dart';
 
+/// Loads in Merchant data, and displays the data.
 class MerchantHomeView extends StatefulWidget {
   _MerchantHomeViewState createState() => _MerchantHomeViewState();
 }
@@ -78,7 +78,7 @@ class _MerchantHomeViewState extends State<MerchantHomeView> {
               fontSize: 16.0
           ),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

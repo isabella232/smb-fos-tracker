@@ -3,14 +3,23 @@ import 'package:verification/business_verification_menu_items.dart';
 import 'package:verification/business_verification_success_view.dart';
 import 'package:verification/business_verification_failure_view.dart';
 
+/// Displays Verification home page for a Merchant that FOS Agent verifies.
+///
+/// FOS Agent Verifies the Merchant by checking whether Merchant details like address,
+/// phone are correct or not.
 class VerificationHomeView extends StatefulWidget {
   _VerificationHomeViewState createState() => _VerificationHomeViewState();
 }
 
 class _VerificationHomeViewState extends State<VerificationHomeView> {
+  /// Boolean variable[isStorePresent] stores whether store is present in mentioned location or not.
   bool isStorePresent = false;
+  /// Boolean variable[isBusinessPresent] stores whether mentioned business is working or not.
   bool isBusinessPresent = false;
 
+  /// Menu actions.
+  ///
+  /// Shows cancel verification dialog when 'Discard Verification' menu choice is selected.
   void choiceAction(String choice){
     if(choice == VerificationMenuItems.Cancel) {
       print('Discard Verification');
@@ -146,6 +155,10 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
     );
   }
 
+  /// Verifies Merchant.
+  ///
+  /// If [isBusinessPresent] and [isStorePresent] are true then displays [VerificationSuccessView]
+  /// else displays [VerificationFailureView].
   void _verifyMerchant(){
     if(isBusinessPresent & isStorePresent) {
       Navigator.push(context,
@@ -157,6 +170,11 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
     }
   }
 
+  /// Displays dialog box confirms whether FOS Agent want to verify or not.
+  ///
+  /// Dialog box contains CANCEL and VERIFY buttons.
+  /// If CANCEL is selected Agent remains on same page
+  /// If VERIFY is selected then Merchant details are verified.
   Future<void> _showVerifyMerchantDialog() async {
     return showDialog<void>(
       context: context,
@@ -189,6 +207,11 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
     );
   }
 
+  /// Displays dialog box confirms whether FOS Agent want to delete verification or not.
+  ///
+  /// Dialog box contains CANCEL and DELETE buttons.
+  /// If CANCEL is selected Agent remains on same page
+  /// If DELETE is selected then it deletes the verification.
   Future<void> _showCancelVerificationDialog() async {
     return showDialog<void>(
       context: context,
