@@ -125,14 +125,12 @@ class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
                           if (formValidationKey.currentState.validate()) {
                             globals.store.phone = phoneController.text;
                             String storeJson = jsonEncode(globals.store);
-                            print(json);
                             http.Response response = await http.post(
                                 "http://fos-tracker-278709.an.r.appspot.com/stores/add",
                                 body: storeJson);
                             setState(() {
                               isLoading = false;
                             });
-                            print(response.statusCode);
                             if (response.statusCode != 200) {
                               globals.showAlertDialog(
                                   "Error", "Could not register store", context);
