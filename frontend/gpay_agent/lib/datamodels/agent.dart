@@ -1,4 +1,4 @@
-///Model class for storing agent details.
+/// Model class for storing agent details.
 class Agent{
   String AgentEmail;
   String AgentCreationDateTime;   //Look into the datatype
