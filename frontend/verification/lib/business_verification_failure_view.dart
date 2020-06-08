@@ -1,32 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-
-class verificationFailed extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    theme: ThemeData(
-      textTheme: GoogleFonts.montserratTextTheme(
-        Theme.of(context).textTheme,
-      ),
-    );
-    return MaterialApp(
-      home: VerificationFailed(),
-    );
-  }
+class VerificationFailureView extends StatefulWidget {
+  _VerificationFailureViewState createState() => _VerificationFailureViewState();
 }
 
-class VerificationFailed extends StatefulWidget {
-  VerificationFailed({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _VerificationFailedState createState() => _VerificationFailedState();
-}
-
-class _VerificationFailedState extends State<VerificationFailed> {
+class _VerificationFailureViewState extends State<VerificationFailureView> {
 
   @override
   Widget build(BuildContext context) {

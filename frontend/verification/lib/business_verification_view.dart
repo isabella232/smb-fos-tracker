@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:verification/business_verification_menu_items.dart';
 import 'package:verification/business_verification_success_view.dart';
 import 'package:verification/business_verification_failure_view.dart';
 
 class VerificationHomeView extends StatefulWidget {
- @override
   _VerificationHomeViewState createState() => _VerificationHomeViewState();
 }
 
@@ -151,11 +149,11 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
   void _verifyMerchant(){
     if(isBusinessPresent & isStorePresent) {
       Navigator.push(context,
-      MaterialPageRoute(builder: (context) => verificationSuccess()));
+      MaterialPageRoute(builder: (context) => VerificationSuccessView()));
     }
     else{
       Navigator.push(context,
-      MaterialPageRoute(builder: (context) => verificationFailed()));
+      MaterialPageRoute(builder: (context) => VerificationFailureView()));
     }
   }
 
@@ -215,7 +213,7 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
               child: Text('DELETE'),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => verificationFailed()));
+                    MaterialPageRoute(builder: (context) => VerificationFailureView()));
               },
             ),
           ],

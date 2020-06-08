@@ -1,44 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:verification/business_verification_menu_items.dart';
-import 'package:verification/business_verification_view.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:verification/business_verification_failure_view.dart';
-
-
-class VerificationStartView extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Verification',
-      theme: ThemeData(
-      textTheme: GoogleFonts.montserratTextTheme(
-        Theme.of(context).textTheme,
-      ),
-    ),
-      home: MerchantHomeView(),
-    );
-  }
-}
+import 'package:verification/business_verification_view.dart';
 
 class MerchantHomeView extends StatefulWidget {
-  MerchantHomeView({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
   _MerchantHomeViewState createState() => _MerchantHomeViewState();
 }
 
 class _MerchantHomeViewState extends State<MerchantHomeView> {
-
-  void choiceAction(String choice){
-    if(choice == VerificationMenuItems.Cancel) {
-      print('Discard Verification');
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => verificationFailed()));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,23 +22,6 @@ class _MerchantHomeViewState extends State<MerchantHomeView> {
             Navigator.pop(context);
           },
         ),
-        actions: <Widget>[
-          PopupMenuButton<String>(
-            icon: Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-            onSelected: choiceAction,
-            itemBuilder: (BuildContext context){
-              return VerificationMenuItems.choices.map((String choice){
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();
-            },
-          )
-        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(8.0),
