@@ -15,7 +15,7 @@ class GPayMerchantApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-        home: SignInHomePage(),
+      home: SignInHomePage(),
     );
   }
 }

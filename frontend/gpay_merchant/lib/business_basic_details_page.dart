@@ -25,125 +25,145 @@ class _BusinessDetailsPageOneState extends State<BusinessDetailsPageOne> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    TextStyle montserratBoldStyle = GoogleFonts.montserrat(fontWeight: FontWeight.w500);
+    TextStyle montserratBoldStyle =
+        GoogleFonts.montserrat(fontWeight: FontWeight.w500);
     TextStyle montserratBasicStyle = GoogleFonts.montserrat();
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          color: Colors.black,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            color: Colors.black,
+          ),
+          backgroundColor: Colors.white,
+          elevation: 0,
         ),
         backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      backgroundColor: Colors.white,
-      body: Form(key: formValidationKey, child: Center(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(screenWidth * 0.05,
-              screenHeight * 0.01,
-              screenWidth * 0.05,
-              screenHeight * 0.05),
-          child: ListView(
-            children: <Widget>[
-              Text("Business details (1/3)",
-                style: montserratBoldStyle.copyWith(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-                textAlign: TextAlign.left,
-              ),
-              Text("Tell us more about your business",
-                style: montserratBoldStyle.copyWith(
-                  color: Colors.black26,
-                  fontSize: 12,
-                ),
-                textAlign: TextAlign.left,
-              ),
-              SizedBox(
-                height: (screenHeight * 0.03),
-              ),
-              SizedBox(
-                height: (screenHeight * 0.015),
-              ),
-              TextFormField(
-                controller: storeNameController,
-                style: montserratBasicStyle,
-               validator: (value) {
-                  if (value.isEmpty) {
-                    return "Cannot be empty";
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Shop name',
-                  hintStyle: montserratBasicStyle,
-                ),
-              ),
-              Text(
-                "Name that your customers will see",
-                style: montserratBoldStyle.copyWith(
-                  color: Colors.black26,
-                  fontSize: 12,
-                ),
-                textAlign: TextAlign.left,
-              ),
-              SizedBox(
-                height: (screenHeight * 0.015),
-              ),
-              TextFormField(
-                controller: ownerNameController,
-                style: montserratBasicStyle,
-                 validator: (value) {
-                  if (value.isEmpty) {
-                    return "Cannot be empty";
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Business owner\'s name',
-                  hintStyle: montserratBasicStyle,
-                ),
-              ),
-              Text(
-                "Name of owner, director or partner",
-                style: montserratBoldStyle.copyWith(
-                  color: Colors.black26,
-                  fontSize: 12,
-                ),
-                textAlign: TextAlign.left,
-              ),
-              SizedBox(
-                height: (screenHeight * 0.015),
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: FlatButton(
-                  color: Colors.blue,
-                  textColor: Colors.white,
-                  splashColor: Colors.blueAccent,
-                  onPressed: () {
-                    if (formValidationKey.currentState.validate()) {
-                      Store store = Store(storeNameController.text, globals.googleSignIn.currentUser.email, 0, null, ownerNameController.text, null, null, null, null, null, null, null, null, null, null);
-                      globals.store = store;
-                      Navigator.push(context, MaterialPageRoute( builder: (context) =>
-                      BusinessDetailsPageTwo()));
-                    }
-                  },
-                  child: Text(
-                    "Next",
-                    style: montserratBasicStyle,
+        body: Form(
+          key: formValidationKey,
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(screenWidth * 0.05,
+                  screenHeight * 0.01, screenWidth * 0.05, screenHeight * 0.05),
+              child: ListView(
+                children: <Widget>[
+                  Text(
+                    "Business details (1/3)",
+                    style: montserratBoldStyle.copyWith(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                    textAlign: TextAlign.left,
                   ),
-                )
-              )
-            ],
+                  Text(
+                    "Tell us more about your business",
+                    style: montserratBoldStyle.copyWith(
+                      color: Colors.black26,
+                      fontSize: 12,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(
+                    height: (screenHeight * 0.03),
+                  ),
+                  SizedBox(
+                    height: (screenHeight * 0.015),
+                  ),
+                  TextFormField(
+                    controller: storeNameController,
+                    style: montserratBasicStyle,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Cannot be empty";
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Shop name',
+                      hintStyle: montserratBasicStyle,
+                    ),
+                  ),
+                  Text(
+                    "Name that your customers will see",
+                    style: montserratBoldStyle.copyWith(
+                      color: Colors.black26,
+                      fontSize: 12,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(
+                    height: (screenHeight * 0.015),
+                  ),
+                  TextFormField(
+                    controller: ownerNameController,
+                    style: montserratBasicStyle,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Cannot be empty";
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Business owner\'s name',
+                      hintStyle: montserratBasicStyle,
+                    ),
+                  ),
+                  Text(
+                    "Name of owner, director or partner",
+                    style: montserratBoldStyle.copyWith(
+                      color: Colors.black26,
+                      fontSize: 12,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(
+                    height: (screenHeight * 0.015),
+                  ),
+                  Align(
+                      alignment: Alignment.bottomRight,
+                      child: FlatButton(
+                        color: Colors.blue,
+                        textColor: Colors.white,
+                        splashColor: Colors.blueAccent,
+                        onPressed: () {
+                          if (formValidationKey.currentState.validate()) {
+                            Store store = Store(
+                                storeNameController.text,
+                                globals.googleSignIn.currentUser.email,
+                                0,
+                                null,
+                                ownerNameController.text,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null);
+                            globals.store = store;
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        BusinessDetailsPageTwo()));
+                          }
+                        },
+                        child: Text(
+                          "Next",
+                          style: montserratBasicStyle,
+                        ),
+                      ))
+                ],
+              ),
+            ),
           ),
-        ),
-      ),)
-    );
+        ));
   }
 }

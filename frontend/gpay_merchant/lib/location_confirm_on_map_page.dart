@@ -6,11 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapView extends StatefulWidget {
-  MapView({Key key, this.street, this.city, this.latitude, this.longitude}) : super(key: key);
+  MapView({Key key, this.street, this.city, this.latitude, this.longitude})
+      : super(key: key);
   String street;
   String city;
   double latitude;
   double longitude;
+
   @override
   State<MapView> createState() => MapViewState();
 }
@@ -32,21 +34,24 @@ class MapViewState extends State<MapView> {
       target: LatLng(widget.latitude, widget.longitude),
       zoom: 19,
     );
-    Marker storePositionMarker= Marker(
+    Marker storePositionMarker = Marker(
       markerId: MarkerId("m"),
-    position: LatLng(widget.latitude, widget.longitude),
-    draggable: true,
-    onDragEnd: (value) {
-      latitudeAfterUserChange = value.latitude;
-      longitudeAfterUserChange = value.longitude;
-    },
-  );
-  List<Marker> markers = [];
-  markers.add(storePositionMarker);
+      position: LatLng(widget.latitude, widget.longitude),
+      draggable: true,
+      onDragEnd: (value) {
+        latitudeAfterUserChange = value.latitude;
+        longitudeAfterUserChange = value.longitude;
+      },
+    );
+    List<Marker> markers = [];
+    markers.add(storePositionMarker);
     return new Scaffold(
       appBar: AppBar(
         leading: Container(),
-        title: Text("Drag marker to location", style: GoogleFonts.montserrat(),),
+        title: Text(
+          "Drag marker to location",
+          style: GoogleFonts.montserrat(),
+        ),
       ),
       body: GoogleMap(
         mapType: MapType.normal,
@@ -58,12 +63,12 @@ class MapViewState extends State<MapView> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Coordinates coordinates = Coordinates(latitudeAfterUserChange, longitudeAfterUserChange);
+          Coordinates coordinates =
+              Coordinates(latitudeAfterUserChange, longitudeAfterUserChange);
           Navigator.pop(context, coordinates);
         },
         label: Text('Confirm'),
         icon: Icon(Icons.check),
-
       ),
     );
   }

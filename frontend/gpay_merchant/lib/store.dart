@@ -17,7 +17,8 @@ class Store {
   String storeCountry;
   DateTime storeCreationDateTime;
 
-  Store(this.storeName,
+  Store(
+      this.storeName,
       this.merchantEmail,
       this.storePhoneNumber,
       this.storeCoordinates,
@@ -32,5 +33,4 @@ class Store {
       this.storeState,
       this.storeCountry,
       this.storeCreationDateTime);
-
 }

@@ -7,12 +7,11 @@ class Merchant {
   String phone;
 
   Merchant(this.name, this.email, this.coordinates, this.phone);
-  Map<String, dynamic> toJson() =>
-      {
+
+  Map<String, dynamic> toJson() => {
         'name': name,
         'email': email,
         'coordinates': coordinates,
         'phone': phone
       };
-
 }
