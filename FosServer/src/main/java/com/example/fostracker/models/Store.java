@@ -85,5 +85,11 @@ public class Store {
         return creationDateTime;
     }
 
+    public Name getOwnerName() {
+        return ownerName;
+    }
 
+    public void setOwnerName(Name ownerName) {
+        this.ownerName = ownerName;
+    }
 }
