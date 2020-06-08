@@ -4,17 +4,17 @@ import 'package:verification/business_verification_menu_items.dart';
 import 'package:verification/business_verification_success_view.dart';
 import 'package:verification/business_verification_failure_view.dart';
 
-class VerificationPage2 extends StatefulWidget {
+class VerificationHomeView extends StatefulWidget {
  @override
-  _VerificationPage2State createState() => _VerificationPage2State();
+  _VerificationHomeViewState createState() => _VerificationHomeViewState();
 }
 
-class _VerificationPage2State extends State<VerificationPage2> {
+class _VerificationHomeViewState extends State<VerificationHomeView> {
   bool isStorePresent = false;
   bool isBusinessPresent = false;
 
   void choiceAction(String choice){
-    if(choice == MenuItems.Cancel) {
+    if(choice == VerificationMenuItems.Cancel) {
       print('Discard Verification');
       //When ever user clicks on discard verification it opens up verification failed
       //TODO: Need to return to home page after cancelling verification
@@ -50,7 +50,7 @@ class _VerificationPage2State extends State<VerificationPage2> {
             ),
             onSelected: choiceAction,
             itemBuilder: (BuildContext context){
-              return MenuItems.choices.map((String choice){
+              return VerificationMenuItems.choices.map((String choice){
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),
@@ -133,7 +133,7 @@ class _VerificationPage2State extends State<VerificationPage2> {
 
       floatingActionButton: FloatingActionButton.extended(
         onPressed: (){
-          _showVerifyDialog();
+          _showVerifyMerchantDialog();
         },
         tooltip: 'Verify',
         shape: RoundedRectangleBorder(),
@@ -159,7 +159,7 @@ class _VerificationPage2State extends State<VerificationPage2> {
     }
   }
 
-  Future<void> _showVerifyDialog() async {
+  Future<void> _showVerifyMerchantDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, 

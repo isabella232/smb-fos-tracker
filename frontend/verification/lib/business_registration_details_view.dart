@@ -33,7 +33,7 @@ class MerchantHomeView extends StatefulWidget {
 class _MerchantHomeViewState extends State<MerchantHomeView> {
 
   void choiceAction(String choice){
-    if(choice == MenuItems.Cancel) {
+    if(choice == VerificationMenuItems.Cancel) {
       print('Discard Verification');
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => verificationFailed()));
@@ -62,7 +62,7 @@ class _MerchantHomeViewState extends State<MerchantHomeView> {
             ),
             onSelected: choiceAction,
             itemBuilder: (BuildContext context){
-              return MenuItems.choices.map((String choice){
+              return VerificationMenuItems.choices.map((String choice){
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),
@@ -117,7 +117,7 @@ class _MerchantHomeViewState extends State<MerchantHomeView> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: (){
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => VerificationPage2()));
+              MaterialPageRoute(builder: (context) => VerificationHomeView()));
         },
         tooltip: 'Next',
         shape: RoundedRectangleBorder(),
