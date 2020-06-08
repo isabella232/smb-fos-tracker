@@ -11,7 +11,7 @@ public class Verification {
     String storeID;
     Coordinates verificationCoordinates;
     String verificationStatus;
-    Timestamp verificationDateTime;
+    Timestamp verificationCreationDateTime;
 
     /**
      * @param agentID - the agent who completed the verification
