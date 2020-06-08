@@ -2,7 +2,7 @@ import 'package:agent_app/datamodels/text_widget.dart';
 import 'package:agent_app/views/loading_merchant.dart';
 import 'package:flutter/material.dart';
 
-///Builds UI if store searched for is not found in database.
+/// Builds UI if store searched for is not found in database.
 class MerchantNotFound extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class MerchantNotFound extends StatelessWidget{
   }
 }
 
-///Builds UI if store searched for is found in database.
+/// Builds UI if store searched for is found in database.
 class MerchantFound extends StatelessWidget{
   MerchantFound({this.name});
   String name;

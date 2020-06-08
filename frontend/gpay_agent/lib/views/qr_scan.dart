@@ -31,7 +31,7 @@ class QrScan extends StatefulWidget {
   _QrScanState createState() => _QrScanState();
 }
 
-///Builds UI elements for QR code scan and function [_scan] for calling QR code API.
+/// Builds UI elements for QR code scan and function [_scan] for calling QR code API.
 class _QrScanState extends State<QrScan> {
   String barcode = '';
   Uint8List bytes = Uint8List(200);
@@ -75,9 +75,9 @@ class _QrScanState extends State<QrScan> {
     );
   }
 
-  ///Fetches text of QR code by calling scan() API of qr_scan plugin.
-  ///Navigate to [MerchantFound] interface if [qrcode] is registered with any store,
-  ///else navigate to [MerchantNotFound] interface.
+  /// Fetches text of QR code by calling scan() API of qr_scan plugin.
+  /// Navigate to [MerchantFound] interface if [qrcode] is registered with any store,
+  /// else navigate to [MerchantNotFound] interface.
   Future _scan() async {
     String qrcode = await scanner.scan();
     //Use QR code to get store, if store is registered, pass merchant name found, else not found

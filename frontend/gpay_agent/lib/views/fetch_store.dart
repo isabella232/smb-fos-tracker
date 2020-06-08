@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
-///Builds the UI elements for fetching store information for verification.
-///Store can be fetched using phone number or scanner QR code assigned to store.
+/// Builds the UI elements for fetching store information for verification.
+/// Store can be fetched using phone number or scanner QR code assigned to store.
 class FetchStore extends StatelessWidget{
   PhoneNumber number = PhoneNumber(isoCode: 'IN');
   String num = "1223";
@@ -52,8 +52,8 @@ class FetchStore extends StatelessWidget{
                     initialValue: number,
                   ),
                 ),
-                ///Fetches store details using phone number of store.
-                ///If store number is regestered in databsase, it calls [MerchantFound]
+                /// Fetches store details using phone number of store.
+                /// If store number is registered in database, it calls [MerchantFound]
                 /// interface otherwise it calls [MerchantNotFound] interface.
                 ButtonTheme(
                   minWidth: 200,
@@ -84,7 +84,7 @@ class FetchStore extends StatelessWidget{
                   ),
                 ),
                 Text("OR"),
-                ///Calls [QrScan] user interface to fetch store using QR code
+                /// Calls [QrScan] user interface to fetch store using QR code
                 ButtonTheme(
                   minWidth: 200,
                   height: 50,

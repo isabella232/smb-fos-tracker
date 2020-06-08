@@ -6,7 +6,7 @@ void main() {
   runApp(AgentApp());
 }
 
-///Defines the the theme of application and directs to [LoginView] interface.
+/// Defines the the theme of application and directs to [LoginView] interface.
 class AgentApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

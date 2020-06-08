@@ -1,4 +1,4 @@
-///Model class for storing agent details.
+/// Model class for storing agent details.
 class Agent{
   int AgentID;
   String AgentFirstName;
