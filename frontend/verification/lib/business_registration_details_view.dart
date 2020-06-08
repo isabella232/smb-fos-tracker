@@ -7,7 +7,6 @@ class MerchantHomeView extends StatefulWidget {
 }
 
 class _MerchantHomeViewState extends State<MerchantHomeView> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,55 +17,49 @@ class _MerchantHomeViewState extends State<MerchantHomeView> {
         bottomOpacity: 0.0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: ()   {
+          onPressed: () {
             Navigator.pop(context);
           },
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(8.0),
-        children: <Widget>[
-          Container(
-            height: 50.0,
-            child: const Center(
-              child: Text(
-                'Merchant details',
-                style: TextStyle(
-                  fontSize: 20.0,
-                ),
+      body: ListView(padding: const EdgeInsets.all(8.0), children: <Widget>[
+        Container(
+          height: 50.0,
+          child: const Center(
+            child: Text(
+              'Merchant details',
+              style: TextStyle(
+                fontSize: 20.0,
               ),
             ),
           ),
-          Image.asset('assets/shop.png'),
-          Container(
-            height: 50.0,
-            child: const Center(
-              child: Text(
-                'Merchant Name : ',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 20.0,
-                ),
+        ),
+        Image.asset('assets/shop.png'),
+        Container(
+          height: 50.0,
+          child: const Center(
+            child: Text(
+              'Merchant Name : ',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 20.0,
               ),
             ),
           ),
-          Container(
-            height: 50.0,
-            child: const Center(
-              child: Text(
-                'Store Name : ',
-                textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 20.0
-                  ),
-                ),
-              ),
-            )
-        ]
-      ),
-
+        ),
+        Container(
+          height: 50.0,
+          child: const Center(
+            child: Text(
+              'Store Name : ',
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 20.0),
+            ),
+          ),
+        )
+      ]),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: (){
+        onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => VerificationHomeView()));
         },
@@ -74,9 +67,7 @@ class _MerchantHomeViewState extends State<MerchantHomeView> {
         shape: RoundedRectangleBorder(),
         label: Text(
           'Next',
-          style: TextStyle(
-              fontSize: 16.0
-          ),
+          style: TextStyle(fontSize: 16.0),
         ),
       ),
     );

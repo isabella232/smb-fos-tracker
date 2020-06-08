@@ -14,19 +14,19 @@ class VerificationHomeView extends StatefulWidget {
 class _VerificationHomeViewState extends State<VerificationHomeView> {
   /// Boolean variable[isStorePresent] stores whether store is present in mentioned location or not.
   bool isStorePresent = false;
+
   /// Boolean variable[isBusinessPresent] stores whether mentioned business is working or not.
   bool isBusinessPresent = false;
 
   /// Menu actions.
   ///
   /// Shows cancel verification dialog when 'Discard Verification' menu choice is selected.
-  void choiceAction(String choice){
-    if(choice == VerificationMenuItems.Cancel) {
+  void choiceAction(String choice) {
+    if (choice == VerificationMenuItems.Cancel) {
       print('Discard Verification');
       //When ever user clicks on discard verification it opens up verification failed
       //TODO: Need to return to home page after cancelling verification
       _showCancelVerificationDialog();
-
     }
   }
 
@@ -38,14 +38,12 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         bottomOpacity: 0.0,
-
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
             color: Colors.black,
           ),
-
-          onPressed:(){
+          onPressed: () {
             Navigator.pop(context);
           },
         ),
@@ -56,8 +54,8 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
               color: Colors.black,
             ),
             onSelected: choiceAction,
-            itemBuilder: (BuildContext context){
-              return VerificationMenuItems.choices.map((String choice){
+            itemBuilder: (BuildContext context) {
+              return VerificationMenuItems.choices.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),
@@ -84,62 +82,57 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
             ),
             Container(
               height: 50.0,
-              child: Row(
-                  children: <Widget> [
-                    Text(
-                      'Does store exist ?',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                      ),
-                    ),
-                    Switch(
-                      value: isStorePresent,
-                      onChanged: (value) {
-                        setState(() {
-                          isStorePresent = value;
-                          print(isStorePresent);
-                        });
-                      },
-                      activeTrackColor: Colors.lightGreenAccent,
-                      activeColor: Colors.green,
-                      inactiveTrackColor: Colors.red,
-                    ),
-                  ]
-              ),
+              child: Row(children: <Widget>[
+                Text(
+                  'Does store exist ?',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                  ),
+                ),
+                Switch(
+                  value: isStorePresent,
+                  onChanged: (value) {
+                    setState(() {
+                      isStorePresent = value;
+                      print(isStorePresent);
+                    });
+                  },
+                  activeTrackColor: Colors.lightGreenAccent,
+                  activeColor: Colors.green,
+                  inactiveTrackColor: Colors.red,
+                ),
+              ]),
             ),
             Container(
               height: 50.0,
               child: Center(
-                child: Row(
-                    children: <Widget> [
-                      Text(
-                        'Does business exist ?',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                        ),
-                      ),
-                      Switch(
-                        value: isBusinessPresent,
-                        onChanged: (value) {
-                          setState(() {
-                            isBusinessPresent= value;
-                            print(isBusinessPresent);
-                          });
-                        },
-                        activeTrackColor: Colors.lightGreenAccent,
-                        activeColor: Colors.green,
-                        inactiveTrackColor: Colors.red,
-                      ),
-                    ]
-                ),
+                child: Row(children: <Widget>[
+                  Text(
+                    'Does business exist ?',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  Switch(
+                    value: isBusinessPresent,
+                    onChanged: (value) {
+                      setState(() {
+                        isBusinessPresent = value;
+                        print(isBusinessPresent);
+                      });
+                    },
+                    activeTrackColor: Colors.lightGreenAccent,
+                    activeColor: Colors.green,
+                    inactiveTrackColor: Colors.red,
+                  ),
+                ]),
               ),
             )
           ],
         ),
       ),
-
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: (){
+        onPressed: () {
           _showVerifyMerchantDialog();
         },
         tooltip: 'Verify',
@@ -148,10 +141,10 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
         label: Text(
           'Verify',
           style: TextStyle(
-              fontSize: 16.0,
+            fontSize: 16.0,
           ),
         ),
-      ), 
+      ),
     );
   }
 
@@ -159,14 +152,13 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
   ///
   /// If [isBusinessPresent] and [isStorePresent] are true then displays [VerificationSuccessView]
   /// else displays [VerificationFailureView].
-  void _verifyMerchant(){
-    if(isBusinessPresent & isStorePresent) {
+  void _verifyMerchant() {
+    if (isBusinessPresent & isStorePresent) {
       Navigator.push(context,
-      MaterialPageRoute(builder: (context) => VerificationSuccessView()));
-    }
-    else{
+          MaterialPageRoute(builder: (context) => VerificationSuccessView()));
+    } else {
       Navigator.push(context,
-      MaterialPageRoute(builder: (context) => VerificationFailureView()));
+          MaterialPageRoute(builder: (context) => VerificationFailureView()));
     }
   }
 
@@ -178,7 +170,7 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
   Future<void> _showVerifyMerchantDialog() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, 
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           content: SingleChildScrollView(
@@ -215,7 +207,7 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
   Future<void> _showCancelVerificationDialog() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, 
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           content: SingleChildScrollView(
@@ -235,8 +227,10 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
             FlatButton(
               child: Text('DELETE'),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => VerificationFailureView()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => VerificationFailureView()));
               },
             ),
           ],
@@ -244,6 +238,4 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
       },
     );
   }
-
 }
-

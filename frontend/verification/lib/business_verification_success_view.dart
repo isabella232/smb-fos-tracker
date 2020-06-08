@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 /// Displays Verification success page.
 class VerificationSuccessView extends StatefulWidget {
-  _VerificationSuccessViewState createState() => _VerificationSuccessViewState();
+  _VerificationSuccessViewState createState() =>
+      _VerificationSuccessViewState();
 }
 
 class _VerificationSuccessViewState extends State<VerificationSuccessView> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,5 +37,4 @@ class _VerificationSuccessViewState extends State<VerificationSuccessView> {
       ),
     );
   }
-
 }
