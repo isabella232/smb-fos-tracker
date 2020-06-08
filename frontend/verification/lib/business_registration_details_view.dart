@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:verification/business_verification_failure_view.dart';
 
 
-class verificationPage1 extends StatelessWidget {
+class VerificationStartView extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -16,21 +16,21 @@ class verificationPage1 extends StatelessWidget {
         Theme.of(context).textTheme,
       ),
     ),
-      home: VerificationHomePage1(),
+      home: MerchantHomeView(),
     );
   }
 }
 
-class VerificationHomePage1 extends StatefulWidget {
-  VerificationHomePage1({Key key, this.title}) : super(key: key);
+class MerchantHomeView extends StatefulWidget {
+  MerchantHomeView({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _VerificationPage1State createState() => _VerificationPage1State();
+  _MerchantHomeViewState createState() => _MerchantHomeViewState();
 }
 
-class _VerificationPage1State extends State<VerificationHomePage1> {
+class _MerchantHomeViewState extends State<MerchantHomeView> {
 
   void choiceAction(String choice){
     if(choice == MenuItems.Cancel) {
@@ -48,7 +48,7 @@ class _VerificationPage1State extends State<VerificationHomePage1> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         bottomOpacity: 0.0,
-        /*leading: IconButton(
+        leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: ()   {
             Navigator.pop(context);
@@ -70,7 +70,7 @@ class _VerificationPage1State extends State<VerificationHomePage1> {
               }).toList();
             },
           )
-        ],*/
+        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(8.0),
