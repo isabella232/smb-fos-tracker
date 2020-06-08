@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'select_business_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 import 'globals.dart' as globals;
+import 'select_business_page.dart';
 
 class SignInHomePage extends StatefulWidget {
   @override

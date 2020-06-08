@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'globals.dart' as globals;
+
 import 'business_basic_details_page.dart';
+import 'globals.dart' as globals;
 import 'sign_in_home_page.dart';
 
 class SelectBusinessPage extends StatefulWidget {
@@ -49,7 +50,6 @@ class _SelectBusinessPageState extends State<SelectBusinessPage> {
                   globals.googleSignIn.currentUser.displayName.split(" ").first
                       + ", set up your business" : "Set up your business"),
                     style: montserratBoldStyle.copyWith(
-//                    fontSize: 12,
                       color: Colors.black,
                       fontSize: 20,
                     ),

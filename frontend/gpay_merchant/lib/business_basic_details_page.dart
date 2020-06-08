@@ -1,7 +1,8 @@
-import 'business_location_page.dart';
-import 'globals.dart' as globals;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'business_location_page.dart';
+import 'globals.dart' as globals;
 import 'store.dart';
 
 class BusinessDetailsPageOne extends StatefulWidget {

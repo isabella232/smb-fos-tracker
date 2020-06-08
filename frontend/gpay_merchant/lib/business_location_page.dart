@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'business_phone_page.dart';
 import 'location_confirm_on_map_page.dart';
 
@@ -10,7 +11,7 @@ class BusinessDetailsPageTwo extends StatefulWidget {
 }
 
 /*
- * This class contains the view to accept the business address such as:
+ * This class contains the view to accept the business address such as: street name, area, city and state.
  * It also redirects to a google maps page to confirm the location of the business.
  */
 class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
@@ -32,7 +33,7 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
 
     showAlertDialog(String title, String alertMessage, BuildContext context) {
 
-      // set up the button
+      // This is the setup of the button to give user the choice to click on OK after reading the dialog.
       Widget okButton = FlatButton(
         child: Text("OK"),
         onPressed: () {
@@ -40,7 +41,7 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
         },
       );
 
-      // set up the AlertDialog
+      // This is the setup of the alert dialog based on the provided title.
       AlertDialog alert = AlertDialog(
         title: Text(title),
         content: Text(alertMessage, style: GoogleFonts.montserrat(),),
@@ -49,7 +50,7 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
         ],
       );
 
-      // show the dialog
+      // This is where the alert dialog is displayed.
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -199,10 +200,10 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
                 backgroundColor: isMapValid ? Colors.blue : Colors.red,
                 onPressed: () async{
                  if  ((cityController.text == null || cityController.text.isEmpty)
-                     || (streetController.text == null || streetController.text.isEmpty))
+                     || (streetController.text == null || streetController.text.isEmpty)) {
                    showAlertDialog("Error", "Select city and street", context);
-
-                  else {
+                 }
+                 else {
                       final query = streetController.text + ", " + cityController.text;
                       var addresses;
                       try {

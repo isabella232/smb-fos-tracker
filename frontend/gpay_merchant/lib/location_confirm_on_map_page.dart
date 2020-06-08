@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:geocoder/geocoder.dart';
+
 import 'package:flutter/material.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -28,9 +29,9 @@ class MapViewState extends State<MapView> {
     double latitudeAfterUserChange = widget.latitude;
     double longitudeAfterUserChange = widget.longitude;
     final CameraPosition initialCameraPosition = CameraPosition(
-    target: LatLng(widget.latitude, widget.longitude),
-    zoom: 19,
-  );
+      target: LatLng(widget.latitude, widget.longitude),
+      zoom: 19,
+    );
     Marker storePositionMarker= Marker(
       markerId: MarkerId("m"),
     position: LatLng(widget.latitude, widget.longitude),

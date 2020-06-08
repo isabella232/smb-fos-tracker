@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'registration_success_page.dart';
 
 class BusinessDetailsPageThree extends StatefulWidget {
@@ -103,6 +104,7 @@ class _BusinessDetailsPageThreeState extends State<BusinessDetailsPageThree> {
                       // TODO: HTTP POST
                       if (formValidationKey.currentState.validate())
                         {
+                          //Since the reference to the latest  pages (business basic details, business location and business phone) are not needed, they are popped.
                           Navigator.pop(context);
                           Navigator.pop(context);
                           Navigator.pop(context);
