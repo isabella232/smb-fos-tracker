@@ -7,41 +7,41 @@ import java.time.ZonedDateTime;
 /** Serves as a model for store objects that will be used in to communicate information about GPay Merchants' stores
  * and businesses */
 public class Verification {
-    String agentID;
-    String storeID;
+    String agentEmail;
+    String storePhone;
     Coordinates verificationCoordinates;
     String verificationStatus;
     Timestamp verificationCreationDateTime;
 
     /**
-     * @param agentID - the agent who completed the verification
-     * @param storeID - the store that was verified
+     * @param agentEmail - email id of the agent who completed the verification
+     * @param storePhone - the store phone number that was verified
      * @param verificationCoordinates - the location the agent was at at the time of verification
      * @param verificationStatus - whether the verification was successful/unsuccessful/incomplete
      * verificationDateTime is set by default to the current time of Asia/Kolkata and cannot be changed later
      */
-    public Verification(String agentID, String storeID, Coordinates verificationCoordinates, String verificationStatus) {
-        this.agentID = agentID;
-        this.storeID = storeID;
+    public Verification(String agentEmail, String storePhone, Coordinates verificationCoordinates, String verificationStatus) {
+        this.agentEmail = agentEmail;
+        this.storePhone = storePhone;
         this.verificationCoordinates = verificationCoordinates;
         this.verificationStatus = verificationStatus;
         this.verificationCreationDateTime = Timestamp.valueOf(ZonedDateTime.now(ZoneId.of("Asia/Kolkata")).toLocalDateTime());
     }
 
-    public String getAgentID() {
-        return agentID;
+    public String getAgentEmail() {
+        return agentEmail;
     }
 
-    public void setAgentID(String agentID) {
-        this.agentID = agentID;
+    public void setAgentEmail(String agentID) {
+        this.agentEmail = agentID;
     }
 
-    public String getStoreID() {
-        return storeID;
+    public String getStorePhone() {
+        return storePhone;
     }
 
-    public void setStoreID(String storeID) {
-        this.storeID = storeID;
+    public void setStorePhone(String storeID) {
+        this.storePhone = storeID;
     }
 
     public Coordinates getVerificationCoordinates() {
