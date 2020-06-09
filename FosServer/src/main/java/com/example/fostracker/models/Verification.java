@@ -19,7 +19,7 @@ public class Verification {
      * else if store verification is  unsuccessful then database table stores "red" String
      */
     private final String VERIFICATION_SUCCESSFUL = "green";
-    private final String NOT_REGISTERED = "yellow";
+    private final String NOT_VERIFIED = "yellow";
     private final String VERIFICATION_UNSUCCESSFUL = "red";
 
     /**
@@ -43,7 +43,7 @@ public class Verification {
             case 0:
                 return VERIFICATION_UNSUCCESSFUL;
             case -1:
-                return NOT_REGISTERED;
+                return NOT_VERIFIED;
             case 1:
                 return VERIFICATION_SUCCESSFUL;
             default:
