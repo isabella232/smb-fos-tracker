@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import com.google.cloud.spanner.ResultSet;
+//import java.sql.Timestamp;
 
 /**
  * Prints the complete verification table in JSON format.
@@ -66,7 +67,7 @@ public class GetStoreVerificationsServlet extends HttpServlet {
         String verificationDataIteratorString;
 
         // Querying the database table and storing in verificationData.
-        ResultSet verificationData = VerificationDatabaseHelper.queryData(output);
+        ResultSet verificationData = VerificationDatabaseHelper.queryData();
 
         // If verificationData is not empty then prints all the rows else prints "No data exists".
         if (verificationData.next()) {
@@ -85,7 +86,8 @@ public class GetStoreVerificationsServlet extends HttpServlet {
                                                             verificationData.getString(columnStorePhoneIndex),
                                                             new Coordinates(verificationData.getDouble(columnVerificationLatitudeIndex),
                                                             verificationData.getDouble(columnVerificationLongitudeIndex)),
-                                                            getStatusInt(verificationData.getString(columnVerificationStatusIndex)));
+                                                            getStatusInt(verificationData.getString(columnVerificationStatusIndex)),
+                                                            verificationData.getTimestamp(columnVerificationTimeIndex).toSqlTimestamp());
                 verificationDataIteratorString = this.gson.toJson(verificationDataIterator);
                 output.printf(verificationDataIteratorString);
             } while (verificationData.next());
