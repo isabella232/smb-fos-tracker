@@ -22,6 +22,8 @@ import com.google.cloud.spanner.ResultSet;
 import com.google.cloud.spanner.SpannerException;
 import com.google.cloud.spanner.Statement;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.io.PrintWriter;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -31,7 +33,7 @@ import com.example.fostracker.models.Verification;
 
 /**
  * This class contains all operations that are to be done on Verifications table.
- *
+ * <p>
  * Stores all column names in constant Strings and these constants are used whenever column name needs to be referred.
  * Inserts new data into verifications table.
  * Query the complete Verification table and returns ResultSet object.
@@ -51,26 +53,23 @@ public class VerificationDatabaseHelper {
      * Writes data into verification table using Mutations
      *
      * @param newVerification is the Verification object that we wish to insert into verifications table
-     * @param pw is the PrintWriter object that is used to write messages to Post request (@WebServlet(value = "/verifications/new"))
      * @return a boolean variable that indicates whether the insertion is successful or not
      */
-    public static boolean writeData(Verification newVerification, PrintWriter pw) {
-        Mutation verificationMutation;
-        verificationMutation = Mutation.newInsertBuilder(TABLE_NAME)
+    public static boolean writeData(Verification newVerification) {
+        List<Mutation> verificationMutation = new ArrayList<>();
+        verificationMutation.add(Mutation.newInsertBuilder(TABLE_NAME)
                 .set(COLUMN_AGENT_EMAIL).to(newVerification.getAgentEmail())
                 .set(COLUMN_STORE_PHONE).to(newVerification.getStorePhone())
                 .set(COLUMN_VERIFICATION_LATITUDE).to(newVerification.getVerificationCoordinates().getLatitude())
                 .set(COLUMN_VERIFICATION_LONGITUDE).to(newVerification.getVerificationCoordinates().getLongitude())
                 .set(COLUMN_VERIFICATION_STATUS).to(newVerification.getStoreVerificationStatus())
                 .set(COLUMN_VERIFICATION_TIME).to(Timestamp.of(java.sql.Timestamp.valueOf(ZonedDateTime.now(ZoneId.of("Asia/Kolkata")).toLocalDateTime())))
-                .build();
-
+                .build());
         try {
-            pw.write("Successful");
-            SpannerClient.getDatabaseClient().write(Collections.singleton(verificationMutation));
+            SpannerClient.getDatabaseClient().write(verificationMutation);
             return true;
         } catch (SpannerException e) {
-            pw.write("Unsuccessful");
+
             return false;
         }
     }
