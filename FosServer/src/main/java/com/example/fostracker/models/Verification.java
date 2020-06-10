@@ -63,9 +63,9 @@ public class Verification {
             case VERIFICATION_UNSUCCESSFUL_INT:
                 return VERIFICATION_UNSUCCESSFUL;
             case VERIFICATION_SUCCESSFUL_INT:
-                return NOT_VERIFIED;
-            case NOT_VERIFIED_INT:
                 return VERIFICATION_SUCCESSFUL;
+            case NOT_VERIFIED_INT:
+                return NOT_VERIFIED;
             default:
                 return null;
         }
