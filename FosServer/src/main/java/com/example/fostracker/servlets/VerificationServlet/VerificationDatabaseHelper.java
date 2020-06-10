@@ -29,8 +29,16 @@ import java.util.Collections;
 
 import com.example.fostracker.models.Verification;
 
+/**
+ * This class contains all operations that are to be done on Verifications table.
+ *
+ * Stores all column names in constant Strings and these constants are used whenever column name needs to be referred.
+ * Inserts new data into verifications table.
+ * Query the complete Verification table and returns ResultSet object.
+ */
 public class VerificationDatabaseHelper {
 
+    // Column names are stored in these constant Strings.
     public final static String TABLE_NAME = "Verifications";
     public final static String COLUMN_AGENT_EMAIL = "AgentEmail";
     public final static String COLUMN_STORE_PHONE = "StorePhone";
@@ -39,7 +47,13 @@ public class VerificationDatabaseHelper {
     public final static String COLUMN_VERIFICATION_STATUS = "VerificationStatus";
     public final static String COLUMN_VERIFICATION_TIME = "VerificationTime";
 
-
+    /**
+     * Writes data into verification table using Mutations
+     *
+     * @param newVerification is the Verification object that we wish to insert into verifications table
+     * @param pw is the PrintWriter object that is used to write messages to Post request (@WebServlet(value = "/verifications/new"))
+     * @return a boolean variable that indicates whether the insertion is successful or not
+     */
     public static boolean writeData(Verification newVerification, PrintWriter pw) {
         Mutation verificationMutation;
         verificationMutation = Mutation.newInsertBuilder(TABLE_NAME)
@@ -61,9 +75,13 @@ public class VerificationDatabaseHelper {
         }
     }
 
-
+    /**
+     * Queries the complete verifications table.
+     *
+     * @return ResultSet object that refers to all rows in verifications table
+     */
     //change to querying using struct
-    public static ResultSet queryData(PrintWriter output) {
+    public static ResultSet queryData() {
 
         ResultSet verificationData =
                 SpannerClient.getDatabaseClient()

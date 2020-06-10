@@ -23,7 +23,7 @@ import com.google.cloud.spanner.SpannerOptions;
 import javax.servlet.annotation.WebListener;
 
 /**
- * creates databaseClient
+ * Creates databaseClient given Project ID, Instance ID and Database ID.
  */
 @WebListener
 public class SpannerClient{

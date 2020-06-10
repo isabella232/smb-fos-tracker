@@ -30,26 +30,47 @@ import java.io.PrintWriter;
 
 import com.google.cloud.spanner.ResultSet;
 
+/**
+ * Prints the complete verification table in JSON format.
+ *
+ * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/verification").
+ */
 @WebServlet(value = "/verification")
 public class GetStoreVerificationsServlet extends HttpServlet {
 
+    //Gson object that is used to convert Strings into JSON objects
     private Gson gson = new Gson();
 
+    /**
+     * HTTP Get method prints the query as response.
+     *
+     * @param request is GET request.
+     * @param response is HttpServletResponse object that is used to write the response.
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        PrintWriter output;
+        // sets the response to json format.
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+        // output variable is used to write to response.
+        PrintWriter output;
         output = response.getWriter();
 
+        // verificationDataIterator is a Verification object that is used to store the row we are iterating.
         Verification verificationDataIterator;
+        // verificationDataIteratorString stores the VerificationDataIterator object as json String.
         String verificationDataIteratorString;
 
+        // Querying the database table and storing in verificationData.
         ResultSet verificationData = VerificationDatabaseHelper.queryData(output);
 
+        // If verificationData is not empty then prints all the rows else prints "No data exists".
         if (verificationData.next()) {
+            // stores the indexes of columns in verificationData ( ResultSet object ).
             int columnAgentEmailIndex = verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_AGENT_EMAIL);
             int columnStorePhoneIndex = verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_STORE_PHONE);
             int columnVerificationLatitudeIndex = verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_LATITUDE);
@@ -57,24 +78,34 @@ public class GetStoreVerificationsServlet extends HttpServlet {
             int columnVerificationStatusIndex = verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_STATUS);
             int columnVerificationTimeIndex = verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_TIME);
 
+            // Loop through all rows and stores the row data in verificationDataIterator. Converts verificationDataIterator into
+            // json object and prints to the screen.
             do {
                 verificationDataIterator = new Verification(verificationData.getString(columnAgentEmailIndex),
-                        verificationData.getString(columnStorePhoneIndex),
-                        new Coordinates(verificationData.getDouble(columnVerificationLatitudeIndex),
-                                verificationData.getDouble(columnVerificationLongitudeIndex)),
-                        getStatusInt(verificationData.getString(columnVerificationStatusIndex)));
+                                                            verificationData.getString(columnStorePhoneIndex),
+                                                            new Coordinates(verificationData.getDouble(columnVerificationLatitudeIndex),
+                                                            verificationData.getDouble(columnVerificationLongitudeIndex)),
+                                                            getStatusInt(verificationData.getString(columnVerificationStatusIndex)));
                 verificationDataIteratorString = this.gson.toJson(verificationDataIterator);
                 output.printf(verificationDataIteratorString);
             } while (verificationData.next());
 
         } else {
-            output.print("Please enter data. No data exists");
+            output.print("No data exists");
             output.flush();
         }
+
+        // Prints success message.
         output.print("Successful");
         output.flush();
     }
 
+    /**
+     * Converts the verification status into its corresponding integer.
+     *
+     * @param status is status of verification.
+     * @return returns its corresponding integer.
+     */
     private static int getStatusInt(String status) {
         switch (status) {
             case Verification.VERIFICATION_SUCCESSFUL:
