@@ -15,8 +15,6 @@ public class Store {
     String storeName;
     Timestamp creationDateTime;
 
-    public Store() {};
-
     /**
      * @param ownerName - the name of the business owner
      * @param address - the address of the store/business
@@ -94,5 +92,4 @@ public class Store {
     public void setOwnerName(Name ownerName) {
         this.ownerName = ownerName;
     }
-
 }
