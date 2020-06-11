@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "804405049236",
+    "firebase_url": "https://fos-tracker-278709.firebaseio.com",
+    "project_id": "fos-tracker-278709",
+    "storage_bucket": "fos-tracker-278709.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804405049236:android:f359540ea53c40e5d10181",
+        "android_client_info": {
+          "package_name": "com.example.gpay_merchant_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "804405049236-spjlua195u0ueu7pq586q601ig4hugei.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gpay_merchant_app",
+            "certificate_hash": "60cd120496f09e62170c054045f70c078f7d4553"
+          }
+        },
+        {
+          "client_id": "804405049236-f1ol41ceh5g30notes40cg5ihk4ej3jf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn30Cx2MKUraTVYMT29FbeEeNSpZmk8j0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "804405049236-f1ol41ceh5g30notes40cg5ihk4ej3jf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
