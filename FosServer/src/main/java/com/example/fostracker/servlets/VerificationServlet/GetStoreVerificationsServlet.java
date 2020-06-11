@@ -116,6 +116,8 @@ public class GetStoreVerificationsServlet extends HttpServlet {
                 return Verification.VERIFICATION_UNSUCCESSFUL_INT;
             case Verification.NOT_VERIFIED:
                 return Verification.NOT_VERIFIED_INT;
+            case Verification.NEEDS_REVISIT:
+                return Verification.NEEDS_REVISIT_INT;
             default:
                 return 1;
         }
