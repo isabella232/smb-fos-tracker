@@ -17,15 +17,18 @@ public class Verification {
 
     /**
      * If store verification is successful then database table stores "green" String.
-     * else if merchant is not registered then database table stores "yellow" String
+     * else if merchant is not registered then database table stores "grey" String
      * else if store verification is  unsuccessful then database table stores "red" String
+     * else if merchant needs to be revisited then database table stores "grey" String
      */
     public static final String VERIFICATION_SUCCESSFUL = "green";
-    public static final String NOT_VERIFIED = "yellow";
+    public static final String NOT_VERIFIED = "grey";
     public static final String VERIFICATION_UNSUCCESSFUL = "red";
-    public static final int VERIFICATION_SUCCESSFUL_INT = 1;
+    public static final String NEEDS_REVISIT = "yellow";
+    public static final int VERIFICATION_SUCCESSFUL_INT = 2;
     public static final int NOT_VERIFIED_INT = 0;
     public static final int VERIFICATION_UNSUCCESSFUL_INT = -1;
+    public static final int NEEDS_REVISIT_INT = 1;
 
     /**
      * @param agentEmail              - email id of the agent who completed the verification
@@ -66,6 +69,8 @@ public class Verification {
                 return VERIFICATION_SUCCESSFUL;
             case NOT_VERIFIED_INT:
                 return NOT_VERIFIED;
+            case NEEDS_REVISIT_INT:
+                return NEEDS_REVISIT;
             default:
                 return null;
         }
