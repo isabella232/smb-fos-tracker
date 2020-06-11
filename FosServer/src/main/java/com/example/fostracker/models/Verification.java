@@ -17,8 +17,9 @@ public class Verification {
 
     /**
      * If store verification is successful then database table stores "green" String.
-     * else if merchant is not registered then database table stores "yellow" String
+     * else if merchant is not registered then database table stores "grey" String
      * else if store verification is  unsuccessful then database table stores "red" String
+     * else if merchant needs to be revisited then database table stores "grey" String
      */
     public static final String VERIFICATION_SUCCESSFUL = "green";
     public static final String NOT_VERIFIED = "grey";
