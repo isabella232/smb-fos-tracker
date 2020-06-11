@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:geocoder/geocoder.dart';
+import 'package:geocoder/geocoder.dart' hide Address;
 import 'package:google_fonts/google_fonts.dart';
 
+import 'address.dart';
 import 'business_phone_page.dart';
+import 'coordinates.dart' as definedCoordinates;
+import 'globals.dart' as globals;
 import 'location_confirm_on_map_page.dart';
 
 class BusinessDetailsPageTwo extends StatefulWidget {
@@ -20,6 +23,7 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
   TextEditingController areaController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController stateController = TextEditingController();
+  Coordinates selectedCoordinates;
   final formValidationKey = GlobalKey<FormState>();
   bool validate = false;
   bool isMapValid = true;
@@ -30,36 +34,6 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
     double height = MediaQuery.of(context).size.height;
     TextStyle styleBold = GoogleFonts.montserrat(fontWeight: FontWeight.w500);
     TextStyle style = GoogleFonts.montserrat();
-
-    showAlertDialog(String title, String alertMessage, BuildContext context) {
-      // This is the setup of the button to give user the choice to click on OK after reading the dialog.
-      Widget okButton = FlatButton(
-        child: Text("OK"),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      );
-
-      // This is the setup of the alert dialog based on the provided title.
-      AlertDialog alert = AlertDialog(
-        title: Text(title),
-        content: Text(
-          alertMessage,
-          style: GoogleFonts.montserrat(),
-        ),
-        actions: [
-          okButton,
-        ],
-      );
-
-      // This is where the alert dialog is displayed.
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return alert;
-        },
-      );
-    }
 
     return Scaffold(
         appBar: AppBar(
@@ -209,7 +183,7 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
                               cityController.text.isEmpty) ||
                           (streetController.text == null ||
                               streetController.text.isEmpty)) {
-                        showAlertDialog(
+                        globals.showAlertDialog(
                             "Error", "Select city and street", context);
                       } else {
                         final query =
@@ -219,11 +193,11 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
                           addresses = await Geocoder.local
                               .findAddressesFromQuery(query);
                         } catch (err) {
-                          showAlertDialog("Error",
+                          globals.showAlertDialog("Error",
                               "Error with processing address", context);
                         }
                         var first = addresses.first;
-                        var result = await Navigator.push(
+                        Coordinates resultCoordinates = await Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MapView(
@@ -232,7 +206,10 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
                                       latitude: first.coordinates.latitude,
                                       longitude: first.coordinates.longitude,
                                     )));
-                        showAlertDialog(
+                        setState(() {
+                          selectedCoordinates = resultCoordinates;
+                        });
+                        globals.showAlertDialog(
                             "Success", "Location Selected", context);
                         setState(() {
                           validate = true;
@@ -248,15 +225,25 @@ class _BusinessDetailsPageTwoState extends State<BusinessDetailsPageTwo> {
                         textColor: Colors.white,
                         splashColor: Colors.blueAccent,
                         onPressed: () {
-                          //TODO: UPDATE STORE OBJECT
                           if (formValidationKey.currentState.validate() &&
-                              validate)
+                              validate) {
+                            globals.store.storeAddress = new Address(
+                                streetController.text,
+                                areaController.text,
+                                cityController.text,
+                                stateController.text,
+                                pincodeController.text,
+                                "India");
+                            globals.store.coordinates =
+                                new definedCoordinates.Coordinates(
+                                    selectedCoordinates.latitude,
+                                    selectedCoordinates.longitude);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         BusinessDetailsPageThree()));
-                          else
+                          } else
                             setState(() {
                               isMapValid = false;
                             });
