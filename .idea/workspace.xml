@@ -20,10 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c45a090-2a9d-4859-b8da-847d0535b6e4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/smb-fos-tracker.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/smb-fos-tracker.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/gpay_agent/lib/datamodels/agent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gpay_agent/lib/datamodels/agent.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/gpay_agent/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gpay_agent/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/gpay_agent/lib/views/welcome_agent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gpay_agent/lib/views/welcome_agent.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -6,12 +6,12 @@
       <excludeFolder url="file://$MODULE_DIR$/frontend/gpay_agent/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/gpay_agent/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/gpay_agent/build" />
+      <excludeFolder url="file://$MODULE_DIR$/frontend/gpay_merchant/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/gpay_merchant/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/gpay_merchant/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />
-    <orderEntry type="library" name="Dart Packages" level="project" />
   </component>
 </module>

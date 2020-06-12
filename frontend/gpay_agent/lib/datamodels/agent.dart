@@ -23,12 +23,12 @@ class Agent{
   @override
   String toString() {
     return 'Agent{AgentEmail: $AgentEmail, '
-        +'AgentCreationDateTime: $AgentCreationDateTime, '
-        +'AgentFirstName: $AgentFirstName, '
-        +'AgentMidName: $AgentMidName, '
-        +'AgentLastName: $AgentLastName, '
-        +'AgentPhone: $AgentPhone, '
-        +'AgentLatitude: $AgentLatitude, '
-        +'AgentLongitude: $AgentLongitude}';
+        + 'AgentCreationDateTime: $AgentCreationDateTime, '
+        + 'AgentFirstName: $AgentFirstName, '
+        + 'AgentMidName: $AgentMidName, '
+        + 'AgentLastName: $AgentLastName, '
+        + 'AgentPhone: $AgentPhone, '
+        + 'AgentLatitude: $AgentLatitude, '
+        + 'AgentLongitude: $AgentLongitude}';
   }
 }
