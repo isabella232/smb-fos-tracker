@@ -26,7 +26,7 @@ dependencies:
   google_sign_in: ^4.5.1
   http: ^0.12.0
   intl_phone_number_input: ^0.4.2
-  geolocator: ^5.1.5
+  geolocator: ^5.3.2+2
   qrscan: ^0.2.17
   sleek_circular_slider: ^1.1.0
 

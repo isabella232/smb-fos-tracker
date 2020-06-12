@@ -43,7 +43,7 @@ class WelcomeAgent extends StatelessWidget{
               TextWidget(name: googleSignIn.currentUser.displayName, color: Colors.blue,),
               TextWidget(name: (agent.AgentPhone).toString(), color: Colors.blue,),
               TextWidget(name: "Merchants Verified", color: Colors.black,),
-              TextWidget(name: getMerchantVerified().toString(),color: Colors.blue,),
+              TextWidget(name: getNumberOfMerchantsVerified().toString(),color: Colors.blue,),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: ButtonTheme(
@@ -80,7 +80,7 @@ class WelcomeAgent extends StatelessWidget{
 
   /// Fetches the number of merchants verified by the agent signed in [agent]
   /// using google spanner APIs.
-  int getMerchantVerified(){
+  int getNumberOfMerchantsVerified(){
     //Makes a call to server sending AgentID. Server sends back the number of merchants verified by this agent
     return 20;
   }

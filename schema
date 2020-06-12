@@ -1,0 +1,43 @@
+CREATE TABLE Agents (
+  AgentEmail STRING(100) NOT NULL,
+  AgentFirstName STRING(50) NOT NULL,
+  AgentMidName STRING(50),
+  AgentLastName STRING(50),
+  AgentPhone STRING(15) NOT NULL,
+  AgentLatitude FLOAT64,
+  AgentLongitude FLOAT64,
+  AgentCreationDateTime TIMESTAMP,
+) PRIMARY KEY(AgentEmail);
+
+CREATE INDEX ACoordinate ON Agents(AgentLatitude, AgentLongitude);
+
+CREATE UNIQUE NULL_FILTERED INDEX email ON Agents(AgentEmail);
+
+CREATE TABLE Stores (
+  MerchantEmail STRING(100) NOT NULL,
+  MerchantFirstName STRING(50) NOT NULL,
+  MerchantMiddleName STRING(50),
+  MerchantLastName STRING(50),
+  StoreName STRING(100),
+  StorePhone STRING(15) NOT NULL,
+  StoreStreet STRING(100),
+  StorePincode STRING(100),
+  StoreArea STRING(100),
+  StoreCity STRING(50),
+  StoreState STRING(50),
+  StoreCountry STRING(50),
+  StoreLatitude FLOAT64,
+  StoreLongitude FLOAT64,
+  StoreCreationDateTime TIMESTAMP,
+) PRIMARY KEY(StorePhone);
+
+CREATE TABLE Verifications (
+  AgentEmail STRING(100) NOT NULL,
+  StorePhone STRING(15) NOT NULL,
+  VerificationTime TIMESTAMP NOT NULL,
+  VerificationLatitude FLOAT64,
+  VerificationLongitude FLOAT64,
+  VerificationStatus STRING(10) NOT NULL,
+  FOREIGN KEY(AgentEmail) REFERENCES Agents(AgentEmail),
+  FOREIGN KEY(StorePhone) REFERENCES Stores(StorePhone),
+) PRIMARY KEY(AgentEmail, StorePhone)
