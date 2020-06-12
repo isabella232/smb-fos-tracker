@@ -22,7 +22,7 @@
 
 import 'dart:async';
 import 'dart:typed_data';
-import 'package:agent_app/views/merchant_found_notfound.dart';
+import 'package:agent_app/agent_views/merchant_found_notfound.dart';
 import 'package:flutter/material.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
