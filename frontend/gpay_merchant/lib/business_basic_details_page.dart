@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'business_location_page.dart';
 import 'globals.dart' as globals;
+import 'name.dart';
 import 'store.dart';
 
 class BusinessDetailsPageOne extends StatefulWidget {
@@ -131,22 +132,32 @@ class _BusinessDetailsPageOneState extends State<BusinessDetailsPageOne> {
                         splashColor: Colors.blueAccent,
                         onPressed: () {
                           if (formValidationKey.currentState.validate()) {
-                            Store store = Store(
-                                storeNameController.text,
+                            List<String> inputNameParts =
+                                ownerNameController.text.split(" ");
+                            String inputFirstName;
+                            String inputLastName;
+                            String inputMiddleName;
+                            int i = 0;
+                            for (var part in inputNameParts) {
+                              i++;
+                              if (i == 1) {
+                                inputFirstName = part;
+                              }
+                              if (i == 2) {
+                                inputMiddleName = part;
+                              }
+                              if (i == 3) {
+                                inputLastName = part;
+                              }
+                            }
+                            Store store = new Store(
+                                new Name(inputFirstName, inputMiddleName,
+                                    inputLastName),
                                 globals.googleSignIn.currentUser.email,
-                                0,
-                                null,
-                                ownerNameController.text,
                                 null,
                                 null,
                                 null,
-                                null,
-                                null,
-                                null,
-                                null,
-                                null,
-                                null,
-                                null);
+                                storeNameController.text);
                             globals.store = store;
                             Navigator.push(
                                 context,
