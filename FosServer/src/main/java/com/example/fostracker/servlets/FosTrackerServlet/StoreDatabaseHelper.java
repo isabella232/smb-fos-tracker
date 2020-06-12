@@ -36,8 +36,8 @@ public class StoreDatabaseHelper {
     // Column names are stored in these constant Strings.
     public final static String TABLE_NAME = "Stores";
     public final static String COLUMN_STORE_PHONE = "StorePhone";
-    public final static String COLUMN_STORE_LATITUDE = "VerificationLatitude";
-    public final static String COLUMN_STORE_LONGITUDE = "VerificationLongitude";
+    public final static String COLUMN_STORE_LATITUDE = "StoreLatitude";
+    public final static String COLUMN_STORE_LONGITUDE = "StoreLongitude";
 
     // This constant stores the query store phone name
     private final static String QUERY_STORE_PHONE = "storePhone";
@@ -64,9 +64,9 @@ public class StoreDatabaseHelper {
                         .bind(QUERY_STORE_PHONE)
                         .to(storePhone)
                         .build();
-
         // Tries to query if it fails returns null.
-        try (ResultSet storeCoordinateData = SpannerClient.getDatabaseClient().singleUse().executeQuery(statement)) {
+        try (ResultSet storeCoordinateData =
+                     SpannerClient.getDatabaseClient().singleUse().executeQuery(statement)) {
             if (storeCoordinateData.next()) {
                 int columnStoreLatitudeIndex =
                         storeCoordinateData.getColumnIndex(COLUMN_STORE_LATITUDE);
