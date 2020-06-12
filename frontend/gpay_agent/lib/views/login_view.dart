@@ -71,7 +71,7 @@ class LoginViewState extends State<LoginView>{
   _login() async {
     try {
       await _googleSignIn.signIn();
-      _agent = new Agent(12, "Pragya", "", "Sethi", 9888899779, 007);
+      _agent = new Agent("pragya@mail.com", "5-6-20 11:00", "Pragya", "", "Sethi", "9888899779", 12.5,34.5);
       Navigator.push(
           context,
           MaterialPageRoute(
