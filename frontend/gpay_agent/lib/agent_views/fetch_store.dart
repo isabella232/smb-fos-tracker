@@ -1,5 +1,5 @@
-import 'package:agent_app/views/merchant_found_notfound.dart';
-import 'package:agent_app/views/qr_scan.dart';
+import 'package:agent_app/agent_views/merchant_found_notfound.dart';
+import 'package:agent_app/agent_views/qr_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -33,7 +33,7 @@ class FetchStore extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Image.asset(
-                  "images/agent_merchant_handshake.gif",
+                  "assets/agent_beginning_images/agent_merchant_handshake.gif",
                   width: 250,
                   height: 250,
                 ),
@@ -103,7 +103,7 @@ class FetchStore extends StatelessWidget{
                   ),
                 ),
                 Image.asset(
-                  "images/GPay_logo_rectangle.png",
+                  "assets/agent_beginning_images/GPay_logo_rectangle.png",
                   width: 200,
                   height: 100,
                 )

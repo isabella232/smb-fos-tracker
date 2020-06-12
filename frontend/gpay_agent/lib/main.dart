@@ -1,20 +1,25 @@
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
-import 'package:agent_app/views/login_view.dart';
+import 'package:agent_app/agent_views/login_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(AgentApp());
 }
 
+/// Defines the the theme of Agent application and directs to [LoginView] interface.
 /// This is the root stateless widget of application. Calls stateful widget [StartAgentApp]
 class AgentApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Welcome Agent',
+        title: 'G-Pay Agent',
         theme: ThemeData(
+          textTheme: GoogleFonts.montserratTextTheme(
+            Theme.of(context).textTheme,
+          ),
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),

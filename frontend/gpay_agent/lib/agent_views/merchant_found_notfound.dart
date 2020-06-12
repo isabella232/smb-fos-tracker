@@ -1,6 +1,6 @@
-import 'package:agent_app/datamodels/text_widget.dart';
-import 'package:agent_app/views/loading_merchant.dart';
+import 'package:agent_app/agent_datamodels/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:agent_app/business_verification_views/business_registration_details_view.dart';
 
 /// Builds UI if store searched for is not found in database.
 class MerchantNotFound extends StatelessWidget{
@@ -13,7 +13,7 @@ class MerchantNotFound extends StatelessWidget{
           children: [
             TextWidget(name: "Merchant Not Found", color: Colors.black),
             Image.asset(
-              "images/not_found.gif",
+              "assets/agent_beginning_images/not_found.gif",
               width: 350,
               height: 350,
             ),
@@ -54,7 +54,7 @@ class MerchantFound extends StatelessWidget{
             TextWidget(name: name, color: Colors.blue),
             TextWidget(name: "9999999999", color: Colors.blue),
             Image.asset(
-              "images/tick.gif",
+              "assets/agent_beginning_images/tick.gif",
               width: 350,
               height: 350,
             ),
@@ -67,7 +67,7 @@ class MerchantFound extends StatelessWidget{
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => LoadingMerchant(),
+                      builder: (context) => MerchantHomeView(),
                     ),
                   );
                 },

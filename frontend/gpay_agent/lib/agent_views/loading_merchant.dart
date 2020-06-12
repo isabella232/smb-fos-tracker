@@ -1,4 +1,4 @@
-import 'package:agent_app/datamodels/text_widget.dart';
+import 'package:agent_app/agent_datamodels/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
