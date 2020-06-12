@@ -38,11 +38,19 @@ public class AddStoreVerificationStatusServlet extends HttpServlet {
     // gson is Gson object used to convert json file into Verification object
     private Gson gson = new Gson();
 
+    /**
+     * HTTP Post method prints that adds new Verfication data into table
+     *
+     * @param request is POST request.
+     * @param response is HttpServletResponse object that is used to write the response.
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest verificationRequest, HttpServletResponse response) throws ServletException, IOException {
 
         // Reads the json String using POST request.
-        String json = request.getReader().readLine();
+        String json = verificationRequest.getReader().readLine();
 
         // output is a PrintWriter object that prints response.
         PrintWriter output = response.getWriter();

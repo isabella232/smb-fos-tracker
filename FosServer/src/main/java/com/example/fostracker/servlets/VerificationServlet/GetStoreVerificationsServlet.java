@@ -72,12 +72,18 @@ public class GetStoreVerificationsServlet extends HttpServlet {
         // If verificationData is not empty then prints all the rows else prints "No data exists".
         if (verificationData.next()) {
             // stores the indexes of columns in verificationData ( ResultSet object ).
-            int columnAgentEmailIndex = verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_AGENT_EMAIL);
-            int columnStorePhoneIndex = verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_STORE_PHONE);
-            int columnVerificationLatitudeIndex = verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_LATITUDE);
-            int columnVerificationLongitudeIndex = verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_LONGITUDE);
-            int columnVerificationStatusIndex = verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_STATUS);
-            int columnVerificationTimeIndex = verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_TIME);
+            int columnAgentEmailIndex =
+                    verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_AGENT_EMAIL);
+            int columnStorePhoneIndex =
+                    verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_STORE_PHONE);
+            int columnVerificationLatitudeIndex =
+                    verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_LATITUDE);
+            int columnVerificationLongitudeIndex =
+                    verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_LONGITUDE);
+            int columnVerificationStatusIndex =
+                    verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_STATUS);
+            int columnVerificationTimeIndex =
+                    verificationData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_TIME);
 
             // Loop through all rows and stores the row data in verificationDataIterator. Converts verificationDataIterator into
             // json object and prints to the screen.

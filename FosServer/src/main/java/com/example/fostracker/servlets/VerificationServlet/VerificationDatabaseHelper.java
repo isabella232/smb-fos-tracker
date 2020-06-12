@@ -58,12 +58,18 @@ public class VerificationDatabaseHelper {
     public static boolean writeData(Verification newVerification) {
         List<Mutation> verificationMutation = new ArrayList<>();
         verificationMutation.add(Mutation.newInsertBuilder(TABLE_NAME)
-                .set(COLUMN_AGENT_EMAIL).to(newVerification.getAgentEmail())
-                .set(COLUMN_STORE_PHONE).to(newVerification.getStorePhone())
-                .set(COLUMN_VERIFICATION_LATITUDE).to(newVerification.getVerificationCoordinates().getLatitude())
-                .set(COLUMN_VERIFICATION_LONGITUDE).to(newVerification.getVerificationCoordinates().getLongitude())
-                .set(COLUMN_VERIFICATION_STATUS).to(newVerification.getStoreVerificationStatus())
-                .set(COLUMN_VERIFICATION_TIME).to(Timestamp.of(java.sql.Timestamp.valueOf(ZonedDateTime.now(ZoneId.of("Asia/Kolkata")).toLocalDateTime())))
+                .set(COLUMN_AGENT_EMAIL)
+                .to(newVerification.getAgentEmail())
+                .set(COLUMN_STORE_PHONE)
+                .to(newVerification.getStorePhone())
+                .set(COLUMN_VERIFICATION_LATITUDE)
+                .to(newVerification.getVerificationCoordinates().getLatitude())
+                .set(COLUMN_VERIFICATION_LONGITUDE)
+                .to(newVerification.getVerificationCoordinates().getLongitude())
+                .set(COLUMN_VERIFICATION_STATUS)
+                .to(newVerification.getStoreVerificationStatus())
+                .set(COLUMN_VERIFICATION_TIME)
+                .to(Timestamp.of(java.sql.Timestamp.valueOf(ZonedDateTime.now(ZoneId.of("Asia/Kolkata")).toLocalDateTime())))
                 .build());
         try {
             SpannerClient.getDatabaseClient().write(verificationMutation);
