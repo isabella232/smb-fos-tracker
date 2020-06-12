@@ -87,10 +87,28 @@ public class VerificationDatabaseHelper {
                         .singleUse()
                         .executeQuery(Statement.of("SELECT " + COLUMN_AGENT_EMAIL + ", " + COLUMN_STORE_PHONE + ", "
                                 + COLUMN_VERIFICATION_LATITUDE + ", " + COLUMN_VERIFICATION_LONGITUDE + ", "
-                                + COLUMN_VERIFICATION_STATUS + ", " + COLUMN_VERIFICATION_TIME + ", "
-                                + "FROM " + TABLE_NAME));
+                                + COLUMN_VERIFICATION_STATUS + ", " + COLUMN_VERIFICATION_TIME
+                                + " FROM " + TABLE_NAME));
 
         return verificationData;
+    }
+
+    /**
+     * Queries the complete verifications table.
+     *
+     * @return ResultSet object that refers to all rows in verifications table
+     */
+    //change to querying using struct
+    public static ResultSet queryStoreAndStatusData() {
+
+        ResultSet storeAndStatusData =
+                SpannerClient.getDatabaseClient()
+                        .singleUse()
+                        .executeQuery(Statement.of("SELECT " + COLUMN_STORE_PHONE + ", "
+                                + COLUMN_VERIFICATION_STATUS
+                                + " FROM " + TABLE_NAME));
+
+        return storeAndStatusData;
     }
 
 }

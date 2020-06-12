@@ -35,7 +35,7 @@ public class SpannerClient{
   private static DatabaseClient databaseClient = null;
   private static Spanner spanner = null;
 
-  static DatabaseClient getDatabaseClient() {
+  public static DatabaseClient getDatabaseClient() {
     SpannerOptions options = SpannerOptions.newBuilder().build();
     spanner = options.getService();
     if (databaseClient == null) {
