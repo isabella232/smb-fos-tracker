@@ -1,7 +1,7 @@
 /// Model class for storing agent details.
 class Agent{
   String AgentEmail;
-  String AgentCreationDateTime;   //Look into the datatype
+  String AgentCreationDateTime;
   String AgentFirstName;
   String AgentMidName;
   String AgentLastName;
@@ -22,6 +22,13 @@ class Agent{
 
   @override
   String toString() {
-    return 'Agent{AgentEmail: $AgentEmail, AgentCreationDateTime: $AgentCreationDateTime, AgentFirstName: $AgentFirstName, AgentMidName: $AgentMidName, AgentLastName: $AgentLastName, AgentPhone: $AgentPhone, AgentLatitude: $AgentLatitude, AgentLongitude: $AgentLongitude}';
+    return 'Agent{AgentEmail: $AgentEmail, '
+        +'AgentCreationDateTime: $AgentCreationDateTime, '
+        +'AgentFirstName: $AgentFirstName, '
+        +'AgentMidName: $AgentMidName, '
+        +'AgentLastName: $AgentLastName, '
+        +'AgentPhone: $AgentPhone, '
+        +'AgentLatitude: $AgentLatitude, '
+        +'AgentLongitude: $AgentLongitude}';
   }
 }

@@ -33,6 +33,7 @@ class StartAgentApp extends StatefulWidget{
 
 /// Starts capturing GPS location of device. Redirects to [LoginView]
 class StartAgentAppState extends State<StartAgentApp>{
+  static const int UPDATE_DISTANCE = 1;
   Geolocator _geolocator;
   Position _position;
 
@@ -47,13 +48,13 @@ class StartAgentAppState extends State<StartAgentApp>{
   }
 
   /// Initializes _goelocator and stream for listening changes in device location.
-  /// Position will be changed if distance changes by [distanceFilter]
+  /// Position will be changed if distance changes by [UPDATE_DISTANCE]
   @override
   void initState() {
     super.initState();
 
     _geolocator = Geolocator();
-    LocationOptions locationOptions = LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 1);
+    LocationOptions locationOptions = LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: UPDATE_DISTANCE);
 
     checkPermission();
 
