@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:agent_app/business_verification_views/business_verification_view.dart';
+import 'package:agent_app/business_verification_views/business_verification_view_in_progress.dart';
 
 /// Loads in Merchant data, and displays the data.
 class MerchantHomeView extends StatefulWidget {
@@ -61,7 +61,7 @@ class _MerchantHomeViewState extends State<MerchantHomeView> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => VerificationHomeView()));
+              MaterialPageRoute(builder: (context) => MyHomePage()));
         },
         tooltip: 'Next',
         shape: RoundedRectangleBorder(),
