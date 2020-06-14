@@ -1,3 +1,4 @@
+/// Model class for storing name of user
 class Name{
   String firstName;
   String midName;
@@ -15,6 +16,7 @@ class Name{
       json['lastName'] as String,
     );
   }
+
   Map<String, dynamic> toJson() =>
       {
         'firstName': firstName,
