@@ -1,3 +1,4 @@
+/// Model class for storing location coordinates of user
 class MapCoordinates{
   double latitude;
   double longitude;
