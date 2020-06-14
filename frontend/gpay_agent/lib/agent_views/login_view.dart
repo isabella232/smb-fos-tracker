@@ -2,7 +2,7 @@ import 'package:agent_app/agent_datamodels/agent.dart';
 import 'package:agent_app/agent_views/welcome_agent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:agent_app/agent_datamodels/globals.dart' as globals;
 
 /// Creates [LoginViewState] object.
 class LoginView extends StatefulWidget{
@@ -10,11 +10,9 @@ class LoginView extends StatefulWidget{
   LoginViewState createState() => LoginViewState();
 }
 
-/// Creates the widgets that are visible at the running state of
+/// Creates the widgets that are visible in the running state of
 /// login view interface.
 class LoginViewState extends State<LoginView>{
-  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-  Agent _agent;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -70,17 +68,17 @@ class LoginViewState extends State<LoginView>{
   /// on the [LoginViewState] interface.
   _login() async {
     try {
-      await _googleSignIn.signIn();
-      _agent = new Agent("pragya@mail.com", "5-6-20 11:00", "Pragya", "", "Sethi", "9888899779", 12.5,34.5);
+      globals.googleSignIn.signIn();
+      globals.agent = new Agent("pragya@mail.com", "5-6-20 11:00", "Pragya", "", "Sethi", "9888899779", 12.5,34.5);
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => WelcomeAgent(googleSignIn: _googleSignIn, agent: _agent),
+              builder: (context) => WelcomeAgent(),
           )
       );
     }
-    catch (err) {
-      print(err);
+    catch (error) {
+      print(error);
     }
   }
 }
