@@ -1,3 +1,4 @@
+/// Model class for storing name of user
 class Name{
   String firstName;
   String midName;
