@@ -1,15 +1,11 @@
 /// Model class for storing location coordinates of user
-class MapCoordinates{
+class MapCoordinates {
   double latitude;
   double longitude;
 
-  MapCoordinates(
-      this.latitude,
-      this.longitude
-      );
+  MapCoordinates(this.latitude, this.longitude);
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         'latitude': latitude,
         'longitude': longitude,
       };

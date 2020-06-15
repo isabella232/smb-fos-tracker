@@ -2,7 +2,7 @@ import 'coordinates.dart';
 import 'name.dart';
 
 ///Model class for storing agent details.
-class Agent{
+class Agent {
   String AgentEmail;
   Name AgentName;
   String AgentPhone;
@@ -10,12 +10,12 @@ class Agent{
   MapCoordinates AgentCoordinates;
 
   Agent(
-      this.AgentEmail,
-      this.AgentName,
-      this.AgentPhone,
-      this.AgentCreationDateTime,
-      this.AgentCoordinates,
-      );
+    this.AgentEmail,
+    this.AgentName,
+    this.AgentPhone,
+    this.AgentCreationDateTime,
+    this.AgentCoordinates,
+  );
 
   factory Agent.fromJson(Map<String, dynamic> json) {
     return Agent(
@@ -26,27 +26,24 @@ class Agent{
       MapCoordinates.fromJson(json['coordinates']),
     );
   }
-  Map<String, dynamic> toJson() =>
-      {
+
+  Map<String, dynamic> toJson() => {
         'AgentEmail': AgentEmail,
         'AgentName': AgentName.toJson(),
         'AgentPhone': AgentPhone,
         'AgentCreationDateTime': AgentCreationDateTime,
         'Coordinates': AgentCoordinates.toJson(),
       };
-  String getName(){
-    if (AgentName.midName == ""){
-      return (
-          AgentName.firstName + " "
-              + AgentName.lastName
-      );
-    }
-    else{
-      return(
-          AgentName.firstName + " "
-              + AgentName.midName + " "
-              + AgentName.lastName
-      );
+
+  String getName() {
+    if (AgentName.midName == "") {
+      return (AgentName.firstName + " " + AgentName.lastName);
+    } else {
+      return (AgentName.firstName +
+          " " +
+          AgentName.midName +
+          " " +
+          AgentName.lastName);
     }
   }
 }
