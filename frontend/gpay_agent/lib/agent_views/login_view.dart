@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:agent_app/agent_datamodels/globals.dart' as globals;
 
 /// Creates [LoginViewState] object.
-class LoginView extends StatefulWidget{
+class LoginView extends StatefulWidget {
   @override
   LoginViewState createState() => LoginViewState();
 }
 
 /// Creates the widgets that are visible in the running state of
 /// login view interface.
-class LoginViewState extends State<LoginView>{
+class LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,7 +21,7 @@ class LoginViewState extends State<LoginView>{
           body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children:<Widget>[
+                children: <Widget>[
                   Image.asset(
                     "assets/agent_beginning_images/GPay_logo.png",
                     width: 200,
@@ -36,13 +36,9 @@ class LoginViewState extends State<LoginView>{
                   ),
                   Container(
                     padding: EdgeInsets.only(top: 9),
-                    child: Text(
-                        "Together let's make money simple",
+                    child: Text("Together let's make money simple",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 15
-                        )
-                    ),
+                        style: TextStyle(fontSize: 15)),
                   ),
                   Image.asset(
                     "assets/agent_beginning_images/handshake.gif",
@@ -55,11 +51,9 @@ class LoginViewState extends State<LoginView>{
                     ),
                     onPressed: _login,
                   )
-                ]
-            ),
+                ]),
           ),
-        )
-    );
+        ));
   }
 
   /// Calls signIn function of Google Sign in plugin.
@@ -69,15 +63,14 @@ class LoginViewState extends State<LoginView>{
   _login() async {
     try {
       globals.googleSignIn.signIn();
-      globals.agent = new Agent("pragya@mail.com", "5-6-20 11:00", "Pragya", "", "Sethi", "9888899779", 12.5,34.5);
+      globals.agent = new Agent("pragya@mail.com", "5-6-20 11:00", "Pragya", "",
+          "Sethi", "9888899779", 12.5, 34.5);
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => WelcomeAgent(),
-          )
-      );
-    }
-    catch (error) {
+            builder: (context) => WelcomeAgent(),
+          ));
+    } catch (error) {
       print(error);
     }
   }
