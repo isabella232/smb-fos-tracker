@@ -57,7 +57,7 @@ public class VerificationDatabaseHelper {
      */
     public static boolean writeData(Verification newVerification) {
         List<Mutation> verificationMutation = new ArrayList<>();
-        verificationMutation.add(Mutation.newInsertBuilder(TABLE_NAME)
+        verificationMutation.add(Mutation.newInsertOrUpdateBuilder(TABLE_NAME)
                 .set(COLUMN_AGENT_EMAIL)
                 .to(newVerification.getAgentEmail())
                 .set(COLUMN_STORE_PHONE)
@@ -74,8 +74,7 @@ public class VerificationDatabaseHelper {
         try {
             SpannerClient.getDatabaseClient().write(verificationMutation);
             return true;
-        } catch (SpannerException e) {
-
+        } catch (SpannerException e){
             return false;
         }
     }
