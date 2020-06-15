@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fos_tracker/agent_and_merchant_info_page.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 
+import 'agent.dart';
 import 'globals.dart' as globals;
+import 'store.dart';
 
 class MainView extends StatefulWidget {
   @override
@@ -18,70 +22,10 @@ class _MainViewState extends State<MainView> {
   LatLng loc = globals.startPosition;
   LatLng loc1 = globals.startPosition;
 
-  //TODO: use actual coordinates
   void initState() {
     _getUserLocation();
-    for (var x in globals.agentCoordinates) {
-      globals.agentMarkers.add(
-        Marker(
-            markerId: MarkerId(x.longitude.toString()),
-            position: x,
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AgentPage(
-                        //TODO: change to email
-                            agentEmail: x.longitude.toString(),
-                          )));
-            },
-//            icon: BitmapDescriptor.fromAsset("images/agent.png")
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueGreen)),
-      );
-    }
-    for (var x in globals.merchantCoordinatesFailed) {
-      globals.merchantMarkers.add(
-        Marker(
-          markerId: MarkerId(x.longitude.toString()),
-          position: x,
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MerchantPage(
-                      //TODO: change to phone
-                          storePhone: x.longitude.toString(),
-                        )));
-          },
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-//            icon: BitmapDescriptor.fromAsset(
-//              "images/merchant.png",
-//            )
-        ),
-      );
-    }
-    for (var x in globals.merchantCoordinatesIncomplete) {
-      globals.merchantMarkers.add(
-        Marker(
-          markerId: MarkerId(x.longitude.toString()),
-          position: x,
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MerchantPage(
-                          storePhone: "9831261065",
-                        )));
-          },
-          icon:
-              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
-//            icon: BitmapDescriptor.fromAsset(
-//              "images/merchant.png",
-//            )
-        ),
-      );
-    }
+    getAgentLocations();
+    getMerchantLocations();
     super.initState();
   }
 
@@ -105,30 +49,102 @@ class _MainViewState extends State<MainView> {
     });
   }
 
-  void updateMarker() {
-    setState(() {
-      if (loc != null) {
-        loc = LatLng(loc.latitude + 0.000010, loc.longitude + 0.000010);
-        loc1 = LatLng(loc1.latitude - 0.000010, loc1.longitude - 0.000010);
-        globals.agentMarkers.removeWhere((m) => m.markerId.value == "Vanshika");
-        globals.agentMarkers.add(Marker(
-          markerId: MarkerId("Vanshika"),
-          position: loc, // updated position
-        ));
-        globals.agentMarkers
-            .removeWhere((m) => m.markerId.value == "Vanshika1");
-        globals.agentMarkers.add(Marker(
-          markerId: MarkerId("Vanshika1"),
-          position: loc1, // updated position
-        ));
+  void getAgentLocations() async {
+    var result =
+        await http.get("https://fos-tracker-278709.an.r.appspot.com/agents");
+    print(result.statusCode);
+    print(result.body);
+    if (result.statusCode == 200) {
+      LineSplitter lineSplitter = new LineSplitter();
+      List<String> lines = lineSplitter.convert(result.body);
+      for (var x in lines) {
+        if (x != 'Successful') {
+          Agent agent = Agent.fromJson(jsonDecode(x));
+          setState(() {
+            globals.agentMarkers.add(
+              Marker(
+                  markerId: MarkerId(agent.email),
+                  position: LatLng(
+                      agent.coordinates.latitude, agent.coordinates.longitude),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AgentPage(
+                                  agentEmail: agent.email,
+                                )));
+                  },
+                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                      BitmapDescriptor.hueGreen)),
+            );
+          });
+        }
       }
-    });
+    }
+  }
+
+  void getMerchantLocations() async {
+    var result = await http
+        .get("https://fos-tracker-278709.an.r.appspot.com/stores/status");
+    print(result.statusCode);
+    print(result.body);
+    if (result.statusCode == 200) {
+      LineSplitter lineSplitter = new LineSplitter();
+      List<String> lines = lineSplitter.convert(result.body);
+      for (var x in lines) {
+        if (x != 'Successful') {
+          Store store = Store.fromJson(jsonDecode(x));
+          setState(() {
+            globals.merchantMarkers.add(
+              Marker(
+                  markerId: MarkerId(store.storePhone),
+                  position: LatLng(
+                      store.coordinates.longitude, store.coordinates.latitude),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MerchantPage(
+                                  storePhone: store.storePhone,
+                                )));
+                  },
+                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                      store.status == 'grey'
+                          ? BitmapDescriptor.hueYellow
+                          : (store.status == 'green'
+                              ? BitmapDescriptor.hueGreen
+                              : BitmapDescriptor.hueRed))),
+            );
+          });
+        }
+      }
+    }
+  }
+
+  void updateMarker() {
+//    setState(() {
+//      if (loc != null) {
+//        loc = LatLng(loc.latitude + 0.000010, loc.longitude + 0.000010);
+//        loc1 = LatLng(loc1.latitude - 0.000010, loc1.longitude - 0.000010);
+//        globals.agentMarkers.removeWhere((m) => m.markerId.value == "Vanshika");
+//        globals.agentMarkers.add(Marker(
+//          markerId: MarkerId("Vanshika"),
+//          position: loc, // updated position
+//        ));
+//        globals.agentMarkers
+//            .removeWhere((m) => m.markerId.value == "Vanshika1");
+//        globals.agentMarkers.add(Marker(
+//          markerId: MarkerId("Vanshika1"),
+//          position: loc1, // updated position
+//        ));
+//      }
+//    });
   }
 
   @override
   Widget build(BuildContext context) {
-    const oneSec = const Duration(seconds: 1);
-    new Timer.periodic(oneSec, (Timer t) => updateMarker());
+//    const oneSec = const Duration(seconds: 1);
+//    new Timer.periodic(oneSec, (Timer t) => updateMarker());
     return Scaffold(
         appBar: AppBar(
           title: agentView ? Text("Agents") : Text("Merchants"),
@@ -186,11 +202,20 @@ class _MainViewState extends State<MainView> {
                         Icons.brightness_1,
                         color: Colors.red,
                       ),
-                      title: Text("Verification failed")),
+                      title: Text(
+                        "failed",
+                      )),
                   new BottomNavigationBarItem(
                       icon: Icon(Icons.brightness_1, color: Colors.yellow),
-                      title: Text("Verification incomplete"))
+                      title: Text("incomplete")),
+                  new BottomNavigationBarItem(
+                      icon: Icon(Icons.brightness_1, color: Colors.lightGreen),
+                      title: Text("successful"))
                 ],
+                selectedLabelStyle: TextStyle(color: Colors.black),
+                selectedItemColor: Colors.black,
+                unselectedLabelStyle: TextStyle(color: Colors.black),
+                unselectedItemColor: Colors.black,
               )
             : null);
   }
