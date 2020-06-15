@@ -1,6 +1,5 @@
-
 /*
-* Copyright 2019 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 
 
 package com.example.fostracker.servlets.FosTrackerServlet;
@@ -33,26 +32,25 @@ import java.io.PrintWriter;
 import com.google.cloud.spanner.ResultSet;
 
 /**
- *
  * Prints the Agents email and coordinates from Agents table in JSON format.
- *
+ * <p>
  * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/agents").
-*/
+ */
 
 @WebServlet(value = "/agents")
 public class GetAgentsEmailAndCoordinatesServlet extends HttpServlet {
 
-    //Gson object that is used to convert Strings into JSON objects
+    // Gson object that is used to convert Strings into JSON objects
     private Gson gson = new Gson();
 
-/**
+    /**
      * HTTP Get method prints the query as response.
      *
      * @param agentEmailAndCoordinatesRequest is GET request.
-     * @param response is HttpServletResponse object that is used to write the response.
+     * @param response                        is HttpServletResponse object that is used to write the response.
      * @throws ServletException
      * @throws IOException
-*/
+     */
     @Override
     protected void doGet(HttpServletRequest agentEmailAndCoordinatesRequest, HttpServletResponse response) throws ServletException, IOException {
 

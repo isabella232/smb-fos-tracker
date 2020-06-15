@@ -34,7 +34,7 @@ import com.example.fostracker.servlets.VerificationServlet.VerificationDatabaseH
 
 /**
  * Prints the store phone and store status in verification table in JSON format.
- *
+ * <p>
  * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/verification").
  */
 @WebServlet(value = "/stores/status")
@@ -46,7 +46,7 @@ public class GetStoresWithStatusServlet extends HttpServlet {
     /**
      * HTTP Get method prints the query as response.
      *
-     * @param request is GET request.
+     * @param request  is GET request.
      * @param response is HttpServletResponse object that is used to write the response.
      * @throws ServletException
      * @throws IOException
@@ -62,17 +62,17 @@ public class GetStoresWithStatusServlet extends HttpServlet {
         PrintWriter output;
         output = response.getWriter();
 
-        // storeAndStatusDataIterator is a StoreAndStatus object that is used to store the row we are iterating.
+        // storeAndCoordinateDataIterator is a StoreAndStatus object that is used to store the row we are iterating.
         StoreAndStatus storeAndCoordinateDataIterator;
-        // storeAndStatusDataIteratorString stores the storeAndStatusDataIterator object as json String.
+        // storeAndCoordinateDataIteratorString stores the storeAndCoordinateDataIterator object as json String.
         String storeAndCoordinateDataIteratorString;
 
-        // Querying the database table and storing in storeAndStatusData.
+        // Querying the database table and storing in storeAndCoordinateData.
         ResultSet storeAndCoordinateData = StoreDatabaseHelper.queryStores();
 
-        // If storeAndStatusData is not empty then prints all the rows else prints "No data exists".
+        // If storeAndCoordinateData is not empty then prints all the rows else prints "No data exists".
         if (storeAndCoordinateData.next()) {
-            // stores the indexes of columns in storeAndStatusData ( ResultSet object ).
+            // stores the indexes of columns in storeAndCoordinateData ( ResultSet object ).
             int columnStorePhoneIndex =
                     storeAndCoordinateData.getColumnIndex(StoreDatabaseHelper.COLUMN_STORE_PHONE);
             int columnStoreLatitudeIndex =
@@ -86,7 +86,7 @@ public class GetStoresWithStatusServlet extends HttpServlet {
                 String status = VerificationDatabaseHelper
                         .queryStatusUsingStorePhone(storeAndCoordinateData.getString(columnStorePhoneIndex));
                 int status_int = Verification.NOT_VERIFIED_INT;
-                if(status != null){
+                if (status != null) {
                     status_int = getStatusInt(status);
                 }
                 storeAndCoordinateDataIterator = new StoreAndStatus(storeAndCoordinateData.getString(columnStorePhoneIndex),

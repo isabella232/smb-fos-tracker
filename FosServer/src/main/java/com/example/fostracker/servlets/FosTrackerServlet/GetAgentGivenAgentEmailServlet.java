@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2019 Google LLC
  *
@@ -35,9 +34,8 @@ import com.google.cloud.spanner.ResultSet;
 import com.google.gson.JsonObject;
 
 /**
- *
  * Prints all the Agent details given Agent's email from Agents table in JSON format.
- *
+ * <p>
  * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/agent/email").
  */
 
@@ -82,7 +80,7 @@ public class GetAgentGivenAgentEmailServlet extends HttpServlet {
             String agentEmail = jsonObj.get("agentEmail").getAsString();
 
             // Query the data with Agent's email.
-            ResultSet agentData = AgentDatabaseHelper.queryWithEmail(agentEmail);
+            ResultSet agentData = AgentDatabaseHelper.queryByEmail(agentEmail);
 
             // agentDataIterator is a agent object that is used to store the row we are iterating.
             Agent agentDataIterator;
@@ -91,10 +89,9 @@ public class GetAgentGivenAgentEmailServlet extends HttpServlet {
 
             // If agentData is not empty then prints all the rows else prints "No data exists".
             try {
-                if(agentData==null){
+                if (agentData == null) {
                     output.println("Data not found");
-                }
-                else if (agentData.next()) {
+                } else if (agentData.next()) {
                     // stores the indexes of columns in verificationData ( ResultSet object ).
                     int columnAgentFirstNameIndex = agentData.getColumnIndex(AgentDatabaseHelper.COLUMN_AGENT_FIRST_NAME);
                     int columnAgentMidNameIndex = agentData.getColumnIndex(AgentDatabaseHelper.COLUMN_AGENT_MIDDLE_NAME);
@@ -105,7 +102,7 @@ public class GetAgentGivenAgentEmailServlet extends HttpServlet {
                     int columnAgentCreationDataTime = agentData.getColumnIndex(AgentDatabaseHelper.COLUMN_AGENT_CREATION_DATE_TIME);
 
                     // define the json object and prints to the screen.
-                   agentDataIterator = new Agent(
+                    agentDataIterator = new Agent(
                             new Name(agentData.getString(columnAgentFirstNameIndex), agentData.getString(columnAgentMidNameIndex)
                                     , agentData.getString(columnAgentLastNameIndex)),
                             agentEmail,
@@ -122,7 +119,7 @@ public class GetAgentGivenAgentEmailServlet extends HttpServlet {
                     output.print("No agent with given email id exists");
                     output.flush();
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 output.print(e);
             }
 

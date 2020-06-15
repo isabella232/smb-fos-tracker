@@ -24,10 +24,8 @@ import com.google.cloud.spanner.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.io.PrintWriter;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Collections;
 
 import com.example.fostracker.models.Verification;
 
@@ -81,7 +79,6 @@ public class VerificationDatabaseHelper {
      *
      * @return ResultSet object that refers to all rows in verifications table
      */
-    //change to querying using struct
     public static ResultSet queryData() {
 
         ResultSet verificationData =
@@ -100,7 +97,6 @@ public class VerificationDatabaseHelper {
      *
      * @return ResultSet object that refers to all rows in verifications table
      */
-    //change to querying using struct
     public static ResultSet queryStoreAndStatusData() {
 
         ResultSet storeAndStatusData =
@@ -137,8 +133,8 @@ public class VerificationDatabaseHelper {
                 int columnVerificationStatusIndex =
                         storeVerificationStatusData.getColumnIndex(COLUMN_VERIFICATION_STATUS);
                 return storeVerificationStatusData.getString(columnVerificationStatusIndex);
-            } else{
-                return  null;
+            } else {
+                return null;
             }
         } catch (SpannerException e) {
             return null;

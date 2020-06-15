@@ -29,11 +29,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import com.google.cloud.spanner.ResultSet;
-//import java.sql.Timestamp;
 
 /**
  * Prints the complete verification table in JSON format.
- *
+ * <p>
  * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/verification").
  */
 @WebServlet(value = "/verification")
@@ -45,7 +44,7 @@ public class GetStoreVerificationsServlet extends HttpServlet {
     /**
      * HTTP Get method prints the query as response.
      *
-     * @param request is GET request.
+     * @param request  is GET request.
      * @param response is HttpServletResponse object that is used to write the response.
      * @throws ServletException
      * @throws IOException
@@ -83,11 +82,11 @@ public class GetStoreVerificationsServlet extends HttpServlet {
             // json object and prints to the screen.
             do {
                 verificationDataIterator = new Verification(verificationData.getString(columnAgentEmailIndex),
-                                                            verificationData.getString(columnStorePhoneIndex),
-                                                            new Coordinates(verificationData.getDouble(columnVerificationLatitudeIndex),
-                                                            verificationData.getDouble(columnVerificationLongitudeIndex)),
-                                                            getStatusInt(verificationData.getString(columnVerificationStatusIndex)),
-                                                            verificationData.getTimestamp(columnVerificationTimeIndex).toSqlTimestamp());
+                        verificationData.getString(columnStorePhoneIndex),
+                        new Coordinates(verificationData.getDouble(columnVerificationLatitudeIndex),
+                                verificationData.getDouble(columnVerificationLongitudeIndex)),
+                        getStatusInt(verificationData.getString(columnVerificationStatusIndex)),
+                        verificationData.getTimestamp(columnVerificationTimeIndex).toSqlTimestamp());
                 verificationDataIteratorString = this.gson.toJson(verificationDataIterator);
                 output.printf(verificationDataIteratorString);
             } while (verificationData.next());

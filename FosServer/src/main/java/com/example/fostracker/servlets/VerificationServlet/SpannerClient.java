@@ -20,46 +20,47 @@ import com.google.cloud.spanner.DatabaseClient;
 import com.google.cloud.spanner.DatabaseId;
 import com.google.cloud.spanner.Spanner;
 import com.google.cloud.spanner.SpannerOptions;
+
 import javax.servlet.annotation.WebListener;
 
 /**
  * Creates databaseClient given Project ID, Instance ID and Database ID.
  */
 @WebListener
-public class SpannerClient{
+public class SpannerClient {
 
-  private static final String PROJECT_ID= "fos-tracker-278709";
-  private static final String INSTANCE_ID= "fos-server-instance";
-  private static final String DATABASE_ID= "fos-database";
+    private static final String PROJECT_ID = "fos-tracker-278709";
+    private static final String INSTANCE_ID = "fos-server-instance";
+    private static final String DATABASE_ID = "fos-database";
 
-  private static DatabaseClient databaseClient = null;
-  private static Spanner spanner = null;
+    private static DatabaseClient databaseClient = null;
+    private static Spanner spanner = null;
 
-  public static DatabaseClient getDatabaseClient() {
-    SpannerOptions options = SpannerOptions.newBuilder().build();
-    spanner = options.getService();
-    if (databaseClient == null) {
-      databaseClient =
-          spanner.getDatabaseClient(DatabaseId.of(PROJECT_ID, INSTANCE_ID, DATABASE_ID));
+    public static DatabaseClient getDatabaseClient() {
+        SpannerOptions options = SpannerOptions.newBuilder().build();
+        spanner = options.getService();
+        if (databaseClient == null) {
+            databaseClient =
+                    spanner.getDatabaseClient(DatabaseId.of(PROJECT_ID, INSTANCE_ID, DATABASE_ID));
+        }
+        return databaseClient;
     }
-    return databaseClient;
-  }
 
-  static String getInstanceId() {
-    return INSTANCE_ID;
-  }
-
-  static String getDatabaseId() {
-    return DATABASE_ID;
-  }
-
-  static String getProjectId() {
-    return PROJECT_ID;
-  }
-
-  static void closeSpanner(){
-    if( spanner != null){
-      spanner.close();
+    static String getInstanceId() {
+        return INSTANCE_ID;
     }
-  }
+
+    static String getDatabaseId() {
+        return DATABASE_ID;
+    }
+
+    static String getProjectId() {
+        return PROJECT_ID;
+    }
+
+    static void closeSpanner() {
+        if (spanner != null) {
+            spanner.close();
+        }
+    }
 }

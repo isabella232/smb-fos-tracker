@@ -33,12 +33,10 @@ import com.google.cloud.spanner.ResultSet;
 import com.google.gson.JsonObject;
 
 /**
- *
- * Prints all the Agent details given Agent's email from Agents table in JSON format.
- *
- * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/agent/email").
+ * Prints the Store details given Store phone from Stores table in JSON format.
+ * <p>
+ * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/store/phone").
  */
-
 @WebServlet(value = "/store/phone")
 public class GetStoreGivenStorePhoneServlet extends HttpServlet {
 
@@ -108,13 +106,13 @@ public class GetStoreGivenStorePhoneServlet extends HttpServlet {
                 int columnStoreCreationDateTimeIndex = storeData.getColumnIndex(StoreDatabaseHelper.COLUMN_STORE_CREATION_DATE_TIME);
 
 
-               // define the json object and prints to the screen.
+                // define the json object and prints to the screen.
                 storeDataIterator = new Store(
                         new Name(storeData.getString(columnMerchantFirstNameIndex), storeData.getString(columnMerchantMidNameIndex)
                                 , storeData.getString(columnMerchantLastNameIndex)),
-                        new Address(storeData.getString(columnStoreStreetIndex),storeData.getString(columnStoreAreaIndex)
-                        , storeData.getString(columnStoreCityIndex), storeData.getString(columnStoreStateIndex)
-                        , storeData.getString(columnStorePincodeIndex), storeData.getString(columnStoreCountryIndex)),
+                        new Address(storeData.getString(columnStoreStreetIndex), storeData.getString(columnStoreAreaIndex)
+                                , storeData.getString(columnStoreCityIndex), storeData.getString(columnStoreStateIndex)
+                                , storeData.getString(columnStorePincodeIndex), storeData.getString(columnStoreCountryIndex)),
                         storeData.getString(columnMerchantEmailIndex),
                         new Coordinates(storeData.getDouble(columnStoreLatitudeIndex),
                                 storeData.getDouble(columnStoreLongitudeIndex)),

@@ -17,6 +17,7 @@
 package com.example.fostracker.servlets.VerificationServlet;
 
 import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -24,13 +25,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.example.fostracker.models.Verification;
 
 /**
- *  Takes the new verification data from POST request and inserts into the verifications table.
- *
- *  If the data posted is null or insert is unsuccessful returns 403 error.
- *  else keeps the status to 200.
+ * Takes the new verification data from POST request and inserts into the verifications table.
+ * <p>
+ * If the data posted is null or insert is unsuccessful returns 403 error.
+ * else keeps the status to 200.
  */
 @WebServlet(value = "/verifications/new")
 public class AddStoreVerificationStatusServlet extends HttpServlet {
@@ -48,7 +50,7 @@ public class AddStoreVerificationStatusServlet extends HttpServlet {
         PrintWriter output = response.getWriter();
 
         // If json is null ( No data was posted ) set the error to 403.
-        if(json == null){
+        if (json == null) {
             output.print("No data given");
             response.setStatus(403);
         } else {

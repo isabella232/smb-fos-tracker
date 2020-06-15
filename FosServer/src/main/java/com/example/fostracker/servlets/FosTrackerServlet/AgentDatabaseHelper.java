@@ -16,8 +16,6 @@
 
 package com.example.fostracker.servlets.FosTrackerServlet;
 
-import com.google.cloud.Timestamp;
-import com.google.cloud.spanner.Mutation;
 import com.google.cloud.spanner.ResultSet;
 import com.google.cloud.spanner.SpannerException;
 import com.google.cloud.spanner.Statement;
@@ -25,8 +23,8 @@ import com.example.fostracker.servlets.VerificationServlet.SpannerClient;
 
 
 /**
- * This class contains operations that are to be done on Agents table.
- *
+ * This class contains operations that are done on Agents table.
+ * <p>
  * Stores required column names in constant Strings and these constants are used whenever column name needs to be referred.
  * Query the Agents table email and coordinate columns and returns ResultSet object.
  */
@@ -67,27 +65,27 @@ public class AgentDatabaseHelper {
      *
      * @return ResultSet object that refers to all rows in agents table and corresponding columns
      */
-    public static ResultSet queryWithEmail(String agentEmail) {
+    public static ResultSet queryByEmail(String agentEmail) {
 
         Statement statement =
                 Statement.newBuilder("SELECT " + COLUMN_AGENT_FIRST_NAME + ", "
-                                + COLUMN_AGENT_MIDDLE_NAME + ", " + COLUMN_AGENT_LAST_NAME + ", "
-                                + COLUMN_AGENT_PHONE + ", "
-                                + COLUMN_AGENT_LATITUDE + ", " + COLUMN_AGENT_LONGITUDE + ", "
-                                + COLUMN_AGENT_CREATION_DATE_TIME
-                                + " FROM " + TABLE_NAME
-                                + " WHERE " + COLUMN_AGENT_EMAIL
-                                + " = @" + QUERY_AGENT_EMAIL)
-                                .bind(QUERY_AGENT_EMAIL)
-                                .to(agentEmail)
-                                .build();
+                        + COLUMN_AGENT_MIDDLE_NAME + ", " + COLUMN_AGENT_LAST_NAME + ", "
+                        + COLUMN_AGENT_PHONE + ", "
+                        + COLUMN_AGENT_LATITUDE + ", " + COLUMN_AGENT_LONGITUDE + ", "
+                        + COLUMN_AGENT_CREATION_DATE_TIME
+                        + " FROM " + TABLE_NAME
+                        + " WHERE " + COLUMN_AGENT_EMAIL
+                        + " = @" + QUERY_AGENT_EMAIL)
+                        .bind(QUERY_AGENT_EMAIL)
+                        .to(agentEmail)
+                        .build();
 
         try {
             ResultSet agentData =
                     SpannerClient.getDatabaseClient().singleUse().executeQuery(statement);
             return agentData;
-        }catch (SpannerException e){
-            return  null;
+        } catch (SpannerException e) {
+            return null;
         }
     }
 

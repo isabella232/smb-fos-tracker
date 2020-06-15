@@ -16,8 +16,6 @@
 
 package com.example.fostracker.servlets.FosTrackerServlet;
 
-import com.google.cloud.Timestamp;
-import com.google.cloud.spanner.Mutation;
 import com.google.cloud.spanner.ResultSet;
 import com.google.cloud.spanner.SpannerException;
 import com.google.cloud.spanner.Statement;
@@ -27,7 +25,7 @@ import com.example.fostracker.servlets.VerificationServlet.SpannerClient;
 
 /**
  * This class contains operations on Stores table.
- *
+ * <p>
  * Stores required column names in constant Strings and these constants are used whenever column name needs to be referred.
  * Query the store coordinates based on store phone number in stores table
  */
@@ -62,17 +60,17 @@ public class StoreDatabaseHelper {
      */
     public static Coordinates queryStoreCoordinatesUsingStorePhone(String storePhone) {
 
-        // store coordinates store the
+        // storeCoordinates store the store coordinates
         Coordinates storeCoordinates;
 
         // SQL statement to query store coordinates using store phone number.
         Statement statement =
                 Statement.newBuilder(
-                        "SELECT " + COLUMN_STORE_LATITUDE +", "
-                                  + COLUMN_STORE_LONGITUDE
-                        + " FROM " + TABLE_NAME
-                        + " WHERE " + COLUMN_STORE_PHONE
-                                   + " = @" + QUERY_STORE_PHONE)
+                        "SELECT " + COLUMN_STORE_LATITUDE + ", "
+                                + COLUMN_STORE_LONGITUDE
+                                + " FROM " + TABLE_NAME
+                                + " WHERE " + COLUMN_STORE_PHONE
+                                + " = @" + QUERY_STORE_PHONE)
                         .bind(QUERY_STORE_PHONE)
                         .to(storePhone)
                         .build();
@@ -85,33 +83,30 @@ public class StoreDatabaseHelper {
                 int columnStoreLongitudeIndex =
                         storeCoordinateData.getColumnIndex(COLUMN_STORE_LONGITUDE);
                 storeCoordinates = new Coordinates(storeCoordinateData.getDouble(columnStoreLatitudeIndex),
-                                                    storeCoordinateData.getDouble(columnStoreLongitudeIndex));
+                        storeCoordinateData.getDouble(columnStoreLongitudeIndex));
                 return storeCoordinates;
-            } else{
-                return  null;
+            } else {
+                return null;
             }
         } catch (SpannerException e) {
-             return null;
+            return null;
         }
     }
 
     /**
-     * Queries the store table for store coordinates based on store phone number
+     * Queries the store table for store details based on store phone number
      *
      * @return ResultSet object that refers to corresponding row
      */
     public static ResultSet queryStoreUsingStorePhone(String storePhone) {
 
-        // store coordinates store the
-        Coordinates storeCoordinates;
-
         // SQL statement to query store coordinates using store phone number.
         Statement statement =
                 Statement.newBuilder(
                         "SELECT " + COLUMN_MERCHANT_FIRST_NAME + ", " + COLUMN_MERCHANT_MID_NAME
-                                +", " + COLUMN_MERCHANT_LAST_NAME + ", " + COLUMN_MERCHANT_EMAIL
-                                 + ", " + COLUMN_STORE_NAME + ", "
-                                + COLUMN_STORE_LATITUDE +", " + COLUMN_STORE_LONGITUDE
+                                + ", " + COLUMN_MERCHANT_LAST_NAME + ", " + COLUMN_MERCHANT_EMAIL
+                                + ", " + COLUMN_STORE_NAME + ", "
+                                + COLUMN_STORE_LATITUDE + ", " + COLUMN_STORE_LONGITUDE
                                 + ", " + COLUMN_STORE_STREET + ", " + COLUMN_STORE_AREA
                                 + ", " + COLUMN_STORE_CITY + ", " + COLUMN_STORE_STATE
                                 + ", " + COLUMN_STORE_COUNTRY + ", " + COLUMN_STORE_PINCODE
@@ -133,20 +128,17 @@ public class StoreDatabaseHelper {
     }
 
     /**
-     * Queries the store table for store coordinates based on store phone number
+     * Queries the store table for store coordinates based on pincode.
      *
      * @return ResultSet object that refers to corresponding row
      */
     public static ResultSet queryStoresUsingPincode(String pincode) {
 
-        // store coordinates store the
-        Coordinates storeCoordinates;
-
-        // SQL statement to query store coordinates using store phone number.
+        // SQL statement to query store coordinates using pincode.
         Statement statement =
                 Statement.newBuilder(
                         "SELECT "
-                                + COLUMN_STORE_LATITUDE +", " + COLUMN_STORE_LONGITUDE
+                                + COLUMN_STORE_LATITUDE + ", " + COLUMN_STORE_LONGITUDE
                                 + ", " + COLUMN_STORE_PHONE
                                 + " FROM " + TABLE_NAME
                                 + " WHERE " + COLUMN_STORE_PINCODE
@@ -165,22 +157,19 @@ public class StoreDatabaseHelper {
     }
 
     /**
-     * Queries the store table for store coordinates based on store phone number
+     * Queries the store table for store coordinates and store phone.
      *
      * @return ResultSet object that refers to corresponding row
      */
     public static ResultSet queryStores() {
 
-        // store coordinates store the
-        Coordinates storeCoordinates;
-
         // SQL statement to query store coordinates using store phone number.
         Statement statement =
                 Statement.newBuilder(
                         "SELECT "
-                                + COLUMN_STORE_LATITUDE +", " + COLUMN_STORE_LONGITUDE
+                                + COLUMN_STORE_LATITUDE + ", " + COLUMN_STORE_LONGITUDE
                                 + ", " + COLUMN_STORE_PHONE
-                                + " FROM " + TABLE_NAME ).build();
+                                + " FROM " + TABLE_NAME).build();
         // Tries to query if it fails returns null.
         try {
             ResultSet storeData =
