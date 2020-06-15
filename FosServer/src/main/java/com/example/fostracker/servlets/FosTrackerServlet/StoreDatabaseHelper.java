@@ -149,7 +149,7 @@ public class StoreDatabaseHelper {
                                 + COLUMN_STORE_LATITUDE +", " + COLUMN_STORE_LONGITUDE
                                 + ", " + COLUMN_STORE_PHONE
                                 + " FROM " + TABLE_NAME
-                                + " WHERE " + COLUMN_STORE_PHONE
+                                + " WHERE " + COLUMN_STORE_PINCODE
                                 + " = @" + QUERY_STORE_PINCODE)
                         .bind(QUERY_STORE_PINCODE)
                         .to(pincode)
