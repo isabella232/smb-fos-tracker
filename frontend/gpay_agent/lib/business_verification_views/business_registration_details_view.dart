@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:agent_app/business_verification_views/business_verification_view_in_progress.dart';
+import 'package:agent_app/business_verification_views/business_verification_view.dart';
 
 /// Loads in Merchant data, and displays the data.
 class MerchantHomeView extends StatefulWidget {

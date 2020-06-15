@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:agent_app/business_verification_data/globals.dart' as globals;
 import 'package:agent_app/business_verification_views/business_verification_menu_items.dart';
 import 'package:agent_app/business_verification_views/business_verification_success_view.dart';
 import 'package:agent_app/business_verification_views/business_verification_failure_view.dart';
@@ -7,195 +10,456 @@ import 'package:agent_app/business_verification_views/business_verification_fail
 ///
 /// FOS Agent Verifies the Merchant by checking whether Merchant details like address,
 /// phone are correct or not.
-class VerificationHomeView extends StatefulWidget {
-  _VerificationHomeViewState createState() => _VerificationHomeViewState();
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _VerificationHomeViewState extends State<VerificationHomeView> {
-  /// Boolean variable[isStorePresent] stores whether store is present in mentioned location or not.
-  bool isStorePresent = false;
+/// This enum type is used to select icon for header items.
+enum iconType{
+  face,
+  store,
+  phone
+}
 
-  /// Boolean variable[isBusinessPresent] stores whether mentioned business is working or not.
-  bool isBusinessPresent = false;
+/// This enum type is used to select text for buttons that describe the type of verification.
+enum verificationType{
+  finish,
+  revisit,
+  store_does_not_exist,
+  cancel
+}
 
-  /// Menu actions.
+/// This enum type describes the text for different header items.
+enum headerName{
+  merchant_details,
+  business_details,
+  business_phone
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+
+  /// [isNameCorrect] stores whether Merchant name displayed is correct or not.
+  bool isNameCorrect = false;
+
+  /// [isAddressCorrect] stores whether Merchant address displayed is correct or not.
+  bool isAddressCorrect = false;
+
+  /// [isPhoneCorrect] stores whether Store phone displayed is correct or not.
+  bool isPhoneCorrect = false;
+
+  /// [headerHeight] defines the height of header.
+  double headerHeight = 50;
+
+  /// [headerTextSize] defines the size of header text.
+  double headerTextSize = 14;
+
+  /// [buttonHeight] defines the height of buttons shown at the end of verification page.
+  double buttonHeight = 50;
+
+  /// [buttonTextSize] defines the size of text on buttons.
+  double buttonTextSize = 14;
+
+  /// [itemHeight] defines the height of item under header.
+  double itemHeight = 100;
+
+  /// [itemTextSize] defines the size of text on item under header.
+  double itemTextSize = 12;
+
+  /// [appbarHeight] defines the expanded appbar height.
+  double appbarHeight = 200;
+
+  /// Builds the main scaffold of verification view.
   ///
-  /// Shows cancel verification dialog when 'Discard Verification' menu choice is selected.
+  /// Main verification view contains Sliver app bar and Sliver list.
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          _buildSilverAppBar(appbarHeight),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                if (index > 9) return null;
+                switch (index) {
+                  case 0:
+                    return _buildHeaderItem(headerHeight, headerTextSize, iconType.face, headerName.merchant_details);
+                  case 1:
+                    return _buildListItem(itemHeight, itemTextSize, headerName.merchant_details);
+                  case 2:
+                    return _buildHeaderItem(headerHeight, headerTextSize, iconType.store, headerName.business_details);
+                  case 3:
+                    return _buildListItem(itemHeight+20, itemTextSize, headerName.business_details);
+                  case 4:
+                    return _buildHeaderItem(headerHeight, headerTextSize, iconType.phone, headerName.business_phone);
+                  case 5:
+                    return _buildListItem(itemHeight, itemTextSize, headerName.business_phone);
+                  case 6:
+                    return _buildButtonItem(buttonHeight, buttonTextSize, verificationType.finish);
+                  case 7:
+                    return _buildButtonItem(buttonHeight, buttonTextSize, verificationType.revisit);
+                  case 8:
+                    return _buildButtonItem(buttonHeight, buttonTextSize, verificationType.store_does_not_exist);
+                  case 9:
+                    return _buildButtonItem(buttonHeight, buttonTextSize, verificationType.cancel);
+                  default:
+                    return null;
+                }
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  /// SilverAppBar displaying Merchant Name and pins the app bar to screen while scrolling.
+  ///
+  /// Takes height of the appbar as parameter.
+  /// Contains leading back button and pop up menu on the right.
+  SliverAppBar _buildSilverAppBar(double height) {
+    double expandedHeight = height;
+    return SliverAppBar(
+      expandedHeight: expandedHeight,
+      floating: false,
+      pinned: true,
+      snap: false,
+      flexibleSpace: FlexibleSpaceBar(
+        title: Text(
+            globals.merchantName
+        ),
+        centerTitle: true,
+      ),
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      actions: <Widget>[_buildPopUpMenu()],
+    );
+  }
+
+  /// Defines action to be taken when pop up menu items are selected.
   void choiceAction(String choice) {
     if (choice == VerificationMenuItems.Cancel) {
-      print('Discard Verification');
       //When ever user clicks on discard verification it opens up verification failed
       //TODO: Need to return to home page after cancelling verification
+      //runApp(MyApp());
       _showCancelVerificationDialog();
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        bottomOpacity: 0.0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: <Widget>[
-          PopupMenuButton<String>(
-            icon: Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-            onSelected: choiceAction,
-            itemBuilder: (BuildContext context) {
-              return VerificationMenuItems.choices.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();
-            },
-          )
-        ],
-      ),
-      body: Center(
-        child: ListView(
-          padding: const EdgeInsets.all(8.0),
+  /// Builds pop up menu.
+  PopupMenuButton _buildPopUpMenu() {
+    return PopupMenuButton<String>(
+      onSelected: choiceAction,
+      itemBuilder: (BuildContext context) {
+        return VerificationMenuItems.choices.map((String choice) {
+          return PopupMenuItem<String>(
+            value: choice,
+            child: Text(choice),
+          );
+        }).toList();
+      },
+    );
+  }
+
+  /// Builds header item ( Eg: MERCHANT DETAILS ).
+  ///
+  /// Takes height of item, text size, leading icon and header name as parameters.
+  /// Builds header item with specified leading icon and text.
+  Widget _buildHeaderItem(double height, double textSize, iconType icon, headerName name){
+    return Padding(
+      padding: EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 6.0),
+      child: Container(
+        height: height,
+        child: Row(
           children: <Widget>[
-            Container(
-              height: 50.0,
-              child: const Center(
-                child: Text(
-                  'Verification details',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                  ),
-                ),
-              ),
+            FittedBox(
+              fit: BoxFit.contain, // otherwise the logo will be tiny
+              child: _selectIcon(icon),
             ),
-            Container(
-              height: 50.0,
-              child: Row(children: <Widget>[
-                Text(
-                  'Does store exist ?',
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                  _getHeaderText(name),
+                  textAlign: TextAlign.left,
                   style: TextStyle(
-                    fontSize: 20.0,
-                  ),
-                ),
-                Switch(
-                  value: isStorePresent,
-                  onChanged: (value) {
-                    setState(() {
-                      isStorePresent = value;
-                      print(isStorePresent);
-                    });
-                  },
-                  activeTrackColor: Colors.lightGreenAccent,
-                  activeColor: Colors.green,
-                  inactiveTrackColor: Colors.red,
-                ),
-              ]),
+                    fontSize: textSize,
+                  )),
             ),
-            Container(
-              height: 50.0,
-              child: Center(
-                child: Row(children: <Widget>[
-                  Text(
-                    'Does business exist ?',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                    ),
-                  ),
-                  Switch(
-                    value: isBusinessPresent,
-                    onChanged: (value) {
-                      setState(() {
-                        isBusinessPresent = value;
-                        print(isBusinessPresent);
-                      });
-                    },
-                    activeTrackColor: Colors.lightGreenAccent,
-                    activeColor: Colors.green,
-                    inactiveTrackColor: Colors.red,
-                  ),
-                ]),
-              ),
-            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          _showVerifyMerchantDialog();
-        },
-        tooltip: 'Verify',
-        shape: RoundedRectangleBorder(),
-        elevation: 0.0,
-        label: Text(
-          'Verify',
-          style: TextStyle(
-            fontSize: 16.0,
+    );
+  }
+
+  /// Selects icon to be returned based on icon type.
+  ///
+  /// Takes icon as parameter.
+  /// returns Icon widget with face icon when face icon type is passed.
+  /// returns Icon widget with phone icon when phone icon type is passed.
+  /// returns Icon widget with store icon when store icon type is passed.
+  Widget _selectIcon(iconType icon){
+    switch(icon){
+      case iconType.face:
+        return Icon(
+          Icons.face,
+        );
+      case iconType.phone:
+        return Icon(
+          Icons.phone,
+        );
+      case iconType.store:
+        return Icon(
+          Icons.store,
+        );
+    }
+  }
+
+  /// Builds button with custom border based on the type given.
+  ///
+  /// Takes height of button, text size on button and type of verification as parameters.
+  /// Returns the button widget.
+  /// calls _actonForSelectedVerificationType when pressed on button.
+  Widget _buildButtonItem(double height, double textSize,verificationType type) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 6.0),
+      child: Container(
+        height: height,
+        child: OutlineButton(
+          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12.0)),
+          highlightedBorderColor: Colors.black,
+          onPressed: () {
+            _actionForSelectedVerificationType(type);
+          },
+          child: Text(
+            _getVerificationTypeText(type),
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: textSize,
+            ),
+          ),
+          borderSide: BorderSide(
+            color: Colors.black,
           ),
         ),
       ),
     );
   }
 
-  /// Verifies Merchant.
-  ///
-  /// If [isBusinessPresent] and [isStorePresent] are true then displays [VerificationSuccessView]
-  /// else displays [VerificationFailureView].
-  void _verifyMerchant() {
-    if (isBusinessPresent & isStorePresent) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => VerificationSuccessView()));
-    } else {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => VerificationFailureView()));
+  /// Defines action to be taken when clicked on button given its type.
+  void _actionForSelectedVerificationType(verificationType type){
+    switch(type){
+      case verificationType.finish:
+        _showVerifyMerchantDialog();
+        break;
+      case verificationType.cancel:
+        _verificationFailed();
+        break;
+      case verificationType.revisit:
+        _verificationFailed();
+        break;
+      case verificationType.store_does_not_exist:
+        _verificationFailed();
+        break;
     }
   }
 
-  /// Displays dialog box confirms whether FOS Agent want to verify or not.
+  /// returns the text on button to be displayed based on type of verification.
+  String _getVerificationTypeText(verificationType type){
+    switch(type){
+      case verificationType.finish:
+        return 'Finish Verification';
+      case verificationType.revisit:
+        return 'Needs another visit';
+      case verificationType.store_does_not_exist:
+        return 'Store does not exist';
+      case verificationType.cancel:
+        return 'Cancel';
+    }
+  }
+
+  /// returns the text to be displayed on header based on header name.
+  String _getHeaderText(headerName name){
+    switch(name){
+      case headerName.merchant_details:
+        return 'MERCHANT DETAILS';
+      case headerName.business_details:
+        return 'BUSINESS DETAILS';
+      case headerName.business_phone:
+        return 'BUSINESS PHONE';
+    }
+  }
+
+  /// Builds list item under header based on header name.
   ///
-  /// Dialog box contains CANCEL and VERIFY buttons.
-  /// If CANCEL is selected Agent remains on same page
-  /// If VERIFY is selected then Merchant details are verified.
-  Future<void> _showVerifyMerchantDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('Verify the merchant'),
-              ],
+  /// Takes item height, text size and header name as parameters.
+  /// Contains text with trailing icons (correct or wrong).
+  Widget _buildListItem(double itemHeight, double textSize, headerName name) {
+    return Padding(
+        padding: EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 6.0),
+        child: Container(
+          height: itemHeight,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                  flex: 4,
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                          flex: 1,
+                          child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                _getFieldName(name),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                          )
+                      ),
+                      Expanded(
+                          flex: 1,
+                          child: Text(
+                            _getFieldValue(name),
+                          )
+                      )
+                    ],
+                  )
+              ),
+              Expanded(
+                  flex: 2,
+                  child: _buildIcons(name)
+              )
+            ],
+          ),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.grey,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(12),
+          ),
+        )
+    );
+  }
+
+  /// returns the text to be displayed on header based on header name.
+  String _getFieldName(headerName name){
+    switch(name){
+      case headerName.merchant_details:
+        return 'Merchant Name';
+      case headerName.business_details:
+        return 'Address';
+      case headerName.business_phone:
+        return 'Phone Number';
+    }
+  }
+
+  /// returns the value of the field fetched from server to be displayed based on header name.
+  String _getFieldValue(headerName name){
+    switch(name){
+      case headerName.merchant_details:
+        return globals.merchantName;
+      case headerName.business_details:
+        return globals.address;
+      case headerName.business_phone:
+        return globals.phone;
+    }
+  }
+
+  /// returns the variable value that defines correct or wrong button to be highlighted.
+  bool _getVariableValue(headerName name){
+    switch(name){
+      case headerName.merchant_details:
+        return isNameCorrect;
+      case headerName.business_details:
+        return isAddressCorrect;
+      case headerName.business_phone:
+        return isPhoneCorrect;
+    }
+  }
+
+  /// sets the corresponding value of boolean variable based on header name.
+  void _setVariableValue(headerName name, bool value){
+    switch(name){
+      case headerName.merchant_details:
+        isNameCorrect = value;
+        break;
+      case headerName.business_details:
+        isAddressCorrect = value;
+        break;
+      case headerName.business_phone:
+        isPhoneCorrect = value;
+        break;
+    }
+  }
+
+  /// Builds correct and wrong icons.
+  ///
+  /// Takes header name as parameter.
+  /// Based on header name updates and gets corresponding value.
+  Widget _buildIcons(headerName name){
+    return Row(
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: InkWell(
+            splashColor: Colors.white,
+            onTap: (){
+              _setVariableValue(name,false);
+              setState(() {});
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 2,
+                ),
+                color: !_getVariableValue(name) ? Colors.red[100] : Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.close,
+                color: !_getVariableValue(name) ? Colors.red : Colors.blue,
+              ),
             ),
           ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('CANCEL'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+        ),
+        Expanded(
+          flex: 1,
+          child:InkWell(
+            splashColor: Colors.white,
+            onTap: (){
+              _setVariableValue(name,true);
+              setState(() {});
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 2,
+                ),
+                color: _getVariableValue(name) ? Colors.green[100] : Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child:Icon(
+                Icons.done,
+                color: _getVariableValue(name) ? Colors.green : Colors.blue,
+              ),
             ),
-            FlatButton(
-              child: Text('VERIFY'),
-              onPressed: () {
-                _verifyMerchant();
-              },
-            ),
-          ],
-        );
-      },
+          ),
+        )
+      ],
     );
   }
 
@@ -237,5 +501,66 @@ class _VerificationHomeViewState extends State<VerificationHomeView> {
         );
       },
     );
+  }
+
+  /// Displays dialog box confirms whether FOS Agent want to verify or not.
+  ///
+  /// Dialog box contains CANCEL and VERIFY buttons.
+  /// If CANCEL is selected Agent remains on same page
+  /// If VERIFY is selected then Merchant details are verified.
+  Future<void> _showVerifyMerchantDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Verify the merchant'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('CANCEL'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text('VERIFY'),
+              onPressed: () {
+                _verifyMerchant();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /// Verifies Merchant.
+  ///
+  /// If [isBusinessPresent] and [isStorePresent] are true then displays [VerificationSuccessView]
+  /// else displays [VerificationFailureView].
+  void _verifyMerchant() {
+    if (isAddressCorrect & isPhoneCorrect & isNameCorrect) {
+      _verificationSuccess();
+    } else {
+      _verificationFailed();
+    }
+  }
+
+  /// Navigates to verification success page.
+  void _verificationSuccess(){
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => VerificationSuccessView()));
+  }
+
+  /// Navigates to verification failure page.
+  void _verificationFailed(){
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => VerificationFailureView()));
   }
 }
