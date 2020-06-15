@@ -5,6 +5,7 @@ import 'package:agent_app/business_verification_data/globals.dart' as globals;
 import 'package:agent_app/business_verification_views/business_verification_menu_items.dart';
 import 'package:agent_app/business_verification_views/business_verification_success_view.dart';
 import 'package:agent_app/business_verification_views/business_verification_failure_view.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// Displays Verification home page for a Merchant that FOS Agent verifies.
 ///
@@ -128,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
       snap: false,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
-            globals.merchantName
+            globals.merchantName,
         ),
         centerTitle: true,
       ),
@@ -247,7 +248,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           borderSide: BorderSide(
-            color: Colors.black,
+            color: Colors.grey,
           ),
         ),
       ),
@@ -343,7 +344,6 @@ class _MyHomePageState extends State<MyHomePage> {
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.grey,
-              width: 2,
             ),
             borderRadius: BorderRadius.circular(12),
           ),
@@ -422,7 +422,6 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Colors.grey,
-                  width: 2,
                 ),
                 color: !_getVariableValue(name) ? Colors.red[100] : Colors.white,
                 shape: BoxShape.circle,
@@ -447,7 +446,6 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Colors.grey,
-                  width: 2,
                 ),
                 color: _getVariableValue(name) ? Colors.green[100] : Colors.white,
                 shape: BoxShape.circle,
