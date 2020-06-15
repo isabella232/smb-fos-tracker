@@ -1,7 +1,7 @@
 package com.example.fostracker.servlets.FosTrackerServlet;
 
 import com.example.fostracker.models.Coordinates;
-import com.example.fostracker.models.StoreAndStatus;
+import com.example.fostracker.models.Store;
 import com.example.fostracker.models.Verification;
 import com.example.fostracker.servlets.VerificationServlet.VerificationDatabaseHelper;
 import com.google.cloud.spanner.ResultSet;
@@ -60,8 +60,8 @@ public class GetStoresWithStatusGivenPincodeServlet extends HttpServlet {
             // Get pincode from the JSON object.
             String storePincode = jsonObj.get("storePincode").getAsString();
 
-            // storeAndCoordinateDataIterator is a StoreAndStatus object that is used to store the row we are iterating.
-            StoreAndStatus storeAndCoordinateDataIterator;
+            // storeAndCoordinateDataIterator is a Store object that is used to store the row we are iterating.
+            Store storeAndCoordinateDataIterator;
             // storeAndCoordinateDataIteratorString stores the storeAndCoordinateDataIterator object as json String.
             String storeAndCoordinateDataIteratorString;
 
@@ -87,7 +87,7 @@ public class GetStoresWithStatusGivenPincodeServlet extends HttpServlet {
                     if (status != null) {
                         status_int = getStatusInt(status);
                     }
-                    storeAndCoordinateDataIterator = new StoreAndStatus(storeAndCoordinateData.getString(columnStorePhoneIndex),
+                    storeAndCoordinateDataIterator = new Store(storeAndCoordinateData.getString(columnStorePhoneIndex),
                             new Coordinates(storeAndCoordinateData.getDouble(columnStoreLatitudeIndex),
                                     storeAndCoordinateData.getDouble(columnStoreLongitudeIndex)),
                             status_int

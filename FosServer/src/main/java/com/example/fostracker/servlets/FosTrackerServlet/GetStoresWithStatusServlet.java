@@ -17,7 +17,7 @@
 package com.example.fostracker.servlets.FosTrackerServlet;
 
 import com.example.fostracker.models.Coordinates;
-import com.example.fostracker.models.StoreAndStatus;
+import com.example.fostracker.models.Store;
 import com.example.fostracker.models.Verification;
 import com.google.gson.Gson;
 
@@ -63,7 +63,7 @@ public class GetStoresWithStatusServlet extends HttpServlet {
         output = response.getWriter();
 
         // storeAndCoordinateDataIterator is a StoreAndStatus object that is used to store the row we are iterating.
-        StoreAndStatus storeAndCoordinateDataIterator;
+        Store storeAndCoordinateDataIterator;
         // storeAndCoordinateDataIteratorString stores the storeAndCoordinateDataIterator object as json String.
         String storeAndCoordinateDataIteratorString;
 
@@ -89,7 +89,7 @@ public class GetStoresWithStatusServlet extends HttpServlet {
                 if (status != null) {
                     status_int = getStatusInt(status);
                 }
-                storeAndCoordinateDataIterator = new StoreAndStatus(storeAndCoordinateData.getString(columnStorePhoneIndex),
+                storeAndCoordinateDataIterator = new Store(storeAndCoordinateData.getString(columnStorePhoneIndex),
                         new Coordinates(storeAndCoordinateData.getDouble(columnStoreLatitudeIndex),
                                 storeAndCoordinateData.getDouble(columnStoreLongitudeIndex)),
                         status_int
