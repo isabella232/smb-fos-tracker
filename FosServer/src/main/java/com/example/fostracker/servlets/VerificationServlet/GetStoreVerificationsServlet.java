@@ -91,7 +91,7 @@ public class GetStoreVerificationsServlet extends HttpServlet {
                 verificationDataIteratorString = this.gson.toJson(verificationDataIterator);
                 output.printf(verificationDataIteratorString);
             } while (verificationData.next());
-
+            verificationData.close();
         } else {
             output.print("No data exists");
             output.flush();

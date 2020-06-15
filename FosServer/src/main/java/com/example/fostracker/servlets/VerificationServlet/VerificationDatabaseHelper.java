@@ -49,6 +49,8 @@ public class VerificationDatabaseHelper {
     public final static String COLUMN_VERIFICATION_STATUS = "VerificationStatus";
     public final static String COLUMN_VERIFICATION_TIME = "VerificationTime";
 
+    private final static String QUERY_STORE_PHONE = "storePhone";
+
     /**
      * Writes data into verification table using Mutations
      *
@@ -110,5 +112,38 @@ public class VerificationDatabaseHelper {
 
         return storeAndStatusData;
     }
+
+    /**
+     * Queries the store table for store coordinates based on store phone number
+     *
+     * @return ResultSet object that refers to corresponding row
+     */
+    public static String queryStatusUsingStorePhone(String storePhone) {
+
+        // SQL statement to query store coordinates using store phone number.
+        Statement statement =
+                Statement.newBuilder(
+                        "SELECT " + COLUMN_VERIFICATION_STATUS
+                                + " FROM " + TABLE_NAME
+                                + " WHERE " + COLUMN_STORE_PHONE
+                                + " = @" + QUERY_STORE_PHONE)
+                        .bind(QUERY_STORE_PHONE)
+                        .to(storePhone)
+                        .build();
+        // Tries to query if it fails returns null.
+        try (ResultSet storeVerificationStatusData =
+                     SpannerClient.getDatabaseClient().singleUse().executeQuery(statement)) {
+            if (storeVerificationStatusData.next()) {
+                int columnVerificationStatusIndex =
+                        storeVerificationStatusData.getColumnIndex(COLUMN_VERIFICATION_STATUS);
+                return storeVerificationStatusData.getString(columnVerificationStatusIndex);
+            } else{
+                return  null;
+            }
+        } catch (SpannerException e) {
+            return null;
+        }
+    }
+
 
 }

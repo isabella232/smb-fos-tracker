@@ -48,13 +48,11 @@ public class GetAgentsEmailAndCoordinatesServlet extends HttpServlet {
 /**
      * HTTP Get method prints the query as response.
      *
-     * @param request is GET request.
+     * @param agentEmailAndCoordinatesRequest is GET request.
      * @param response is HttpServletResponse object that is used to write the response.
      * @throws ServletException
      * @throws IOException
 */
-
-
     @Override
     protected void doGet(HttpServletRequest agentEmailAndCoordinatesRequest, HttpServletResponse response) throws ServletException, IOException {
 
@@ -90,7 +88,7 @@ public class GetAgentsEmailAndCoordinatesServlet extends HttpServlet {
                 agentDataIteratorString = this.gson.toJson(agentDataIterator);
                 output.println(agentDataIteratorString);
             } while (agentsEmailAndCoordinatesData.next());
-
+            agentsEmailAndCoordinatesData.close();
         } else {
             output.print("No data exists");
             output.flush();
@@ -100,5 +98,6 @@ public class GetAgentsEmailAndCoordinatesServlet extends HttpServlet {
         output.print("Successful");
         output.flush();
     }
+
 }
 

@@ -63,31 +63,41 @@ public class GetStoresWithStatusServlet extends HttpServlet {
         output = response.getWriter();
 
         // storeAndStatusDataIterator is a StoreAndStatus object that is used to store the row we are iterating.
-        StoreAndStatus storeAndStatusDataIterator;
+        StoreAndStatus storeAndCoordinateDataIterator;
         // storeAndStatusDataIteratorString stores the storeAndStatusDataIterator object as json String.
-        String storeAndStatusDataIteratorString;
+        String storeAndCoordinateDataIteratorString;
 
         // Querying the database table and storing in storeAndStatusData.
-        ResultSet storeAndStatusData = VerificationDatabaseHelper.queryStoreAndStatusData();
+        ResultSet storeAndCoordinateData = StoreDatabaseHelper.queryStores();
 
         // If storeAndStatusData is not empty then prints all the rows else prints "No data exists".
-        if (storeAndStatusData.next()) {
+        if (storeAndCoordinateData.next()) {
             // stores the indexes of columns in storeAndStatusData ( ResultSet object ).
             int columnStorePhoneIndex =
-                    storeAndStatusData.getColumnIndex(VerificationDatabaseHelper.COLUMN_STORE_PHONE);
-            int columnVerificationStatusIndex =
-                    storeAndStatusData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_STATUS);
+                    storeAndCoordinateData.getColumnIndex(StoreDatabaseHelper.COLUMN_STORE_PHONE);
+            int columnStoreLatitudeIndex =
+                    storeAndCoordinateData.getColumnIndex(StoreDatabaseHelper.COLUMN_STORE_LONGITUDE);
+            int columnStoreLongitudeIndex =
+                    storeAndCoordinateData.getColumnIndex(StoreDatabaseHelper.COLUMN_STORE_LATITUDE);
 
             // Loop through all rows and stores the row data in verificationDataIterator. Converts verificationDataIterator into
             // json object and prints to the screen.
             do {
-                storeAndStatusDataIterator = new StoreAndStatus(storeAndStatusData.getString(columnStorePhoneIndex),
-                                                    StoreDatabaseHelper.queryStoreCoordinatesUsingStorePhone(storeAndStatusData.getString(columnStorePhoneIndex)),
-                                                            getStatusInt(storeAndStatusData.getString(columnVerificationStatusIndex)));
-                storeAndStatusDataIteratorString = this.gson.toJson(storeAndStatusDataIterator);
-                output.println(storeAndStatusDataIteratorString);
-            } while (storeAndStatusData.next());
-
+                String status = VerificationDatabaseHelper
+                        .queryStatusUsingStorePhone(storeAndCoordinateData.getString(columnStorePhoneIndex));
+                int status_int = Verification.NOT_VERIFIED_INT;
+                if(status != null){
+                    status_int = getStatusInt(status);
+                }
+                storeAndCoordinateDataIterator = new StoreAndStatus(storeAndCoordinateData.getString(columnStorePhoneIndex),
+                        new Coordinates(storeAndCoordinateData.getDouble(columnStoreLatitudeIndex),
+                                storeAndCoordinateData.getDouble(columnStoreLongitudeIndex)),
+                        status_int
+                );
+                storeAndCoordinateDataIteratorString = this.gson.toJson(storeAndCoordinateDataIterator);
+                output.println(storeAndCoordinateDataIteratorString);
+            } while (storeAndCoordinateData.next());
+            storeAndCoordinateData.close();
         } else {
             output.print("No data exists");
             output.flush();
