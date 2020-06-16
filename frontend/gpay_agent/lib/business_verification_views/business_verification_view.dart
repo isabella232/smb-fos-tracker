@@ -1,11 +1,15 @@
 import 'dart:convert';
+import 'package:agent_app/business_verification_data/Coordinates.dart';
+import 'package:agent_app/business_verification_data/verification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:agent_app/business_verification_data/globals.dart' as globals;
 import 'package:agent_app/business_verification_views/business_verification_menu_items.dart';
 import 'package:agent_app/business_verification_views/business_verification_success_view.dart';
 import 'package:agent_app/business_verification_views/business_verification_failure_view.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 /// Displays Verification home page for a Merchant that FOS Agent verifies.
 ///
@@ -262,16 +266,66 @@ class _MyHomePageState extends State<MyHomePage> {
         _showVerifyMerchantDialog();
         break;
       case verificationType.cancel:
+        _sendVerificationData(globals.verificationStatus.not_verified);
         _verificationFailed();
         break;
       case verificationType.revisit:
+        _sendVerificationData(globals.verificationStatus.needs_revisit);
         _verificationFailed();
         break;
       case verificationType.store_does_not_exist:
+        _sendVerificationData(globals.verificationStatus.failure);
         _verificationFailed();
         break;
     }
   }
+
+  /// Sets verification data that is to be sent to server.
+  void _sendVerificationData(globals.verificationStatus status){
+
+    globals.newVerification = new Verification();
+
+    globals.newVerification.status = status;
+    globals.newVerification.storePhone = "0987645321";
+    globals.newVerification.agentEmail = "vahinim@google.com";
+
+    globals.newVerification.verificationCoordinates = new Coordinates();
+    _setCurrentLocationCoordinates();
+
+  }
+
+  /// Gets the present location from geo coordinates during verification.
+  void _setCurrentLocationCoordinates() {
+    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        globals.newVerification.verificationCoordinates.latitude = position.latitude;
+        globals.newVerification.verificationCoordinates.longitude = position.longitude;
+        String verificationString = globals.newVerification.convertToJsonString();
+        print(verificationString);
+        _sendDataToServer(verificationString);
+      });
+        }).catchError((e) {
+      print(e);
+    });
+  }
+
+  /// Sends the data to server.
+  void _sendDataToServer(String body) async{
+    http.Response response = await http.post(
+        'https://fos-tracker-278709.an.r.appspot.com/verifications/new',
+        body: body
+    );
+
+    if(response.statusCode == 200){
+      print('successful insert');
+    }else{
+      print('try again');
+    }
+  }
+
 
   /// returns the text on button to be displayed based on type of verification.
   String _getVerificationTypeText(verificationType type){
@@ -544,8 +598,10 @@ class _MyHomePageState extends State<MyHomePage> {
   /// else displays [VerificationFailureView].
   void _verifyMerchant() {
     if (isAddressCorrect & isPhoneCorrect & isNameCorrect) {
+      _sendVerificationData(globals.verificationStatus.success);
       _verificationSuccess();
     } else {
+      _sendVerificationData(globals.verificationStatus.failure);
       _verificationFailed();
     }
   }
