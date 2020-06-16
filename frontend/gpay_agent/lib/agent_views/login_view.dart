@@ -1,5 +1,5 @@
-import 'package:agent_app/datamodels/agent.dart';
-import 'package:agent_app/views/welcome_agent.dart';
+import 'package:agent_app/agent_datamodels/agent.dart';
+import 'package:agent_app/agent_views/welcome_agent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -25,7 +25,7 @@ class LoginViewState extends State<LoginView>{
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:<Widget>[
                   Image.asset(
-                    "images/GPay_logo.png",
+                    "assets/agent_beginning_images/GPay_logo.png",
                     width: 200,
                     height: 200,
                   ),
@@ -47,13 +47,13 @@ class LoginViewState extends State<LoginView>{
                     ),
                   ),
                   Image.asset(
-                    "images/handshake.gif",
+                    "assets/agent_beginning_images/handshake.gif",
                     width: 350,
                     height: 350,
                   ),
                   OutlineButton(
                     child: Image.asset(
-                      "images/sign_in_with_google.png",
+                      "assets/agent_beginning_images/sign_in_with_google.png",
                     ),
                     onPressed: _login,
                   )
@@ -71,7 +71,7 @@ class LoginViewState extends State<LoginView>{
   _login() async {
     try {
       await _googleSignIn.signIn();
-      _agent = new Agent(12, "Pragya", "", "Sethi", 9888899779, 007);
+      _agent = new Agent("pragya@mail.com", "5-6-20 11:00", "Pragya", "", "Sethi", "9888899779", 12.5,34.5);
       Navigator.push(
           context,
           MaterialPageRoute(

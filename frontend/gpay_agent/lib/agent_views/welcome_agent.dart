@@ -1,6 +1,6 @@
-import 'package:agent_app/datamodels/agent.dart';
-import 'package:agent_app/datamodels/text_widget.dart';
-import 'package:agent_app/views/fetch_store.dart';
+import 'package:agent_app/agent_datamodels/agent.dart';
+import 'package:agent_app/agent_datamodels/text_widget.dart';
+import 'package:agent_app/agent_views/fetch_store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -35,7 +35,7 @@ class WelcomeAgent extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(
-                "images/walking_cloud.gif",
+                "assets/agent_beginning_images/walking_cloud.gif",
                 width: 300,
                 height: 300,
               ),
@@ -43,7 +43,7 @@ class WelcomeAgent extends StatelessWidget{
               TextWidget(name: googleSignIn.currentUser.displayName, color: Colors.blue,),
               TextWidget(name: (agent.AgentPhone).toString(), color: Colors.blue,),
               TextWidget(name: "Merchants Verified", color: Colors.black,),
-              TextWidget(name: getMerchantVerified().toString(),color: Colors.blue,),
+              TextWidget(name: getNumberOfMerchantsVerified().toString(),color: Colors.blue,),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: ButtonTheme(
@@ -67,7 +67,7 @@ class WelcomeAgent extends StatelessWidget{
                 ),
               ),
               Image.asset(
-                "images/GPay_logo_rectangle.png",
+                "assets/agent_beginning_images/GPay_logo_rectangle.png",
                 width: 300,
                 height: 100,
               )
@@ -80,7 +80,7 @@ class WelcomeAgent extends StatelessWidget{
 
   /// Fetches the number of merchants verified by the agent signed in [agent]
   /// using google spanner APIs.
-  int getMerchantVerified(){
+  int getNumberOfMerchantsVerified(){
     //Makes a call to server sending AgentID. Server sends back the number of merchants verified by this agent
     return 20;
   }

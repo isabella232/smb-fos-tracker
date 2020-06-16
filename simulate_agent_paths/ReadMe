@@ -1,0 +1,12 @@
+1. Generate direction path on Google maps and paste the URL to https://mapstogpx.com/
+Click on "Let's go" to generate gpx file.
+In extract_latitude_longitude.py change the following things
+    a. gpx file in Input_GPX_File. Add the path to generated file
+    b. Name of output file in Output_Text_file.
+    c. Email of agent in Agent_Email
+This will generate text file with agent email followed by gps coordinates of path in
+separate lines.
+
+2. Compile AgentLocationSimulator
+3. To run AgentLocationSimulator, give the simulated coordinates files as arguments
+example: java AgentLocationSimulator Simulated_Coordinates_1 Simulated_Coordinates_2
