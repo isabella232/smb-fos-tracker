@@ -76,9 +76,9 @@ public class GetStoresWithStatusServlet extends HttpServlet {
             int columnStorePhoneIndex =
                     storeAndCoordinateData.getColumnIndex(StoreDatabaseHelper.COLUMN_STORE_PHONE);
             int columnStoreLatitudeIndex =
-                    storeAndCoordinateData.getColumnIndex(StoreDatabaseHelper.COLUMN_STORE_LONGITUDE);
-            int columnStoreLongitudeIndex =
                     storeAndCoordinateData.getColumnIndex(StoreDatabaseHelper.COLUMN_STORE_LATITUDE);
+            int columnStoreLongitudeIndex =
+                    storeAndCoordinateData.getColumnIndex(StoreDatabaseHelper.COLUMN_STORE_LONGITUDE);
 
             // Loop through all rows and stores the row data in verificationDataIterator. Converts verificationDataIterator into
             // json object and prints to the screen.
