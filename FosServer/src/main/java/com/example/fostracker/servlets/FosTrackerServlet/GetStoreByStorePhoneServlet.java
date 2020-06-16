@@ -38,7 +38,7 @@ import com.google.gson.JsonObject;
  * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/store/phone").
  */
 @WebServlet(value = "/store/phone")
-public class GetStoreGivenStorePhoneServlet extends HttpServlet {
+public class GetStoreByStorePhoneServlet extends HttpServlet {
 
     //Gson object that is used to convert Strings into JSON objects
     private Gson gson = new Gson();

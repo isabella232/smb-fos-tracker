@@ -40,7 +40,7 @@ import com.google.gson.JsonObject;
  */
 
 @WebServlet(value = "/agent/email")
-public class GetAgentGivenAgentEmailServlet extends HttpServlet {
+public class GetAgentByAgentEmailServlet extends HttpServlet {
 
     //Gson object that is used to convert Strings into JSON objects
     private Gson gson = new Gson();

@@ -23,7 +23,7 @@ import java.io.PrintWriter;
  */
 
 @WebServlet(value = "/stores/status/pincode")
-public class GetStoresWithStatusGivenPincodeServlet extends HttpServlet {
+public class GetStoresAndStatusByPincodeServlet extends HttpServlet {
 
     // Gson object that is used to convert Strings into JSON objects
     private Gson gson = new Gson();
