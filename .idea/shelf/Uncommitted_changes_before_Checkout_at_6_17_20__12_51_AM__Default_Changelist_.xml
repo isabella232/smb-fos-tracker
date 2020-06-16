@@ -1,9 +1,0 @@
-<changelist name="Uncommitted_changes_before_Checkout_at_6_17_20,_12_51_AM_[Default_Changelist]" date="1592335328015" recycled="true" deleted="true">
-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_17_20,_12_51_AM_[Default_Changelist]/shelved.patch" />
-  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 6/17/20, 12:51 AM [Default Changelist]" />
-  <binary>
-    <option name="BEFORE_PATH" value="FosServer/target/classes/com/example/fostracker/models/Email.class" />
-    <option name="AFTER_PATH" value="FosServer/target/classes/com/example/fostracker/models/Email.class" />
-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_17_20,_12_51_AM_[Default_Changelist]/Email.class" />
-  </binary>
-</changelist>
