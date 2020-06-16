@@ -1,40 +1,49 @@
-/// Model class for storing agent details.
+import 'coordinates.dart';
+import 'name.dart';
+
+///Model class for storing agent details.
 class Agent {
   String AgentEmail;
-  String AgentCreationDateTime;
-  String AgentFirstName;
-  String AgentMidName;
-  String AgentLastName;
+  Name AgentName;
   String AgentPhone;
-  double AgentLatitude;
-  double AgentLongitude;
+  String AgentCreationDateTime;
+  MapCoordinates AgentCoordinates;
 
   Agent(
-      this.AgentEmail,
-      this.AgentCreationDateTime,
-      this.AgentFirstName,
-      this.AgentMidName,
-      this.AgentLastName,
-      this.AgentPhone,
-      this.AgentLatitude,
-      this.AgentLongitude);
+    this.AgentEmail,
+    this.AgentName,
+    this.AgentPhone,
+    this.AgentCreationDateTime,
+    this.AgentCoordinates,
+  );
 
-  @override
-  String toString() {
-    return 'Agent{AgentEmail: $AgentEmail, ' +
-        'AgentCreationDateTime: $AgentCreationDateTime, ' +
-        'AgentFirstName: $AgentFirstName, ' +
-        'AgentMidName: $AgentMidName, ' +
-        'AgentLastName: $AgentLastName, ' +
-        'AgentPhone: $AgentPhone, ' +
-        'AgentLatitude: $AgentLatitude, ' +
-        'AgentLongitude: $AgentLongitude}';
+  factory Agent.fromJson(Map<String, dynamic> json) {
+    return Agent(
+      json['email'] as String,
+      Name.fromJson(json['name']),
+      json['phone'] as String,
+      json['agentCreationDateTime'] as String,
+      MapCoordinates.fromJson(json['coordinates']),
+    );
   }
 
+  Map<String, dynamic> toJson() => {
+        'AgentEmail': AgentEmail,
+        'AgentName': AgentName.toJson(),
+        'AgentPhone': AgentPhone,
+        'AgentCreationDateTime': AgentCreationDateTime,
+        'Coordinates': AgentCoordinates.toJson(),
+      };
+
   String getName() {
-    if (AgentMidName != "")
-      return (AgentFirstName + " " + AgentMidName + " " + AgentLastName);
-    else
-      return (AgentFirstName + " " + AgentLastName);
+    if ((AgentName.midName).isEmpty) {
+      return (AgentName.firstName + " " + AgentName.lastName);
+    } else {
+      return (AgentName.firstName +
+          " " +
+          AgentName.midName +
+          " " +
+          AgentName.lastName);
+    }
   }
 }
