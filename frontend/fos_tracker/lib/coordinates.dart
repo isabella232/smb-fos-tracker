@@ -1,3 +1,6 @@
+/*
+  This class is a model for coordinates.
+ */
 class Coordinates {
   double latitude;
   double longitude;

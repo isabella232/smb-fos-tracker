@@ -11,6 +11,9 @@ import 'agent.dart';
 import 'globals.dart' as globals;
 import 'store.dart';
 
+/*
+  This class contains the UI for the main map view that is generated on app launch.
+ */
 class MainView extends StatefulWidget {
   @override
   _MainViewState createState() => _MainViewState();

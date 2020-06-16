@@ -9,6 +9,9 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'globals.dart' as globals;
 
+/*
+  This class contains the UI for the view that is generated on clicking on an agent in the main map.
+ */
 class AgentPage extends StatefulWidget {
   final String agentEmail;
 
@@ -125,6 +128,9 @@ class _AgentPageState extends State<AgentPage> {
   }
 }
 
+/*
+  This class contains the UI for the view that is generated on clicking on a merchant in the main map or from an agent map.
+ */
 class MerchantPage extends StatefulWidget {
   final String storePhone;
 

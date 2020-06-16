@@ -1,5 +1,8 @@
 import 'package:fos_tracker/coordinates.dart';
 
+/*
+  This class is a model for an FOS Agent.
+ */
 class Agent {
   String email;
   Coordinates coordinates;
