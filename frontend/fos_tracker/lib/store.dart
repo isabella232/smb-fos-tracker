@@ -9,8 +9,8 @@ class Store {
 
   factory Store.fromJson(Map<String, dynamic> json) {
     return new Store(
-        storePhone: json['storePhone'],
-        coordinates: Coordinates.fromJson(json['storeCoordinates']),
+        storePhone: json['phone'],
+        coordinates: Coordinates.fromJson(json['coordinates']),
         status: json['verificationStatus']);
   }
 }

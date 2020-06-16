@@ -19,8 +19,7 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   Completer<GoogleMapController> controller;
   bool agentView = true;
-  LatLng loc = globals.startPosition;
-  LatLng loc1 = globals.startPosition;
+  bool httpDone = true;
 
   void initState() {
     _getUserLocation();
@@ -34,12 +33,6 @@ class _MainViewState extends State<MainView> {
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     setState(() {
       globals.startPosition = LatLng(position.latitude, position.longitude);
-      loc = globals.startPosition;
-      loc1 = globals.startPosition;
-      globals.agentMarkers
-          .add(Marker(markerId: MarkerId("Vanshika"), position: loc));
-      globals.agentMarkers
-          .add(Marker(markerId: MarkerId("Vanshika1"), position: loc1));
     });
   }
 
@@ -99,7 +92,7 @@ class _MainViewState extends State<MainView> {
               Marker(
                   markerId: MarkerId(store.storePhone),
                   position: LatLng(
-                      store.coordinates.longitude, store.coordinates.latitude),
+                      store.coordinates.latitude, store.coordinates.longitude),
                   onTap: () {
                     Navigator.push(
                         context,
@@ -121,30 +114,53 @@ class _MainViewState extends State<MainView> {
     }
   }
 
-  void updateMarker() {
-//    setState(() {
-//      if (loc != null) {
-//        loc = LatLng(loc.latitude + 0.000010, loc.longitude + 0.000010);
-//        loc1 = LatLng(loc1.latitude - 0.000010, loc1.longitude - 0.000010);
-//        globals.agentMarkers.removeWhere((m) => m.markerId.value == "Vanshika");
-//        globals.agentMarkers.add(Marker(
-//          markerId: MarkerId("Vanshika"),
-//          position: loc, // updated position
-//        ));
-//        globals.agentMarkers
-//            .removeWhere((m) => m.markerId.value == "Vanshika1");
-//        globals.agentMarkers.add(Marker(
-//          markerId: MarkerId("Vanshika1"),
-//          position: loc1, // updated position
-//        ));
-//      }
-//    });
+  void updateMarker() async {
+    setState(() {
+      httpDone = false;
+    });
+    List<Agent> newAgents = [];
+    var result =
+        await http.get("https://fos-tracker-278709.an.r.appspot.com/agents");
+    print(result.statusCode);
+    print(result.body);
+    if (result.statusCode == 200) {
+      LineSplitter lineSplitter = new LineSplitter();
+      List<String> lines = lineSplitter.convert(result.body);
+      for (var x in lines) {
+        if (x != 'Successful') {
+          Agent agent = Agent.fromJson(jsonDecode(x));
+          newAgents.add(agent);
+        }
+      }
+    }
+
+    for (var x in newAgents) {
+      setState(() {
+        globals.agentMarkers.removeWhere((m) => m.markerId.value == x.email);
+        globals.agentMarkers.add(Marker(
+            markerId: MarkerId(x.email),
+            position: LatLng(x.coordinates.latitude, x.coordinates.longitude),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AgentPage(
+                            agentEmail: x.email,
+                          )));
+            },
+            icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueGreen)));
+      });
+    }
+    setState(() {
+      httpDone = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-//    const oneSec = const Duration(seconds: 1);
-//    new Timer.periodic(oneSec, (Timer t) => updateMarker());
+    const oneSec = const Duration(seconds: 1);
+    new Timer.periodic(oneSec, (Timer t) => httpDone ? updateMarker() : null);
     return Scaffold(
         appBar: AppBar(
           title: agentView ? Text("Agents") : Text("Merchants"),
