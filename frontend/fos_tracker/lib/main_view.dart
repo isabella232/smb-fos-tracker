@@ -157,6 +157,7 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
+    // This is where the constant update of agent location happens.
     const oneSec = const Duration(milliseconds: 500);
     new Timer.periodic(oneSec, (Timer t) => httpDone ? updateMarker() : null);
     return Scaffold(
