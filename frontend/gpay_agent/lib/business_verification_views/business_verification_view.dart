@@ -11,9 +11,9 @@ import 'package:google_fonts/google_fonts.dart';
 ///
 /// FOS Agent Verifies the Merchant by checking whether Merchant details like address,
 /// phone are correct or not.
-class MyHomePage extends StatefulWidget {
+class VerificationHomeView extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _VerificationHomeViewState createState() => _VerificationHomeViewState();
 }
 
 /// This enum type is used to select icon for header items.
@@ -38,7 +38,7 @@ enum headerName{
   business_phone
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _VerificationHomeViewState extends State<VerificationHomeView> {
 
   /// [isNameCorrect] stores whether Merchant name displayed is correct or not.
   bool isNameCorrect = false;
@@ -151,7 +151,6 @@ class _MyHomePageState extends State<MyHomePage> {
     if (choice == VerificationMenuItems.Cancel) {
       //When ever user clicks on discard verification it opens up verification failed
       //TODO: Need to return to home page after cancelling verification
-      //runApp(MyApp());
       _showCancelVerificationDialog();
     }
   }
@@ -204,9 +203,9 @@ class _MyHomePageState extends State<MyHomePage> {
   /// Selects icon to be returned based on icon type.
   ///
   /// Takes icon as parameter.
-  /// returns Icon widget with face icon when face icon type is passed.
-  /// returns Icon widget with phone icon when phone icon type is passed.
-  /// returns Icon widget with store icon when store icon type is passed.
+  /// Returns Icon widget with face icon when face icon type is passed.
+  /// Returns Icon widget with phone icon when phone icon type is passed.
+  /// Returns Icon widget with store icon when store icon type is passed.
   Widget _selectIcon(iconType icon){
     switch(icon){
       case iconType.face:
@@ -273,7 +272,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  /// returns the text on button to be displayed based on type of verification.
+  /// Returns the text on button to be displayed based on type of verification.
   String _getVerificationTypeText(verificationType type){
     switch(type){
       case verificationType.finish:
@@ -287,7 +286,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  /// returns the text to be displayed on header based on header name.
+  /// Returns the text to be displayed on header based on header name.
   String _getHeaderText(headerName name){
     switch(name){
       case headerName.merchant_details:
@@ -351,7 +350,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  /// returns the text to be displayed on header based on header name.
+  /// Returns the text to be displayed on header based on header name.
   String _getFieldName(headerName name){
     switch(name){
       case headerName.merchant_details:
@@ -363,7 +362,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  /// returns the value of the field fetched from server to be displayed based on header name.
+  /// Returns the value of the field fetched from server to be displayed based on header name.
   String _getFieldValue(headerName name){
     switch(name){
       case headerName.merchant_details:
@@ -375,7 +374,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  /// returns the variable value that defines correct or wrong button to be highlighted.
+  /// Returns the variable value that defines correct or wrong button to be highlighted.
   bool _getVariableValue(headerName name){
     switch(name){
       case headerName.merchant_details:
@@ -387,7 +386,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  /// sets the corresponding value of boolean variable based on header name.
+  /// Sets the corresponding value of boolean variable based on header name.
   void _setVariableValue(headerName name, bool value){
     switch(name){
       case headerName.merchant_details:
