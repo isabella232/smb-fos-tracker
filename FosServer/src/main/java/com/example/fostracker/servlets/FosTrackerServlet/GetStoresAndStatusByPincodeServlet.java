@@ -52,6 +52,7 @@ public class GetStoresAndStatusByPincodeServlet extends HttpServlet {
 
         if (json == null) {
             output.println("No data given");
+            response.setStatus(403);
         } else {
 
             // Convert json string to json object to parse data.
@@ -96,8 +97,10 @@ public class GetStoresAndStatusByPincodeServlet extends HttpServlet {
                     output.println(storeAndCoordinateDataIteratorString);
                 } while (storeAndCoordinateData.next());
                 storeAndCoordinateData.close();
+                response.setStatus(200);
             } else {
                 output.print("No data exists");
+                response.setStatus(403);
                 output.flush();
             }
 
