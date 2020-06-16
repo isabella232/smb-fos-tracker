@@ -151,6 +151,7 @@ class FetchStoreState extends State<FetchStore>{
             )
         );
   }
+  
   /// Fetches text of QR code by calling scan() API of qr_scan plugin.
   /// Navigate to [MerchantFound] interface if [qrcode] is registered with any store,
   /// else navigate to [MerchantNotFound] interface.
