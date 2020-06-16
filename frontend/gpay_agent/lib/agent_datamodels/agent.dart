@@ -36,7 +36,7 @@ class Agent {
       };
 
   String getName() {
-    if (AgentName.midName == "") {
+    if ((AgentName.midName).isEmpty) {
       return (AgentName.firstName + " " + AgentName.lastName);
     } else {
       return (AgentName.firstName +
