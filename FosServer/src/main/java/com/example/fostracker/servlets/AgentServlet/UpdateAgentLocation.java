@@ -1,4 +1,4 @@
-package com.example.fostracker.servlets;
+package com.example.fostracker.servlets.AgentServlet;
 
 import com.google.gson.Gson;
 

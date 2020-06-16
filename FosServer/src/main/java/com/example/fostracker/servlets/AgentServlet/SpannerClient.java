@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.fostracker.servlets;
+package com.example.fostracker.servlets.AgentServlet;
 
 import com.google.cloud.spanner.DatabaseClient;
 import com.google.cloud.spanner.DatabaseId;

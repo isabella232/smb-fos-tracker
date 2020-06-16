@@ -1,5 +1,6 @@
-package com.example.fostracker.servlets;
+package com.example.fostracker.servlets.AgentServlet;
 
+import com.example.fostracker.servlets.SpannerQueryFunctions;
 import com.google.cloud.spanner.ResultSet;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

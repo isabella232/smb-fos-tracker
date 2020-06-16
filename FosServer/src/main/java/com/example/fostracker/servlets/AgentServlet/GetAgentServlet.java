@@ -1,8 +1,9 @@
-package com.example.fostracker.servlets;
+package com.example.fostracker.servlets.AgentServlet;
 
 import com.example.fostracker.models.Agent;
 import com.example.fostracker.models.Coordinates;
 import com.example.fostracker.models.Name;
+import com.example.fostracker.servlets.SpannerQueryFunctions;
 import com.google.cloud.spanner.ResultSet;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
