@@ -1,4 +1,4 @@
-/// Model class for storing location coordinates of the agent user
+/// Model class for storing location coordinates of user
 class MapCoordinates {
   double latitude;
   double longitude;
