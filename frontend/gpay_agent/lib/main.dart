@@ -4,6 +4,8 @@ import 'package:agent_app/agent_views/login_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:agent_app/agent_datamodels/globals.dart' as globals;
+
 
 void main() {
   runApp(AgentApp());
@@ -30,6 +32,7 @@ class AgentApp extends StatelessWidget {
 
 /// Builds [StartAgentAppState]
 class StartAgentApp extends StatefulWidget{
+
   @override
   State<StatefulWidget> createState() {
     return StartAgentAppState();
@@ -57,6 +60,7 @@ class StartAgentAppState extends State<StartAgentApp>{
   @override
   void initState() {
     super.initState();
+    globals.googleSignIn.signOut();
 
     _geolocator = Geolocator();
     LocationOptions locationOptions = LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: UPDATE_DISTANCE);

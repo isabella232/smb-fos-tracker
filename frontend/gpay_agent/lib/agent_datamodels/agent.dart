@@ -31,4 +31,11 @@ class Agent{
         + 'AgentLatitude: $AgentLatitude, '
         + 'AgentLongitude: $AgentLongitude}';
   }
+
+  String getName() {
+    if (AgentMidName != "")
+      return (AgentFirstName+" "+AgentMidName+" "+AgentLastName);
+    else
+      return (AgentFirstName+" "+AgentLastName);
+  }
 }
