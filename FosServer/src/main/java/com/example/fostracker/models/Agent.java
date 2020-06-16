@@ -44,6 +44,15 @@ public class Agent {
         this.agentCreationDateTime = agentCreationDateTime;
     }
 
+    /**
+     * @param email                 - the gmail address associated with the agent's account
+     * @param coordinates           - The live coordinates of the agent at the time of creation. They can be updated later
+     */
+    public Agent( String email,Coordinates coordinates ) {
+        this.email = email;
+        this.coordinates = coordinates;
+    }
+
     public Name getAgentName() {
         return name;
     }

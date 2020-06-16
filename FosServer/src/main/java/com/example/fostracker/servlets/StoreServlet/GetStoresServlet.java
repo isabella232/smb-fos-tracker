@@ -46,6 +46,5 @@ public class GetStoresServlet extends HttpServlet {
             resp.getWriter().printf("StorePhone: %s, MerchantEmail: %s, StoreCoordinates:{%f, %f}\n", resultSet.getString(0), resultSet.getString(1), resultSet.getDouble(2), resultSet.getDouble(3));
         }
 
-
     }
 }
