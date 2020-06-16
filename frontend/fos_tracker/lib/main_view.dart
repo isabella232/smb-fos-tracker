@@ -45,8 +45,7 @@ class _MainViewState extends State<MainView> {
   void getAgentLocations() async {
     var result =
         await http.get("https://fos-tracker-278709.an.r.appspot.com/agents");
-    print(result.statusCode);
-    print(result.body);
+
     if (result.statusCode == 200) {
       LineSplitter lineSplitter = new LineSplitter();
       List<String> lines = lineSplitter.convert(result.body);
@@ -79,8 +78,6 @@ class _MainViewState extends State<MainView> {
   void getMerchantLocations() async {
     var result = await http
         .get("https://fos-tracker-278709.an.r.appspot.com/stores/status");
-    print(result.statusCode);
-    print(result.body);
     if (result.statusCode == 200) {
       LineSplitter lineSplitter = new LineSplitter();
       List<String> lines = lineSplitter.convert(result.body);
@@ -121,8 +118,6 @@ class _MainViewState extends State<MainView> {
     List<Agent> newAgents = [];
     var result =
         await http.get("https://fos-tracker-278709.an.r.appspot.com/agents");
-    print(result.statusCode);
-    print(result.body);
     if (result.statusCode == 200) {
       LineSplitter lineSplitter = new LineSplitter();
       List<String> lines = lineSplitter.convert(result.body);
@@ -206,9 +201,6 @@ class _MainViewState extends State<MainView> {
                 compassEnabled: true,
                 markers:
                     agentView ? globals.agentMarkers : globals.merchantMarkers,
-                onCameraMove: (position) {
-                  print(position.target);
-                },
               ),
         bottomNavigationBar: !agentView
             ? BottomNavigationBar(

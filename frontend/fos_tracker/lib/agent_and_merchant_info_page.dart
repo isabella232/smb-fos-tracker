@@ -45,24 +45,24 @@ class _AgentPageState extends State<AgentPage> {
     if (result.statusCode != 200) {
       setState(() {});
     } else {
-      LineSplitter lineSplitter = new LineSplitter();
-      List<String> lines = lineSplitter.convert(result.body);
-      String json = lines[0];
-      print(json);
-      var jsonDecoded = jsonDecode(json);
-      setState(() {
-        agentFirstName = jsonDecoded['name']['firstName'];
-        agentName = jsonDecoded['name']['firstName'] +
-            ' ' +
-            jsonDecoded['name']['middleName'] +
-            ' ' +
-            jsonDecoded['name']['lastName'];
-        agentPhone = jsonDecoded['phone'];
-        agentCreationTime = jsonDecoded['agentCreationDateTime'];
-        print(agentName);
-        print(agentPhone);
-        print(agentCreationTime);
-      });
+      try {
+        LineSplitter lineSplitter = new LineSplitter();
+        List<String> lines = lineSplitter.convert(result.body);
+        String json = lines[0];
+        var jsonDecoded = jsonDecode(json);
+        setState(() {
+          agentFirstName = jsonDecoded['name']['firstName'];
+          agentName = jsonDecoded['name']['firstName'] +
+              ' ' +
+              jsonDecoded['name']['middleName'] +
+              ' ' +
+              jsonDecoded['name']['lastName'];
+          agentPhone = jsonDecoded['phone'];
+          agentCreationTime = jsonDecoded['agentCreationDateTime'];
+        });
+      } catch (e) {
+        print(e + "error parsing agent info");
+      }
     }
   }
 
@@ -105,9 +105,7 @@ class _AgentPageState extends State<AgentPage> {
           zoomGesturesEnabled: true,
           myLocationEnabled: true,
           compassEnabled: true,
-          onCameraMove: (position) {
-            print(position.target);
-          },
+          onCameraMove: (position) {},
         ),
         collapsed: Center(
           child: Row(
@@ -153,39 +151,37 @@ class _MerchantPageState extends State<MerchantPage> {
     var result = await http.post(
         "https://fos-tracker-278709.an.r.appspot.com/store/phone",
         body: jsonEncode(<String, String>{"storePhone": widget.storePhone}));
-    print(result.statusCode);
     if (result.statusCode != 200) {
       setState(() {});
     } else {
-      LineSplitter lineSplitter = new LineSplitter();
-      List<String> lines = lineSplitter.convert(result.body);
-      String json = lines[0];
-      print(json);
-      var jsonDecoded = jsonDecode(json);
-      setState(() {
-        storeName = jsonDecoded['storeName'];
-        ownerName = jsonDecoded['ownerName']['firstName'] +
-            ' ' +
-            jsonDecoded['ownerName']['middleName'] +
-            ' ' +
-            jsonDecoded['ownerName']['lastName'];
-        storeCreationTime = jsonDecoded['creationDateTime'];
-        address = jsonDecoded['storeAddress']['street'] +
-            "\n" +
-            jsonDecoded['storeAddress']['area'] +
-            "\n" +
-            jsonDecoded['storeAddress']['city'] +
-            "\n" +
-            jsonDecoded['storeAddress']['state'] +
-            "\n" +
-            jsonDecoded['storeAddress']['pincode'] +
-            "\n" +
-            jsonDecoded['storeAddress']['country'];
-        print(storeName);
-        print(ownerName);
-        print(storeCreationTime);
-        print(address);
-      });
+      try {
+        LineSplitter lineSplitter = new LineSplitter();
+        List<String> lines = lineSplitter.convert(result.body);
+        String json = lines[0];
+        var jsonDecoded = jsonDecode(json);
+        setState(() {
+          storeName = jsonDecoded['storeName'];
+          ownerName = jsonDecoded['ownerName']['firstName'] +
+              ' ' +
+              jsonDecoded['ownerName']['middleName'] +
+              ' ' +
+              jsonDecoded['ownerName']['lastName'];
+          storeCreationTime = jsonDecoded['creationDateTime'];
+          address = jsonDecoded['storeAddress']['street'] +
+              "\n" +
+              jsonDecoded['storeAddress']['area'] +
+              "\n" +
+              jsonDecoded['storeAddress']['city'] +
+              "\n" +
+              jsonDecoded['storeAddress']['state'] +
+              "\n" +
+              jsonDecoded['storeAddress']['pincode'] +
+              "\n" +
+              jsonDecoded['storeAddress']['country'];
+        });
+      } catch (e) {
+        print(e + "error parsing merchant info");
+      }
     }
   }
 
