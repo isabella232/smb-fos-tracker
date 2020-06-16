@@ -88,6 +88,7 @@ public class GetAgentsEmailAndCoordinatesServlet extends HttpServlet {
             } while (agentsEmailAndCoordinatesData.next());
             agentsEmailAndCoordinatesData.close();
         } else {
+            response.setStatus(403);
             output.print("No data exists");
             output.flush();
         }

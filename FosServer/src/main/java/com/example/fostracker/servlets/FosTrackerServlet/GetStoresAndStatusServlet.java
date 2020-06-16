@@ -100,6 +100,7 @@ public class GetStoresAndStatusServlet extends HttpServlet {
             storeAndCoordinateData.close();
         } else {
             output.print("No data exists");
+            response.setStatus(403);
             output.flush();
         }
 

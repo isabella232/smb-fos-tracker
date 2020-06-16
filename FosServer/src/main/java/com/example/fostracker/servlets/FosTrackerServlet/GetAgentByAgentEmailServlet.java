@@ -116,6 +116,7 @@ public class GetAgentByAgentEmailServlet extends HttpServlet {
                     output.println(agentDataIteratorString);
                     agentData.close();
                 } else {
+                    response.setStatus(403);
                     output.print("No agent with given email id exists");
                     output.flush();
                 }

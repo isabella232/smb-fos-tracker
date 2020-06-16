@@ -123,6 +123,7 @@ public class GetStoreByStorePhoneServlet extends HttpServlet {
                 output.println(storeDataIteratorString);
                 storeData.close();
             } else {
+                response.setStatus(403);
                 output.print("No store with given phone number exists");
                 output.flush();
             }

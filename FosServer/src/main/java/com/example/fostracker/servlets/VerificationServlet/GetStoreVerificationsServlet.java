@@ -93,6 +93,7 @@ public class GetStoreVerificationsServlet extends HttpServlet {
             verificationData.close();
         } else {
             output.print("No data exists");
+            response.setStatus(403);
             output.flush();
         }
 

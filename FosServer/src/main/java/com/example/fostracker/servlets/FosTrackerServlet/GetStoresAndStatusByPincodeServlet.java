@@ -51,8 +51,8 @@ public class GetStoresAndStatusByPincodeServlet extends HttpServlet {
         output = response.getWriter();
 
         if (json == null) {
-            output.println("No data given");
             response.setStatus(403);
+            output.println("No data given");
         } else {
 
             // Convert json string to json object to parse data.
@@ -65,6 +65,7 @@ public class GetStoresAndStatusByPincodeServlet extends HttpServlet {
             Store storeAndCoordinateDataIterator;
             // storeAndCoordinateDataIteratorString stores the storeAndCoordinateDataIterator object as json String.
             String storeAndCoordinateDataIteratorString;
+
 
             // Querying the database table and storing in storeAndCoordinateData.
             ResultSet storeAndCoordinateData = StoreDatabaseHelper.queryStoresUsingPincode(storePincode);
@@ -97,13 +98,12 @@ public class GetStoresAndStatusByPincodeServlet extends HttpServlet {
                     output.println(storeAndCoordinateDataIteratorString);
                 } while (storeAndCoordinateData.next());
                 storeAndCoordinateData.close();
-                response.setStatus(200);
-            } else {
-                output.print("No data exists");
+//                response.setStatus(200);
+             } else {
                 response.setStatus(403);
+                output.print("No data exists");
                 output.flush();
             }
-
             // Prints success message.
             output.print("Successful");
             output.flush();
