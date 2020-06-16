@@ -60,7 +60,6 @@ public class StoreDatabaseHelper {
      */
     public static Coordinates queryStoreCoordinatesUsingStorePhone(String storePhone) {
 
-        // storeCoordinates store the store coordinates
         Coordinates storeCoordinates;
 
         // SQL statement to query store coordinates using store phone number.
