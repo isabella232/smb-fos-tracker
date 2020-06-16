@@ -38,7 +38,7 @@ import com.example.fostracker.servlets.VerificationServlet.VerificationDatabaseH
  * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/verification").
  */
 @WebServlet(value = "/stores/status")
-public class GetStoresWithStatusServlet extends HttpServlet {
+public class GetStoresAndStatusServlet extends HttpServlet {
 
     // Gson object that is used to convert Strings into JSON objects
     private Gson gson = new Gson();
