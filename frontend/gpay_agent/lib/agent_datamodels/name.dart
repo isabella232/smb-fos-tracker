@@ -16,6 +16,7 @@ class Name{
       json['lastName'] as String,
     );
   }
+
   Map<String, dynamic> toJson() =>
       {
         'firstName': firstName,
