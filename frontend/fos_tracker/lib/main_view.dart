@@ -157,7 +157,7 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    const oneSec = const Duration(seconds: 1);
+    const oneSec = const Duration(milliseconds: 500);
     new Timer.periodic(oneSec, (Timer t) => httpDone ? updateMarker() : null);
     return Scaffold(
         appBar: AppBar(
