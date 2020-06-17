@@ -48,6 +48,7 @@ public class VerificationDatabaseHelper {
     public final static String COLUMN_VERIFICATION_TIME = "VerificationTime";
 
     private final static String QUERY_STORE_PHONE = "storePhone";
+    private final static String QUERY_AGENT_EMAIL = "agentEmail";
 
     /**
      * Writes data into verification table using Mutations
@@ -97,16 +98,29 @@ public class VerificationDatabaseHelper {
      *
      * @return ResultSet object that refers to all rows in verifications table
      */
-    public static ResultSet queryStoreAndStatusData() {
+    public static ResultSet queryStoreAndStatusDataByEmail(String email) {
 
-        ResultSet storeAndStatusData =
-                SpannerClient.getDatabaseClient()
-                        .singleUse()
-                        .executeQuery(Statement.of("SELECT " + COLUMN_STORE_PHONE + ", "
-                                + COLUMN_VERIFICATION_STATUS
-                                + " FROM " + TABLE_NAME));
+        ResultSet storeAndStatusData;
+        Statement statement =
+                Statement.newBuilder(
+                        "SELECT " + COLUMN_STORE_PHONE +
+                                ", " + COLUMN_VERIFICATION_STATUS
+                                + " FROM " + TABLE_NAME
+                                + " WHERE " + COLUMN_AGENT_EMAIL
+                                + " = @" + QUERY_AGENT_EMAIL)
+                        .bind(QUERY_AGENT_EMAIL)
+                        .to(email)
+                        .build();
 
-        return storeAndStatusData;
+        try {
+            storeAndStatusData =
+                    SpannerClient.getDatabaseClient()
+                            .singleUse()
+                            .executeQuery(statement);
+            return storeAndStatusData;
+        }catch (Exception e) {
+            return null;
+        }
     }
 
     /**
