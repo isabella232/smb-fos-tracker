@@ -96,8 +96,19 @@ public class SpannerQueryFunctions {
         return numberOfRowsAffected[0];
     }
 
-    public void getNumberOfMerchantsByStatus(HttpServletResponse resp) throws IOException {
-        PrintWriter pw = resp.getWriter();
+    /**
+     * Makes spanner query for getting the number of merchants in every verification status category
+     * @param response
+     * @return resultSet containing 4 rows corresponding to 4 possible verification status values - SUCCESS, FAIL, REVISIT, UNVISITED
+     * @throws IOException
+     */
+    public static ResultSet getNumberOfStoresByStatus() throws IOException {
+        ResultSet resultSet = SpannerClient.getDatabaseClient()
+                .singleUse()
+                .executeQuery(
+                        Statement.of(
+                                "SELECT VerificationStatus, COUNT(*) AS NumberOfStores FROM Verifications FULL JOIN Stores ON Stores.StorePhone = Verifications.StorePhone GROUP BY VerificationStatus"));
+        return resultSet;
 
     }
 }

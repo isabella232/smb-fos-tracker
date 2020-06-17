@@ -12,14 +12,15 @@ com/example/fostracker/servlets/FosTrackerServlet/GetAgentByAgentEmailServlet.cl
 com/example/fostracker/servlets/GetStoresServlet.class
 com/example/fostracker/servlets/AgentServlet/NumberOfMerchantsVerified.class
 com/example/fostracker/servlets/VerificationServlet/AddStoreVerificationStatusServlet.class
+com/example/fostracker/servlets/FosTrackerServlet/GetNumberOfStoresByStatus.class
 com/example/fostracker/models/Address.class
 com/example/fostracker/models/Agent.class
 com/example/fostracker/servlets/AgentServlet/GetAgentServlet.class
 com/example/fostracker/models/Name.class
 com/example/fostracker/models/Verification.class
 com/example/fostracker/servlets/FosTrackerServlet/StoreDatabaseHelper.class
-com/example/fostracker/servlets/AgentServlet/UpdateAgentLocation.class
 com/example/fostracker/servlets/AgentServlet/SpannerQueryFunctions$1.class
+com/example/fostracker/servlets/AgentServlet/UpdateAgentLocation.class
 com/example/fostracker/servlets/VerificationServlet/VerificationDatabaseHelper.class
 com/example/fostracker/servlets/VerificationServlet/GetStoreVerificationsServlet.class
 com/example/fostracker/servlets/AgentServlet/SpannerQueryFunctions.class
