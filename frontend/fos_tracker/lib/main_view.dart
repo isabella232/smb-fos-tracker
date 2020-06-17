@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fos_tracker/agent_and_merchant_info_page.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -20,7 +21,7 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  Completer<GoogleMapController> controller;
+  Completer<GoogleMapController> controller = Completer();
   bool agentView = true;
   bool httpDone = true;
 
@@ -155,14 +156,83 @@ class _MainViewState extends State<MainView> {
     });
   }
 
+  Future<void> updateLocation(
+      Completer<GoogleMapController> controllerArg) async {
+    final GoogleMapController controller = await controllerArg.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(target: globals.startPosition)));
+  }
+
   @override
   Widget build(BuildContext context) {
+    showPincodeDialog() {
+      TextEditingController pincodeController = new TextEditingController();
+      Widget okButton = FlatButton(
+        child: Text("OK"),
+        onPressed: () async {
+          globals.pincode = pincodeController.text;
+          try {
+            int pincode = int.parse(globals.pincode);
+            if (pincode >= 100000 && pincode <= 999999) {
+              GoogleMapController contr = await controller.future;
+              final query = pincode.toString();
+              var addresses =
+                  await Geocoder.local.findAddressesFromQuery(query);
+              var first = addresses.first;
+              setState(() {
+                contr.animateCamera(CameraUpdate.newCameraPosition(
+                    CameraPosition(
+                        target: LatLng(first.coordinates.latitude,
+                            first.coordinates.longitude),
+                        zoom: 14)));
+              });
+              Navigator.of(context).pop();
+            } else {
+              Navigator.of(context).pop();
+              globals.showAlertDialog("Error", "Invalid pincode", context);
+            }
+          } catch (e) {
+            Navigator.of(context).pop();
+            globals.showAlertDialog("Error", "Could not find pincode", context);
+          }
+        },
+      );
+
+      AlertDialog alert = AlertDialog(
+        title: Text("Input Pincode"),
+        content: TextField(
+          controller: pincodeController,
+          keyboardType: TextInputType.number,
+        ),
+        actions: [
+          okButton,
+        ],
+      );
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
+
     // This is where the constant update of agents location happens.
     const oneSec = const Duration(milliseconds: 500);
     new Timer.periodic(oneSec, (Timer t) => httpDone ? updateMarker() : null);
     return Scaffold(
         appBar: AppBar(
           title: agentView ? Text("Agents") : Text("Merchants"),
+          actions: <Widget>[
+            agentView
+                ? SizedBox()
+                : IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () async {
+                      showPincodeDialog();
+                    },
+                  )
+          ],
         ),
         drawer: Drawer(
           child: ListView(
