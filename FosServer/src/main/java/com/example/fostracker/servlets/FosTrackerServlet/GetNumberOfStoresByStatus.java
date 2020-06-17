@@ -48,7 +48,7 @@ public class GetNumberOfStoresByStatus extends HttpServlet {
     /**
      * HTTP Get method prints the query as response.
      *
-     * @param agentEmailAndCoordinatesRequest is GET request.
+     * @param request                         is GET request.
      * @param response                        is HttpServletResponse object that is used to write the response.
      * @throws ServletException
      * @throws IOException
