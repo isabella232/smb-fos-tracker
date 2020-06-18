@@ -94,7 +94,7 @@ public class VerificationDatabaseHelper {
     }
 
     /**
-     * Queries the complete verifications table.
+     * Queries the verification table for all stores verified by agent.
      *
      * @return ResultSet object that refers to all rows in verifications table
      */

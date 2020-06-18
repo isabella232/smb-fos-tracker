@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Prints the Store details with status based on given pincode from Stores table in JSON format.
+ * Prints the Store details with status verified by particular agent from Stores table in JSON format.
  * <p>
  * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/stores/status/pincode").
  */
@@ -61,23 +61,23 @@ public class GetStoresVerifiedByAgentServlet extends HttpServlet {
             // Get email from the JSON object.
             String agentEmail = jsonObj.get("agentEmail").getAsString();
 
-            // storeAndCoordinateDataIterator is a Store object that is used to store the row we are iterating.
+            // storeAndStatusDataIterator is a Store object that is used to store the row we are iterating
             Store storeAndStatusDataIterator;
-            // storeAndCoordinateDataIteratorString stores the storeAndCoordinateDataIterator object as json String.
+            // storeAndStatusDataIteratorString stores the storeAndCoordinateDataIterator object as json String.
             String storeAndStatusDataIteratorString;
 
 
-            // Querying the database table and storing in storeAndCoordinateData.
+            // Querying the database table for stores verified by the agent email and storing in the storeAndStatusData.
             ResultSet storeAndStatusData = VerificationDatabaseHelper.queryStoreAndStatusDataByEmail(agentEmail);
 
             // If storeAndStatusData is not empty then prints all the rows else prints "No data exists".
             if (storeAndStatusData.next()) {
-                // stores the indexes of columns in storeAndCoordinateData ( ResultSet object ).
+                // stores the indexes of columns in storeAndStatusData ( ResultSet object ).
                 int columnStorePhoneIndex =
                         storeAndStatusData.getColumnIndex(VerificationDatabaseHelper.COLUMN_STORE_PHONE);
                 int columnStoreStatusIndex =
                         storeAndStatusData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_STATUS);
-                // Loop through all rows and stores the row data in storeAndCoordinateDataIterator. Converts storeAndCoordinateDataIterator into
+                // Loop through all rows and stores the row data in storeAndStatusDataIterator. Converts storeAndStatusDataIterator into
                 // json object and prints to the screen.
                 do {
 
@@ -90,7 +90,6 @@ public class GetStoresVerifiedByAgentServlet extends HttpServlet {
                     output.println(storeAndStatusDataIteratorString);
                 } while (storeAndStatusData.next());
                 storeAndStatusData.close();
-//                response.setStatus(200);
             } else {
                 response.setStatus(403);
                 output.print("No data exists");
