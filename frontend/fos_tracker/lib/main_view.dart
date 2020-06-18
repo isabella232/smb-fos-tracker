@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:fos_tracker/agent_and_merchant_info_page.dart';
+import 'package:fos_tracker/agent_info_page.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 
 import 'agent.dart';
 import 'globals.dart' as globals;
+import 'merchant_info_page.dart';
 import 'store.dart';
 
 /*
@@ -62,7 +63,45 @@ class _MainViewState extends State<MainView> {
                   markerId: MarkerId(agent.email),
                   position: LatLng(
                       agent.coordinates.latitude, agent.coordinates.longitude),
-                  onTap: () {
+                  onTap: () async {
+                    globals.verifiedMerchantMarkers.clear();
+                    globals.currentPosition = LatLng(agent.coordinates.latitude, agent.coordinates.longitude);
+                      var result = await http.post("https://fos-tracker-278709.an.r.appspot.com/agent/stores/status/", body: jsonEncode(<String, String>{"agentEmail": agent.email}));
+                      print(agent.email);
+                      print(result.statusCode);
+                      if (result.statusCode == 200) {
+                        LineSplitter lineSplitter = new LineSplitter();
+                        List<String> lines = lineSplitter.convert(result.body);
+                        for (var x in lines) {
+                          if (x != 'Successful') {
+                            Store store = Store.fromJson(jsonDecode(x));
+                            setState(() {
+                              globals.verifiedMerchantMarkers.add(
+                                Marker(
+                                    markerId: MarkerId(store.storePhone),
+                                    position: LatLng(
+                                        store.coordinates.latitude, store.coordinates.longitude),
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => MerchantPage(
+                                                storePhone: store.storePhone,
+                                              )));
+                                    },
+                                    icon: BitmapDescriptor.defaultMarkerWithHue(
+                                        store.status == 'grey'
+                                            ? BitmapDescriptor.hueYellow
+                                            : (store.status == 'green'
+                                            ? BitmapDescriptor.hueGreen
+                                            : BitmapDescriptor.hueRed))),
+                              );
+                            });
+                          }
+                        }
+                      }
+                    print(globals.verifiedMerchantMarkers.length);
+                    print("^^^^^^^^^");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -70,8 +109,8 @@ class _MainViewState extends State<MainView> {
                                   agentEmail: agent.email,
                                 )));
                   },
-                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                      BitmapDescriptor.hueGreen)),
+                  icon: /*BitmapDescriptor.defaultMarkerWithHue(
+                      BitmapDescriptor.hueGreen)*/ BitmapDescriptor.fromAsset("images/agent.png")),
             );
           });
         }
@@ -139,7 +178,45 @@ class _MainViewState extends State<MainView> {
         globals.agentMarkers.add(Marker(
             markerId: MarkerId(x.email),
             position: LatLng(x.coordinates.latitude, x.coordinates.longitude),
-            onTap: () {
+            onTap: () async{
+              globals.verifiedMerchantMarkers.clear();
+                globals.currentPosition = LatLng(x.coordinates.latitude, x.coordinates.longitude);
+                var result = await http.post("https://fos-tracker-278709.an.r.appspot.com/agent/stores/status/", body: jsonEncode(<String, String>{"agentEmail": x.email}));
+                print(x.email);
+                print(result.statusCode);
+                if (result.statusCode == 200) {
+                  LineSplitter lineSplitter = new LineSplitter();
+                  List<String> lines = lineSplitter.convert(result.body);
+                  for (var x in lines) {
+                    if (x != 'Successful') {
+                      Store store = Store.fromJson(jsonDecode(x));
+                      setState(() {
+                        globals.verifiedMerchantMarkers.add(
+                          Marker(
+                              markerId: MarkerId(store.storePhone),
+                              position: LatLng(
+                                  store.coordinates.latitude, store.coordinates.longitude),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MerchantPage(
+                                          storePhone: store.storePhone,
+                                        )));
+                              },
+                              icon: BitmapDescriptor.defaultMarkerWithHue(
+                                  store.status == 'grey'
+                                      ? BitmapDescriptor.hueYellow
+                                      : (store.status == 'green'
+                                      ? BitmapDescriptor.hueGreen
+                                      : BitmapDescriptor.hueRed))),
+                        );
+                      });
+                    }
+                  }
+                }
+              print(globals.verifiedMerchantMarkers.length);
+              print("^^^^^^^^^");
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -147,8 +224,10 @@ class _MainViewState extends State<MainView> {
                             agentEmail: x.email,
                           )));
             },
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueGreen)));
+//            icon: BitmapDescriptor.defaultMarkerWithHue(
+//                BitmapDescriptor.hueGreen)
+              icon: BitmapDescriptor.fromAsset("images/agent_mid.png")
+        ));
       });
     }
     setState(() {
