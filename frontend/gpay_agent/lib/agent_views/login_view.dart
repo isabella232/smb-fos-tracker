@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:agent_app/agent_datamodels/globals.dart' as globals;
+import 'package:agent_app/globals.dart' as globals;
 import 'package:agent_app/agent_datamodels/agent.dart';
 import 'package:agent_app/agent_views/welcome_agent.dart';
 import 'package:flutter/cupertino.dart';

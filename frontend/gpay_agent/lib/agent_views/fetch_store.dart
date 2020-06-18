@@ -4,8 +4,9 @@ import 'package:agent_app/custom_widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:agent_app/agent_datamodels/globals.dart' as globals;
+import 'package:agent_app/globals.dart' as globals;
 import 'package:qrscan/qrscan.dart' as scanner;
+import 'package:agent_app/agent_datamodels/store.dart';
 
 class FetchStore extends StatefulWidget {
   FetchStoreState createState() => FetchStoreState();
@@ -81,13 +82,14 @@ class FetchStoreState extends State<FetchStore> {
                         minWidth: 200,
                         height: 50,
                         child: RaisedButton(
-                          onPressed: () {
-                            if (num == "+919999999999") {
+                          onPressed: () async {
+                            await Store.fetchStore(num.substring(3));
+                            if (globals.isStorePresent) {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => MerchantFound(
-                                    name: "Alice Peterson",
+                                    name: globals.store.ownerName.getName(),
                                   ),
                                 ),
                               );

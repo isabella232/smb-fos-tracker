@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:agent_app/agent_views/fetch_store.dart';
-import 'package:agent_app/custom_widgets//app_bar.dart';
+import 'package:agent_app/custom_widgets/app_bar.dart';
 import 'package:agent_app/custom_widgets/personal_details_textbox.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:agent_app/agent_datamodels/globals.dart' as globals;
+import 'package:agent_app/globals.dart' as globals;
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
