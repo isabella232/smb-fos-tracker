@@ -61,7 +61,7 @@ class _MerchantHomeViewState extends State<MerchantHomeView> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => MyHomePage()));
+              MaterialPageRoute(builder: (context) => VerificationHomeView()));
         },
         tooltip: 'Next',
         shape: RoundedRectangleBorder(),
