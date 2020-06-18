@@ -16,25 +16,72 @@ class _VerificationSuccessViewState extends State<VerificationSuccessView> {
         elevation: 0.0,
         bottomOpacity: 0.0,
       ),
-      body: Center(
-        child: ListView(
-          padding: const EdgeInsets.all(8.0),
-          children: <Widget>[
-            Image.asset('assets/verification_images/thumbs_up_success.gif'),
-            Container(
-              height: 50.0,
-              child: const Center(
-                child: Text(
-                  'Verification Successful!',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                  ),
-                ),
-              ),
-            )
-          ],
+      body: OrientationBuilder(
+        builder: (context, orientation){
+          if(orientation == Orientation.portrait){
+            return _buildSuccessPortraitView();
+          }
+          else{
+            return _buildSuccessLandScapeView();
+          }
+        }
+      )
+    );
+  }
+
+  /// Builds success landscape view.
+  ///
+  /// Contains gif and message in a row.
+  Widget _buildSuccessLandScapeView(){
+    return  Row(
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: Image.asset('assets/verification_images/thumbs_up_success.gif'),
+          )
         ),
-      ),
+        Expanded(
+          flex: 1,
+          child: const Center(
+            child: Text(
+              'Verification Successful!',
+              style: TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  /// Builds success portrait view.
+  ///
+  /// Contains gif and message in a row.
+  Widget _buildSuccessPortraitView(){
+    return  Column(
+      children: <Widget>[
+        Expanded(
+            flex: 1,
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Image.asset('assets/verification_images/thumbs_up_success.gif'),
+            )
+        ),
+        Expanded(
+          flex: 1,
+          child: const Center(
+            child: Text(
+              'Verification Successful!',
+              style: TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
