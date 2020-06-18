@@ -65,41 +65,45 @@ class _MainViewState extends State<MainView> {
                       agent.coordinates.latitude, agent.coordinates.longitude),
                   onTap: () async {
                     globals.verifiedMerchantMarkers.clear();
-                    globals.currentPosition = LatLng(agent.coordinates.latitude, agent.coordinates.longitude);
-                      var result = await http.post("https://fos-tracker-278709.an.r.appspot.com/agent/stores/status/", body: jsonEncode(<String, String>{"agentEmail": agent.email}));
-                      print(agent.email);
-                      print(result.statusCode);
-                      if (result.statusCode == 200) {
-                        LineSplitter lineSplitter = new LineSplitter();
-                        List<String> lines = lineSplitter.convert(result.body);
-                        for (var x in lines) {
-                          if (x != 'Successful') {
-                            Store store = Store.fromJson(jsonDecode(x));
-                            setState(() {
-                              globals.verifiedMerchantMarkers.add(
-                                Marker(
-                                    markerId: MarkerId(store.storePhone),
-                                    position: LatLng(
-                                        store.coordinates.latitude, store.coordinates.longitude),
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => MerchantPage(
-                                                storePhone: store.storePhone,
-                                              )));
-                                    },
-                                    icon: BitmapDescriptor.defaultMarkerWithHue(
-                                        store.status == 'grey'
-                                            ? BitmapDescriptor.hueYellow
-                                            : (store.status == 'green'
-                                            ? BitmapDescriptor.hueGreen
-                                            : BitmapDescriptor.hueRed))),
-                              );
-                            });
-                          }
+                    globals.currentPosition = LatLng(agent.coordinates.latitude,
+                        agent.coordinates.longitude);
+                    var result = await http.post(
+                        "https://fos-tracker-278709.an.r.appspot.com/agent/stores/status/",
+                        body: jsonEncode(
+                            <String, String>{"agentEmail": agent.email}));
+                    print(agent.email);
+                    print(result.statusCode);
+                    if (result.statusCode == 200) {
+                      LineSplitter lineSplitter = new LineSplitter();
+                      List<String> lines = lineSplitter.convert(result.body);
+                      for (var x in lines) {
+                        if (x != 'Successful') {
+                          Store store = Store.fromJson(jsonDecode(x));
+                          setState(() {
+                            globals.verifiedMerchantMarkers.add(
+                              Marker(
+                                  markerId: MarkerId(store.storePhone),
+                                  position: LatLng(store.coordinates.latitude,
+                                      store.coordinates.longitude),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MerchantPage(
+                                                  storePhone: store.storePhone,
+                                                )));
+                                  },
+                                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                                      store.status == 'grey'
+                                          ? BitmapDescriptor.hueYellow
+                                          : (store.status == 'green'
+                                              ? BitmapDescriptor.hueGreen
+                                              : BitmapDescriptor.hueRed))),
+                            );
+                          });
                         }
                       }
+                    }
                     print(globals.verifiedMerchantMarkers.length);
                     print("^^^^^^^^^");
                     Navigator.push(
@@ -109,8 +113,10 @@ class _MainViewState extends State<MainView> {
                                   agentEmail: agent.email,
                                 )));
                   },
-                  icon: /*BitmapDescriptor.defaultMarkerWithHue(
-                      BitmapDescriptor.hueGreen)*/ BitmapDescriptor.fromAsset("images/agent.png")),
+                  icon:
+                      /*BitmapDescriptor.defaultMarkerWithHue(
+                      BitmapDescriptor.hueGreen)*/
+                      BitmapDescriptor.fromAsset("images/a.png")),
             );
           });
         }
@@ -124,6 +130,7 @@ class _MainViewState extends State<MainView> {
     if (result.statusCode == 200) {
       LineSplitter lineSplitter = new LineSplitter();
       List<String> lines = lineSplitter.convert(result.body);
+      globals.merchantMarkers.clear();
       for (var x in lines) {
         if (x != 'Successful') {
           Store store = Store.fromJson(jsonDecode(x));
@@ -141,12 +148,11 @@ class _MainViewState extends State<MainView> {
                                   storePhone: store.storePhone,
                                 )));
                   },
-                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                      store.status == 'grey'
-                          ? BitmapDescriptor.hueYellow
-                          : (store.status == 'green'
-                              ? BitmapDescriptor.hueGreen
-                              : BitmapDescriptor.hueRed))),
+                  icon: store.status == 'grey'
+                      ? BitmapDescriptor.fromAsset('images/m_grey.png')
+                      : (store.status == 'green'
+                          ? BitmapDescriptor.fromAsset('images/m_green.png')
+                          : BitmapDescriptor.fromAsset('images/m_red.png'))),
             );
           });
         }
@@ -178,43 +184,51 @@ class _MainViewState extends State<MainView> {
         globals.agentMarkers.add(Marker(
             markerId: MarkerId(x.email),
             position: LatLng(x.coordinates.latitude, x.coordinates.longitude),
-            onTap: () async{
+            onTap: () async {
               globals.verifiedMerchantMarkers.clear();
-                globals.currentPosition = LatLng(x.coordinates.latitude, x.coordinates.longitude);
-                var result = await http.post("https://fos-tracker-278709.an.r.appspot.com/agent/stores/status/", body: jsonEncode(<String, String>{"agentEmail": x.email}));
-                print(x.email);
-                print(result.statusCode);
-                if (result.statusCode == 200) {
-                  LineSplitter lineSplitter = new LineSplitter();
-                  List<String> lines = lineSplitter.convert(result.body);
-                  for (var x in lines) {
-                    if (x != 'Successful') {
-                      Store store = Store.fromJson(jsonDecode(x));
-                      setState(() {
-                        globals.verifiedMerchantMarkers.add(
-                          Marker(
-                              markerId: MarkerId(store.storePhone),
-                              position: LatLng(
-                                  store.coordinates.latitude, store.coordinates.longitude),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MerchantPage(
-                                          storePhone: store.storePhone,
-                                        )));
-                              },
-                              icon: BitmapDescriptor.defaultMarkerWithHue(
-                                  store.status == 'grey'
-                                      ? BitmapDescriptor.hueYellow
-                                      : (store.status == 'green'
-                                      ? BitmapDescriptor.hueGreen
-                                      : BitmapDescriptor.hueRed))),
-                        );
-                      });
-                    }
+              globals.currentPosition =
+                  LatLng(x.coordinates.latitude, x.coordinates.longitude);
+              var result = await http.post(
+                  "https://fos-tracker-278709.an.r.appspot.com/agent/stores/status/",
+                  body: jsonEncode(<String, String>{"agentEmail": x.email}));
+              print(x.email);
+              print(result.statusCode);
+              if (result.statusCode == 200) {
+                LineSplitter lineSplitter = new LineSplitter();
+                List<String> lines = lineSplitter.convert(result.body);
+                for (var x in lines) {
+                  if (x != 'Successful') {
+                    Store store = Store.fromJson(jsonDecode(x));
+                    setState(() {
+                      globals.verifiedMerchantMarkers.add(
+                        Marker(
+                            markerId: MarkerId(store.storePhone),
+                            position: LatLng(store.coordinates.latitude,
+                                store.coordinates.longitude),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MerchantPage(
+                                            storePhone: store.storePhone,
+                                          )));
+                            },
+//                              icon: BitmapDescriptor.defaultMarkerWithHue(
+                            icon: store.status == 'grey'
+                                ? BitmapDescriptor.fromAsset(
+                                    'images/m_grey.png')
+                                : (store.status == 'green'
+                                    ? BitmapDescriptor.fromAsset(
+                                        'images/m_green.png')
+                                    : BitmapDescriptor.fromAsset(
+                                        'images/m_red.png'))
+//                              )
+                            ),
+                      );
+                    });
                   }
                 }
+              }
               print(globals.verifiedMerchantMarkers.length);
               print("^^^^^^^^^");
               Navigator.push(
@@ -226,8 +240,7 @@ class _MainViewState extends State<MainView> {
             },
 //            icon: BitmapDescriptor.defaultMarkerWithHue(
 //                BitmapDescriptor.hueGreen)
-              icon: BitmapDescriptor.fromAsset("images/agent_mid.png")
-        ));
+            icon: BitmapDescriptor.fromAsset("images/a.png")));
       });
     }
     setState(() {
@@ -303,10 +316,13 @@ class _MainViewState extends State<MainView> {
         appBar: AppBar(
           title: agentView ? Text("Agents") : Text("Merchants"),
           actions: <Widget>[
+            agentView ? SizedBox() : IconButton(icon: Icon(Icons.refresh), onPressed: getMerchantLocations,),
             agentView
                 ? SizedBox()
-                : IconButton(
-                    icon: Icon(Icons.search),
+                : FlatButton(
+//                    icon: Icon(Icons.search),
+            child: Row(children: <Widget>[Text("Pincode ", softWrap: true, style: TextStyle(color: Colors.white, fontSize: 12),), Icon(Icons.search, color: Colors.white, size: 12,)],),
+//                    child: Text("Search by pincode", softWrap: true, style: TextStyle(color: Colors.white, fontSize: 12),),
                     onPressed: () async {
                       showPincodeDialog();
                     },
@@ -367,7 +383,7 @@ class _MainViewState extends State<MainView> {
                         "failed",
                       )),
                   new BottomNavigationBarItem(
-                      icon: Icon(Icons.brightness_1, color: Colors.yellow),
+                      icon: Icon(Icons.brightness_1, color: Colors.grey),
                       title: Text("incomplete")),
                   new BottomNavigationBarItem(
                       icon: Icon(Icons.brightness_1, color: Colors.lightGreen),

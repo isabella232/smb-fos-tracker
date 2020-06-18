@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'globals.dart' as globals;
 
 /*
