@@ -28,9 +28,8 @@ class LoginViewState extends State<LoginView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image.asset(
-                    "assets/agent_beginning_images/GPay_logo.png",
-                    width: 200,
-                    height: 200,
+                    "assets/agent_beginning_images/GPay_logo_rectangle.png",
+                    height: 40,
                   ),
                   Text(
                     "Welcome to Google Pay Agent",
