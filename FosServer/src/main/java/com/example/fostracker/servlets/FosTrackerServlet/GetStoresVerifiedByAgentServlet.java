@@ -31,13 +31,14 @@ public class GetStoresVerifiedByAgentServlet extends HttpServlet {
     /**
      * HTTP Get method prints the query as response.
      *
-     * @param agentVerifiedStoreDetailsRequest is GET request.
-     * @param response                   is HttpServletResponse object that is used to write the response.
+     * @param agentVerifiedStoreDetailsRequest  GET request.
+     * @param response                    HttpServletResponse object that is used to write the response.
      * @throws ServletException
      * @throws IOException
      */
     @Override
-    protected void doPost(HttpServletRequest agentVerifiedStoreDetailsRequest, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest agentVerifiedStoreDetailsRequest, HttpServletResponse response)
+            throws ServletException, IOException {
 
         // Reads the json String using POST request.
         String json = agentVerifiedStoreDetailsRequest.getReader().readLine();
@@ -104,7 +105,7 @@ public class GetStoresVerifiedByAgentServlet extends HttpServlet {
     /**
      * Converts the verification status into its corresponding integer.
      *
-     * @param status is status of verification.
+     * @param status  status of verification.
      * @return returns its corresponding integer.
      */
     private static int getStatusInt(String status) {
