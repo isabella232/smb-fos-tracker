@@ -45,7 +45,7 @@ class Store {
     print('started' + phone);
     var response = await http.post(
         "https://fos-tracker-278709.an.r.appspot.com/store/phone",
-        body: jsonEncode(<String, String>{"storePhone": phone}));
+        body: jsonEncode(<String, String> {"storePhone": phone}));
     if (response.statusCode == 200) {
       print('found number');
       try {
