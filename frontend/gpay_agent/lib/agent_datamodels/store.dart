@@ -47,21 +47,18 @@ class Store {
         "https://fos-tracker-278709.an.r.appspot.com/store/phone",
         body: jsonEncode(<String, String>{"storePhone": phone}));
     if (response.statusCode == 200) {
-      print('found number');
+      print('The Store exists with given phone number');
       try {
         LineSplitter lineSplitter = new LineSplitter();
         List<String> lines = lineSplitter.convert(response.body);
         String jsonString = lines[0];
-        print(jsonString);
         globals.isStorePresent = true;
-        print(json.decode(jsonString));
         globals.store = Store.fromJson(jsonDecode(jsonString));
-        print('returned data');
       } catch (e) {
-        print("error");
+        print(e);
       }
     } else {
-      print('number not found');
+      print('Phone number not found');
       globals.isStorePresent = false;
     }
   }
