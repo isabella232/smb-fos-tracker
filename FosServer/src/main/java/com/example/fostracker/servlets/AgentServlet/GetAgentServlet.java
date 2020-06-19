@@ -46,7 +46,7 @@ public class GetAgentServlet extends HttpServlet {
                 Double latitude = resultSet.getDouble("AgentLatitude");
                 Double longitude = resultSet.getDouble("AgentLongitude");
                 Name agentName = new Name(firstName, midName, lastName);
-                Coordinates agentPositionCoordinates = new Coordinates(latitude, longitude)
+                Coordinates agentPositionCoordinates = new Coordinates(latitude, longitude);
                 agent = new Agent(agentName, agentEmail, phone, agentPositionCoordinates);
             }
 

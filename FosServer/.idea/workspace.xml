@@ -20,11 +20,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7579a9b2-8928-4b03-b2f4-ccf73c91e2db" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/fostracker/servlets/FosTrackerServlet/GetNumberOfStoresPerStatusByRegion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/fostracker/servlets/FosTrackerServlet/GetNumberOfStoresPerStatusByTime.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/fostracker/servlets/AgentServlet/GetAgentServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fostracker/servlets/AgentServlet/GetAgentServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/fostracker/servlets/AgentServlet/SpannerQueryFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fostracker/servlets/AgentServlet/SpannerQueryFunctions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/fostracker/servlets/AgentServlet/UpdateAgentLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fostracker/servlets/AgentServlet/UpdateAgentLocation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/fostracker/servlets/FosTrackerServlet/GetNumberOfStoresByStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fostracker/servlets/FosTrackerServlet/GetNumberOfStoresByStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/fostracker/servlets/FosTrackerServlet/GetNumberOfStoresByStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/appengine-staging/.gcloudignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/appengine-staging/app.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/appengine-staging/helloworld.war" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/fostracker/servlets/AgentServlet/GetAgentServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/fostracker/servlets/AgentServlet/GetAgentServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/fostracker/servlets/AgentServlet/SpannerQueryFunctions$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/fostracker/servlets/AgentServlet/SpannerQueryFunctions$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/fostracker/servlets/AgentServlet/SpannerQueryFunctions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/fostracker/servlets/AgentServlet/SpannerQueryFunctions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/fostracker/servlets/AgentServlet/UpdateAgentLocation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/fostracker/servlets/AgentServlet/UpdateAgentLocation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/fostracker/servlets/FosTrackerServlet/GetNumberOfStoresByStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/fostracker/servlets/FosTrackerServlet/GetNumberOfStoresByStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/helloworld.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/helloworld.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/helloworld/WEB-INF/classes/com/example/fostracker/servlets/AgentServlet/GetAgentServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/helloworld/WEB-INF/classes/com/example/fostracker/servlets/AgentServlet/GetAgentServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/helloworld/WEB-INF/classes/com/example/fostracker/servlets/AgentServlet/SpannerQueryFunctions$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/helloworld/WEB-INF/classes/com/example/fostracker/servlets/AgentServlet/SpannerQueryFunctions$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/helloworld/WEB-INF/classes/com/example/fostracker/servlets/AgentServlet/SpannerQueryFunctions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/helloworld/WEB-INF/classes/com/example/fostracker/servlets/AgentServlet/SpannerQueryFunctions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/helloworld/WEB-INF/classes/com/example/fostracker/servlets/AgentServlet/UpdateAgentLocation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/helloworld/WEB-INF/classes/com/example/fostracker/servlets/AgentServlet/UpdateAgentLocation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/helloworld/WEB-INF/classes/com/example/fostracker/servlets/FosTrackerServlet/GetNumberOfStoresByStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/helloworld/WEB-INF/classes/com/example/fostracker/servlets/FosTrackerServlet/GetNumberOfStoresByStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,9 +107,10 @@
       <screen x="0" y="0" width="2256" height="1504" />
     </state>
     <state x="805" y="396" width="636" height="683" key="FileChooserDialogImpl/0.0.2256.1504@0.0.2256.1504" timestamp="1592366335332" />
-    <state x="931" y="475" width="1200" height="748" key="Vcs.Push.Dialog.v2" timestamp="1592336504313">
-      <screen x="0" y="0" width="3072" height="1728" />
+    <state x="931" y="475" width="1190" height="718" key="Vcs.Push.Dialog.v2" timestamp="1592556123818">
+      <screen x="0" y="0" width="2256" height="1504" />
     </state>
+    <state x="931" y="475" width="1190" height="718" key="Vcs.Push.Dialog.v2/0.0.2256.1504/0.0.3072.1728@0.0.3072.1728" timestamp="1592556123818" />
     <state x="931" y="475" width="1200" height="748" key="Vcs.Push.Dialog.v2/0.0.3072.1728@0.0.3072.1728" timestamp="1592336504313" />
     <state x="1019" y="32" width="1030" height="1470" key="search.everywhere.popup" timestamp="1592555238903">
       <screen x="0" y="0" width="2256" height="1504" />
