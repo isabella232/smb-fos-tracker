@@ -93,12 +93,17 @@ class _MainViewState extends State<MainView> {
                                                   storePhone: store.storePhone,
                                                 )));
                                   },
-                                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                                      store.status == 'grey'
-                                          ? BitmapDescriptor.hueYellow
-                                          : (store.status == 'green'
-                                              ? BitmapDescriptor.hueGreen
-                                              : BitmapDescriptor.hueRed))),
+                                  icon: store.status == 'grey'
+                                      ? BitmapDescriptor.fromAsset(
+                                          'images/m_grey.png')
+                                      : (store.status == 'green'
+                                          ? BitmapDescriptor.fromAsset(
+                                              'images/m_green.png')
+                                          : (store.status == 'yellow'
+                                              ? BitmapDescriptor.fromAsset(
+                                                  'images/m_yellow.png')
+                                              : BitmapDescriptor.fromAsset(
+                                                  'images/m_red.png')))),
                             );
                           });
                         }
@@ -149,7 +154,11 @@ class _MainViewState extends State<MainView> {
                       ? BitmapDescriptor.fromAsset('images/m_grey.png')
                       : (store.status == 'green'
                           ? BitmapDescriptor.fromAsset('images/m_green.png')
-                          : BitmapDescriptor.fromAsset('images/m_red.png'))),
+                          : (store.status == 'yellow'
+                              ? BitmapDescriptor.fromAsset(
+                                  'images/m_yellow.png')
+                              : BitmapDescriptor.fromAsset(
+                                  'images/m_red.png')))),
             );
           });
         }
