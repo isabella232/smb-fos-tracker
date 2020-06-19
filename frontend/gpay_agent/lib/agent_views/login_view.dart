@@ -4,6 +4,7 @@ import 'package:agent_app/agent_datamodels/agent.dart';
 import 'package:agent_app/agent_views/welcome_agent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:http/http.dart' as http;
 
 /// Creates [LoginViewState] object.
@@ -13,6 +14,7 @@ class LoginView extends StatefulWidget {
 }
 
 /// Creates the widgets that are visible at the running state of
+
 /// login view interface.[alert_message] are printing on app screen when
 /// agent cannot be authenticated.
 class LoginViewState extends State<LoginView> {
@@ -26,6 +28,7 @@ class LoginViewState extends State<LoginView> {
           body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+
                 children: <Widget>[
                   Image.asset(
                     "assets/agent_beginning_images/GPay_logo.png",
@@ -41,6 +44,7 @@ class LoginViewState extends State<LoginView> {
                   ),
                   Container(
                     padding: EdgeInsets.only(top: 9),
+
                     child: Text("Together let's make money simple",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15)),
@@ -55,6 +59,7 @@ class LoginViewState extends State<LoginView> {
                       "assets/agent_beginning_images/sign_in_with_google.png",
                     ),
                     onPressed: _login,
+
                   ),
                   Text(
                     alert_message,
@@ -68,6 +73,7 @@ class LoginViewState extends State<LoginView> {
   /// Calls signIn function of Google Sign in plugin.
   /// Navigates to [WelcomeAgent] interface if signed in account is authenticated
   /// by firebase authentication otherwise prints error on console and stays
+
   /// on the [LoginViewState] interface. Sets [alert_message] in case of a failed
   /// authentication.
   _login() async {
