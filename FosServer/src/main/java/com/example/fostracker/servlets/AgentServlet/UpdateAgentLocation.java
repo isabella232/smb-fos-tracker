@@ -36,8 +36,6 @@ public class UpdateAgentLocation extends HttpServlet {
             response.setContentType("text");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(Long.toString(numberOfRowsChanged));
-
-
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

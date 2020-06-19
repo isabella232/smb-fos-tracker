@@ -74,7 +74,9 @@ public class SpannerQueryFunctions {
      * @param email
      * @param latitude
      * @param longitude
-     * @return
+     * @return the number of rows changed when agent latitude and longitude were changed.
+     *          Return value can either be 0 in case of no agent of given email or 1 since there
+     *          AgentEmail is unique per agent entry.
      */
     public static long updateAgentLocation(String email, double latitude, double longitude) {
         final long[] numberOfRowsAffected = new long[1];
@@ -98,6 +100,7 @@ public class SpannerQueryFunctions {
 
     /**
      * Makes spanner query for getting the number of merchants in every verification status category
+     *
      * @param response
      * @return resultSet containing 4 rows corresponding to 4 possible verification status values - SUCCESS, FAIL, REVISIT, UNVISITED
      * @throws IOException

@@ -48,8 +48,8 @@ public class GetNumberOfStoresByStatus extends HttpServlet {
     /**
      * HTTP Get method prints the query as response.
      *
-     * @param request                         is GET request.
-     * @param response                        is HttpServletResponse object that is used to write the response.
+     * @param request  is GET request.
+     * @param response is HttpServletResponse object that is used to write the response.
      * @throws ServletException
      * @throws IOException
      */
@@ -77,14 +77,13 @@ public class GetNumberOfStoresByStatus extends HttpServlet {
             do {
                 Long value = numberOfStoresByStatus.getLong("NumberOfStores");
                 String key = "UNVISITED";
-                if (numberOfStoresByStatus.isNull("VerificationStatus") == false){
+                if (numberOfStoresByStatus.isNull("VerificationStatus") == false) {
                     key = numberOfStoresByStatus.getString("VerificationStatus");
                 }
                 statusToNumberOfStoresMap.put(key, value);
 
             } while (numberOfStoresByStatus.next());
-
-
+            
             String responseJson = gson.toJson(statusToNumberOfStoresMap);
             output.write(responseJson);
             numberOfStoresByStatus.close();
