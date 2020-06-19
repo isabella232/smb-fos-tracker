@@ -43,6 +43,7 @@ class MerchantNotFound extends StatelessWidget {
 }
 
 /// Builds UI if store searched for is found in database.
+
 class MerchantFound extends StatelessWidget {
   MerchantFound({this.name});
 
