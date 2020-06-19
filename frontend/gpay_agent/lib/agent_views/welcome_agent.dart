@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:agent_app/agent_views/fetch_store.dart';
 import 'package:agent_app/custom_widgets/app_bar.dart';
 import 'package:agent_app/custom_widgets/personal_details_textbox.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/painting.dart';
 import 'package:agent_app/globals.dart' as globals;
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import 'package:agent_app/list_of_stores_with_directions/store_directions.dart';
 
 class WelcomeAgent extends StatefulWidget {
   _WelcomeAgentState createState() => _WelcomeAgentState();
@@ -134,7 +134,7 @@ class _WelcomeAgentState extends State<WelcomeAgent> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => FetchStore()),
+                  MaterialPageRoute(builder: (context) => VerifyStoresView()),
                 );
               },
               textColor: Colors.white,

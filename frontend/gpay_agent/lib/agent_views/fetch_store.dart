@@ -1,67 +1,57 @@
 import 'dart:typed_data';
 import 'package:agent_app/agent_datamodels/store.dart';
 import 'package:agent_app/agent_views/merchant_found_notfound.dart';
-import 'package:agent_app/custom_widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:agent_app/globals.dart' as globals;
 
-class FetchStore extends StatefulWidget {
-  FetchStoreState createState() => FetchStoreState();
-}
 
 /// Builds the UI elements for fetching store information for verification.
 /// Store can be fetched using phone number or scanner QR code assigned to store.
-class FetchStoreState extends State<FetchStore> {
+class FetchStoreState{
   PhoneNumber number = PhoneNumber(isoCode: 'IN');
   String num = "1223";
   Uint8List bytes = Uint8List(200);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-//        resizeToAvoidBottomPadding: false,
-      backgroundColor: Colors.white,
-      appBar: CustomAppBar("", Colors.white),
-      body: OrientationBuilder(builder: (context, orientation) {
-        if (orientation == Orientation.portrait) {
-          return _buildFetchStorePortraitView();
-        } else {
-          return _buildFetchStoreLandScapeView();
-        }
-      }),
-    );
+  Widget buildFetchStore(BuildContext context){
+    return OrientationBuilder(builder: (context, orientation) {
+      if (orientation == Orientation.portrait) {
+        return _buildFetchStorePortraitView(context);
+      } else {
+        return _buildFetchStoreLandScapeView(context);
+      }
+    });
   }
 
   /// Builds portrait view.
-  Widget _buildFetchStorePortraitView() {
+  Widget _buildFetchStorePortraitView(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: <Widget>[
-          _buildPhoneChild(),
+          _buildPhoneChild(context),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
-          _buildQRChild()
+          _buildQRChild(context)
         ],
       ),
     );
   }
 
   /// Builds landscape view.
-  Widget _buildFetchStoreLandScapeView() {
+  Widget _buildFetchStoreLandScapeView(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: <Widget>[
-          _buildPhoneChild(),
+          _buildPhoneChild(context),
           SizedBox(
             width: 20,
           ),
-          _buildQRChild()
+          _buildQRChild(context)
         ],
       ),
     );
@@ -70,7 +60,7 @@ class FetchStoreState extends State<FetchStore> {
   /// Fetches store details using phone number of store.
   /// If store number is registered in database, it calls [MerchantFound]
   /// interface otherwise it calls [MerchantNotFound] interface.
-  Widget _buildPhoneChild() {
+  Widget _buildPhoneChild(BuildContext context) {
     return Expanded(
       flex: 1,
       child: Center(
@@ -86,7 +76,7 @@ class FetchStoreState extends State<FetchStore> {
                 Expanded(
                   flex: 1,
                   child: Align(
-                    alignment: Alignment.center,
+                    alignment: Alignment.topCenter,
                     child: Text(
                       "Phone Number",
 //                    textAlign: TextAlign.left,
@@ -99,25 +89,32 @@ class FetchStoreState extends State<FetchStore> {
                 ),
                 Expanded(
                   flex: 1,
+                  child:Align(
+                    alignment: Alignment.topCenter,
                   child: Text(
                     "Enter the phone number with which the merchant registered the store.",
                     textAlign: TextAlign.left,
                   ),
                 ),
+                ),
                 Expanded(
-                  flex: 1,
-                  child: Container(
-                    child: InternationalPhoneNumberInput(
+                  flex: 2,
+                    child:Align(
+                      alignment: Alignment.topCenter,
+                      child: InternationalPhoneNumberInput(
                       onInputChanged: (PhoneNumber number) {
                         num = (number.phoneNumber).toString();
                       },
                       initialValue: number,
                     ),
                   ),
+
                 ),
                 Expanded(
                   flex: 1,
                   child: Center(
+                    child:Align(
+                      alignment: Alignment.center,
                     child: ButtonTheme(
                       minWidth: 200,
                       height: 50,
@@ -127,10 +124,6 @@ class FetchStoreState extends State<FetchStore> {
                         child: new Text("Submit"),
                         onPressed: () async {
                           await Store.fetchStore(num.substring(3));
-//                          MyHomePageState().navigateToNextPage();
-                          if(this.context == null){
-                            print('context is null');
-                          }
                           if (globals.isStorePresent) {
                             Navigator.push(
                               context,
@@ -151,6 +144,7 @@ class FetchStoreState extends State<FetchStore> {
                         },
                       ),
                     ),
+                    ),
                   ),
                 )
               ]),
@@ -159,7 +153,7 @@ class FetchStoreState extends State<FetchStore> {
     );
   }
 
-  Widget _buildQRChild() {
+  Widget _buildQRChild(BuildContext context) {
     return Expanded(
       flex: 1,
       child: Container(
@@ -207,7 +201,9 @@ class FetchStoreState extends State<FetchStore> {
                         minWidth: 200,
                         height: 50,
                         child: FlatButton(
-                          onPressed: _scan,
+                          onPressed: () async {
+                            await _scan(context);
+                            },
                           textColor: Colors.white,
                           color: Colors.blue,
                           child: new Text("Scan QR Code"),
@@ -223,7 +219,7 @@ class FetchStoreState extends State<FetchStore> {
   /// Fetches text of QR code by calling scan() API of qr_scan plugin.
   /// Navigate to [MerchantFound] interface if [qrcode] is registered with any store,
   /// else navigate to [MerchantNotFound] interface.
-  Future _scan() async {
+  Future _scan(BuildContext context) async {
     String qrcode = await scanner.scan();
     //Use QR code to get store, if store is registered, pass merchant name found, else not found
     Navigator.pop(context);
