@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:agent_app/agent_views/fetch_store.dart';
-import 'package:agent_app/custom_widgets//app_bar.dart';
+import 'package:agent_app/custom_widgets/app_bar.dart';
 import 'package:agent_app/custom_widgets/personal_details_textbox.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:agent_app/agent_datamodels/globals.dart' as globals;
+import 'package:agent_app/globals.dart' as globals;
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
@@ -83,11 +83,11 @@ class _WelcomeAgentState extends State<WelcomeAgent> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar(globals.agent.getName(), Colors.white),
+      appBar: CustomAppBar("Welcome " + globals.agent.AgentName.firstName, Colors.white),
       body: ListView(padding: const EdgeInsets.all(8.0), children: <Widget>[
         Image.asset(
           "assets/agent_beginning_images/using_gpay.png",
-          height: 200,
+          height: 160,
         ),
         Center(
           child: Text(
@@ -130,7 +130,7 @@ class _WelcomeAgentState extends State<WelcomeAgent> {
           child: ButtonTheme(
             minWidth: 200,
             height: 50,
-            child: RaisedButton(
+            child: FlatButton(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -145,11 +145,6 @@ class _WelcomeAgentState extends State<WelcomeAgent> {
               ),
             ),
           ),
-        ),
-        Image.asset(
-          "assets/agent_beginning_images/GPay_logo_rectangle.png",
-//              width: 100,
-          height: 40,
         ),
       ]),
     );

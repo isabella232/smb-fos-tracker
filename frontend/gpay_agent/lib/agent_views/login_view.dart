@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:agent_app/agent_datamodels/globals.dart' as globals;
+import 'package:agent_app/globals.dart' as globals;
 import 'package:agent_app/agent_datamodels/agent.dart';
 import 'package:agent_app/agent_views/welcome_agent.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,9 +31,8 @@ class LoginViewState extends State<LoginView> {
 
                 children: <Widget>[
                   Image.asset(
-                    "assets/agent_beginning_images/GPay_logo.png",
-                    width: 200,
-                    height: 200,
+                    "assets/agent_beginning_images/GPay_logo_rectangle.png",
+                    height: 40,
                   ),
                   Text(
                     "Welcome to Google Pay Agent",
