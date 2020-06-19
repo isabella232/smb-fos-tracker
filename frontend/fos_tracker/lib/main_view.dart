@@ -113,10 +113,7 @@ class _MainViewState extends State<MainView> {
                                   agentEmail: agent.email,
                                 )));
                   },
-                  icon:
-                      /*BitmapDescriptor.defaultMarkerWithHue(
-                      BitmapDescriptor.hueGreen)*/
-                      BitmapDescriptor.fromAsset("images/a.png")),
+                  icon: BitmapDescriptor.fromAsset("images/a.png")),
             );
           });
         }
@@ -213,7 +210,6 @@ class _MainViewState extends State<MainView> {
                                             storePhone: store.storePhone,
                                           )));
                             },
-//                              icon: BitmapDescriptor.defaultMarkerWithHue(
                             icon: store.status == 'grey'
                                 ? BitmapDescriptor.fromAsset(
                                     'images/m_grey.png')
@@ -238,8 +234,6 @@ class _MainViewState extends State<MainView> {
                             agentEmail: x.email,
                           )));
             },
-//            icon: BitmapDescriptor.defaultMarkerWithHue(
-//                BitmapDescriptor.hueGreen)
             icon: BitmapDescriptor.fromAsset("images/a.png")));
       });
     }
@@ -316,13 +310,29 @@ class _MainViewState extends State<MainView> {
         appBar: AppBar(
           title: agentView ? Text("Agents") : Text("Merchants"),
           actions: <Widget>[
-            agentView ? SizedBox() : IconButton(icon: Icon(Icons.refresh), onPressed: getMerchantLocations,),
+            agentView
+                ? SizedBox()
+                : IconButton(
+                    icon: Icon(Icons.refresh),
+                    onPressed: getMerchantLocations,
+                  ),
             agentView
                 ? SizedBox()
                 : FlatButton(
-//                    icon: Icon(Icons.search),
-            child: Row(children: <Widget>[Text("Pincode ", softWrap: true, style: TextStyle(color: Colors.white, fontSize: 12),), Icon(Icons.search, color: Colors.white, size: 12,)],),
-//                    child: Text("Search by pincode", softWrap: true, style: TextStyle(color: Colors.white, fontSize: 12),),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          "Pincode ",
+                          softWrap: true,
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                        Icon(
+                          Icons.search,
+                          color: Colors.white,
+                          size: 12,
+                        )
+                      ],
+                    ),
                     onPressed: () async {
                       showPincodeDialog();
                     },
