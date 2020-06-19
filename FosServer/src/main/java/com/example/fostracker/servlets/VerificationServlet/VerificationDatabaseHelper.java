@@ -108,12 +108,12 @@ public class VerificationDatabaseHelper {
         ResultSet storeAndStatusData;
         Statement statement =
                 Statement.newBuilder(
-                        "SELECT " + COLUMN_STORE_PHONE +
-                                ", " + COLUMN_VERIFICATION_STATUS
-                                + " FROM " + TABLE_NAME
-                                + " WHERE " + COLUMN_AGENT_EMAIL
-                                + " = @" + QUERY_AGENT_EMAIL
-                                + " ORDER BY " + COLUMN_VERIFICATION_TIME)
+                        "SELECT " + COLUMN_STORE_PHONE
+                        + ", " + COLUMN_VERIFICATION_STATUS
+                        + " FROM " + TABLE_NAME
+                        + " WHERE " + COLUMN_AGENT_EMAIL
+                        + " = @" + QUERY_AGENT_EMAIL
+                        + " ORDER BY " + COLUMN_VERIFICATION_TIME)
                         .bind(QUERY_AGENT_EMAIL)
                         .to(email)
                         .build();
