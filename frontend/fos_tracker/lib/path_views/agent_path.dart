@@ -21,8 +21,8 @@ class AgentPathPage extends StatefulWidget {
 }
 
 class AgentPathPageState extends State<AgentPathPage>{
-  LatLng SOURCE_LOCATION;
-  LatLng DEST_LOCATION;
+  LatLng sourceLocation;
+  LatLng destinationLocation;
 
   Completer<GoogleMapController> _controller = Completer();
 
@@ -49,8 +49,8 @@ class AgentPathPageState extends State<AgentPathPage>{
     Coordinates startCoordinates = widget.storesInPath.first.coordinates;
     Coordinates endCoordinates = widget.storesInPath.last.coordinates;
 
-    SOURCE_LOCATION = new LatLng(startCoordinates.latitude, startCoordinates.longitude);
-    DEST_LOCATION = new LatLng(endCoordinates.latitude, endCoordinates.longitude);
+    sourceLocation = new LatLng(startCoordinates.latitude, startCoordinates.longitude);
+    destinationLocation = new LatLng(endCoordinates.latitude, endCoordinates.longitude);
 
 
 
@@ -92,7 +92,7 @@ class AgentPathPageState extends State<AgentPathPage>{
         zoom: CAMERA_ZOOM,
         bearing: CAMERA_BEARING,
         tilt: CAMERA_TILT,
-        target: SOURCE_LOCATION
+        target: sourceLocation
     );
 
     print(initialLocation);
@@ -122,13 +122,13 @@ class AgentPathPageState extends State<AgentPathPage>{
       // source pin
       _markers.add(Marker(
           markerId: MarkerId('sourcePin'),
-          position: SOURCE_LOCATION,
+          position: sourceLocation,
           icon: sourceIcon
       ));
       // destination pin
       _markers.add(Marker(
           markerId: MarkerId('destPin'),
-          position: DEST_LOCATION,
+          position: destinationLocation,
           icon: destinationIcon
       ));
 
@@ -149,13 +149,18 @@ class AgentPathPageState extends State<AgentPathPage>{
   }
 
   setPolylines() async {
-    List<PointLatLng> result = await
-    polylinePoints?.getRouteBetweenCoordinates(
-        googleAPIKey,
-        SOURCE_LOCATION.latitude,
-        SOURCE_LOCATION.longitude,
-        DEST_LOCATION.latitude,
-        DEST_LOCATION.longitude);
+    List<PointLatLng> result;
+    for(int i = 0; i < widget.storesInPath.length - 1; i ++){
+      LatLng source = LatLng(widget.storesInPath[i].coordinates.latitude, widget.storesInPath[i].coordinates.longitude);
+      LatLng destination = LatLng(widget.storesInPath[i].coordinates.latitude, widget.storesInPath[i].coordinates.longitude);
+      result = await
+      polylinePoints?.getRouteBetweenCoordinates(
+          googleAPIKey,
+          source.latitude,
+          source.longitude,
+          destination.latitude,
+          destination.longitude);
+    }
     if(result.isNotEmpty){
       // loop through all PointLatLng points and convert them
       // to a list of LatLng, required by the Polyline
