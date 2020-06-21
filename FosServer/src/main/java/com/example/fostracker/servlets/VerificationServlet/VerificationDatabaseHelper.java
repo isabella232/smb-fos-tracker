@@ -118,7 +118,7 @@ public class VerificationDatabaseHelper {
                             .singleUse()
                             .executeQuery(statement);
             return storeAndStatusData;
-        }catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }
