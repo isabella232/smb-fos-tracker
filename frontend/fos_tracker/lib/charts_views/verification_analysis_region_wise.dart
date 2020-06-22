@@ -11,6 +11,8 @@ import 'package:fos_tracker/data_models/status_series.dart';
 import 'package:http/http.dart' as http;
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+const int NUMBER_OF_STATUS_CATEGORIES = 4;
+
 /// Class for creating state of view of verification analysis by region
 class RegionalAnalysis extends StatefulWidget {
   final String title = "Verifications Analysis";
@@ -20,8 +22,6 @@ class RegionalAnalysis extends StatefulWidget {
 
 /// Class for building the screen view for regional verification. This includes app bar, analysis chart and scroll up menu for selecting region
 class _RegionalAnalysisState extends State<RegionalAnalysis> {
-  static const int NUMBER_OF_STATUS_CATEGORIES = 4;
-
   String regionCategory;
   String regionValue;
   List<charts.Series> seriesList;

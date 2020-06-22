@@ -9,6 +9,9 @@ import 'package:fos_tracker/data_models/status_series.dart';
 import 'package:fos_tracker/data_models/stores_with_time.dart';
 import 'package:http/http.dart' as http;
 
+const int NUMBER_OF_CATEGORIES = 4;
+const int NUMBER_OF_DAYS_IN_WEEK = 7;
+
 /// Class for creating state of view of verification analysis by week.
 class TimeAnalysis extends StatefulWidget {
   final String title = "Verifications Analysis";
@@ -18,9 +21,6 @@ class TimeAnalysis extends StatefulWidget {
 
 /// Class for building the screen view for time wise verification. This includes app bar, analysis chart and calendar button for selecting a day of the week.
 class _TimeAnalysisState extends State<TimeAnalysis> {
-  static const int NUMBER_OF_CATEGORIES = 4;
-  static const int NUMBER_OF_DAYS_IN_WEEK = 7;
-
   DateTime pickedDate;
   bool _loading = true;
   List<charts.Series<StoresWithDate, String>> seriesList;
