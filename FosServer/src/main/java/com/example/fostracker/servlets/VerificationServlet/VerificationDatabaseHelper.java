@@ -99,7 +99,7 @@ public class VerificationDatabaseHelper {
     }
 
     /**
-     * Queries the verification table for all stores verified by agent.
+     * Queries the verification table for all stores verified by agent sorted based on verification time.
      *
      * @return ResultSet object that refers to all rows in verifications table
      */
@@ -108,11 +108,12 @@ public class VerificationDatabaseHelper {
         ResultSet storeAndStatusData;
         Statement statement =
                 Statement.newBuilder(
-                        "SELECT " + COLUMN_STORE_PHONE +
-                                ", " + COLUMN_VERIFICATION_STATUS
-                                + " FROM " + TABLE_NAME
-                                + " WHERE " + COLUMN_AGENT_EMAIL
-                                + " = @" + QUERY_AGENT_EMAIL)
+                        "SELECT " + COLUMN_STORE_PHONE
+                        + ", " + COLUMN_VERIFICATION_STATUS
+                        + " FROM " + TABLE_NAME
+                        + " WHERE " + COLUMN_AGENT_EMAIL
+                        + " = @" + QUERY_AGENT_EMAIL
+                        + " ORDER BY " + COLUMN_VERIFICATION_TIME)
                         .bind(QUERY_AGENT_EMAIL)
                         .to(email)
                         .build();
