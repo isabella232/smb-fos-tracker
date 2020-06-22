@@ -137,6 +137,14 @@ class AgentPathPageState extends State<AgentPathPage> {
   setPolylines() async {
 
     List<PointLatLng> result = new List();
+    print(widget.storesInPath);
+    print(widget.storesInPath.length);
+
+    for (int i = 0; i < widget.storesInPath.length; i++) {
+      print(i);
+      print(widget.storesInPath[i].coordinates.latitude);
+      print(widget.storesInPath[i].coordinates.longitude);
+    }
 
     for (int i = 0; i < widget.storesInPath.length - 1; i++) {
       LatLng source = LatLng(widget.storesInPath[i].coordinates.latitude,
@@ -145,15 +153,29 @@ class AgentPathPageState extends State<AgentPathPage> {
           widget.storesInPath[i + 1].coordinates.latitude,
           widget.storesInPath[i + 1].coordinates.longitude);
 
-      List<PointLatLng> pathList =
-          await polylinePoints?.getRouteBetweenCoordinates(
-              googleAPIKey,
-              source.latitude,
-              source.longitude,
-              destination.latitude,
-              destination.longitude);
+      print(widget.storesInPath[i].coordinates.latitude);
 
-      result += pathList;
+      print("Source");
+      print(source.latitude);
+      print(source.longitude);
+      print("Destination");
+      print(destination.latitude);
+      print(destination.longitude);
+      try {
+        List<PointLatLng> pathList =
+        await polylinePoints?.getRouteBetweenCoordinates(
+            googleAPIKey,
+            source.latitude,
+            source.longitude,
+            destination.latitude,
+            destination.longitude);
+
+        result += pathList;
+      }
+      catch(error){
+        print(error);
+        print("Path not possible");
+      }
     }
     if (result.isNotEmpty) {
       // loop through all PointLatLng points and convert them
