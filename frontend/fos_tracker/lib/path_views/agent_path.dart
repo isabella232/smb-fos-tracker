@@ -55,8 +55,6 @@ class AgentPathPageState extends State<AgentPathPage> {
   }
 
   void setSourceDestinationStoreIcons() async {
-
-
     sourceIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(devicePixelRatio: 2.5), 'images/start.png');
     destinationIcon = await BitmapDescriptor.fromAssetImage(
@@ -73,13 +71,11 @@ class AgentPathPageState extends State<AgentPathPage> {
 
   @override
   Widget build(BuildContext context) {
-
     CameraPosition initialLocation = CameraPosition(
         zoom: CAMERA_ZOOM,
         bearing: CAMERA_BEARING,
         tilt: CAMERA_TILT,
         target: sourceLocation);
-
 
     return Scaffold(
       appBar: CustomAppBar(appBarTitle: widget.agentEmail + " path"),
@@ -115,7 +111,6 @@ class AgentPathPageState extends State<AgentPathPage> {
           icon: destinationIcon));
 
       widget.storesInPath.forEach((StoreForAgentPath store) {
-
         _markers.add(
           Marker(
               markerId:
@@ -135,16 +130,7 @@ class AgentPathPageState extends State<AgentPathPage> {
   }
 
   setPolylines() async {
-
     List<PointLatLng> result = new List();
-    print(widget.storesInPath);
-    print(widget.storesInPath.length);
-
-    for (int i = 0; i < widget.storesInPath.length; i++) {
-      print(i);
-      print(widget.storesInPath[i].coordinates.latitude);
-      print(widget.storesInPath[i].coordinates.longitude);
-    }
 
     for (int i = 0; i < widget.storesInPath.length - 1; i++) {
       LatLng source = LatLng(widget.storesInPath[i].coordinates.latitude,
@@ -153,26 +139,17 @@ class AgentPathPageState extends State<AgentPathPage> {
           widget.storesInPath[i + 1].coordinates.latitude,
           widget.storesInPath[i + 1].coordinates.longitude);
 
-      print(widget.storesInPath[i].coordinates.latitude);
-
-      print("Source");
-      print(source.latitude);
-      print(source.longitude);
-      print("Destination");
-      print(destination.latitude);
-      print(destination.longitude);
       try {
         List<PointLatLng> pathList =
-        await polylinePoints?.getRouteBetweenCoordinates(
-            googleAPIKey,
-            source.latitude,
-            source.longitude,
-            destination.latitude,
-            destination.longitude);
+            await polylinePoints?.getRouteBetweenCoordinates(
+                googleAPIKey,
+                source.latitude,
+                source.longitude,
+                destination.latitude,
+                destination.longitude);
 
         result += pathList;
-      }
-      catch(error){
+      } catch (error) {
         print(error);
         print("Path not possible");
       }
