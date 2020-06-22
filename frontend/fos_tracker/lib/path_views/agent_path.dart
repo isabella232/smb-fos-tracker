@@ -133,6 +133,10 @@ class AgentPathPageState extends State<AgentPathPage>{
       ));
 
       widget.storesInPath.forEach((StoreForAgentPath store) {
+        print(store.storePhone);
+        print(store.coordinates.latitude);
+        print(store.coordinates.longitude);
+
         _markers.add(Marker(
           markerId: MarkerId(store.storePhone + " " + store.verificationTime),
           position: new LatLng(store.coordinates.latitude, store.coordinates.longitude),
@@ -149,18 +153,32 @@ class AgentPathPageState extends State<AgentPathPage>{
   }
 
   setPolylines() async {
-    List<PointLatLng> result;
+    print("setting polylines --------------------------------------------------------------------------------------------------------------------------------------------->");
+    List<PointLatLng> result = new List();
+    for(int i = 0; i < widget.storesInPath.length; i ++){
+      print(i);
+      print(widget.storesInPath[i].coordinates.latitude);
+      print(widget.storesInPath[i].coordinates.longitude);
+    }
     for(int i = 0; i < widget.storesInPath.length - 1; i ++){
       LatLng source = LatLng(widget.storesInPath[i].coordinates.latitude, widget.storesInPath[i].coordinates.longitude);
-      LatLng destination = LatLng(widget.storesInPath[i].coordinates.latitude, widget.storesInPath[i].coordinates.longitude);
-      result = await
+      LatLng destination = LatLng(widget.storesInPath[i + 1].coordinates.latitude, widget.storesInPath[i + 1].coordinates.longitude);
+      print("Getting route between ");
+      print(source);
+      print(destination);
+      List<PointLatLng> pathList = await
       polylinePoints?.getRouteBetweenCoordinates(
           googleAPIKey,
           source.latitude,
           source.longitude,
           destination.latitude,
           destination.longitude);
+      print("Printing pathList");
+      print(pathList);
+      result += pathList;
+      print("Printing result");
     }
+    print(result);
     if(result.isNotEmpty){
       // loop through all PointLatLng points and convert them
       // to a list of LatLng, required by the Polyline
