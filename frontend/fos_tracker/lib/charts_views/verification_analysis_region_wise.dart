@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:ui' as UI;
-import 'package:flutter/cupertino.dart';
+
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart' as painting;
 import 'package:fos_tracker/custom_widgets/app_bar.dart';
 import 'package:fos_tracker/data_models/status_chart.dart';
 import 'package:fos_tracker/data_models/status_series.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/painting.dart' as painting;
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 /// Class for creating state of view of verification analysis by region
@@ -143,7 +144,7 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: 10,
+                  height: 50,
                 ),
                 Text(
                   "Choose Region",
@@ -197,7 +198,7 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
                                 ? "Name of Region Selected"
                                 : "Press Select")),
                         validator: (value) {
-                          if (dropDownValue == null){
+                          if (dropDownValue == null) {
                             return "Please select a category from drop down list";
                           }
                           if (value.isEmpty && dropDownValue != "ALL") {
@@ -227,6 +228,7 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
                               setState(() {
                                 _loading = true;
                               });
+                              FocusScope.of(context).requestFocus(FocusNode());
                               getData();
                             }
                           },
@@ -252,6 +254,7 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
           ),
         ),
         minHeight: MediaQuery.of(context).size.height * 0.06,
+        maxHeight: MediaQuery.of(context).size.height * 0.4,
         // Body includes the widgets that show on screen when slide panel is collapsed.
         // In includes a bar chart for showing number of merchants in different categories of verification - successful, failed, revisiting required and unvisited.
         body: Center(
@@ -267,21 +270,21 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
               Container(
                 child: _loading
                     ? Container(
-                  height: 400,
-                  child: new Center(
-                    child: new SizedBox(
-                      height: 50.0,
-                      width: 50.0,
-                      child: new CircularProgressIndicator(
-                        value: null,
-                        strokeWidth: 7.0,
-                      ),
-                    ),
-                  ),
-                )
+                        height: 400,
+                        child: new Center(
+                          child: new SizedBox(
+                            height: 50.0,
+                            width: 50.0,
+                            child: new CircularProgressIndicator(
+                              value: null,
+                              strokeWidth: 7.0,
+                            ),
+                          ),
+                        ),
+                      )
                     : Chart(
-                  data: data,
-                ),
+                        data: data,
+                      ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.24,
