@@ -196,6 +196,9 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
                                 ? "Name of Region Selected"
                                 : "Press Select")),
                         validator: (value) {
+                          if (dropDownValue == null){
+                            return "Please select a category from drop down list";
+                          }
                           if (value.isEmpty && dropDownValue != "ALL") {
                             return 'Please enter some text';
                           } else {
