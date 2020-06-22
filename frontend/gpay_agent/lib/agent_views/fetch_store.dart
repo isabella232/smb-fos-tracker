@@ -10,10 +10,11 @@ import 'package:agent_app/globals.dart' as globals;
 
 /// Builds the UI elements for fetching store information for verification.
 /// Store can be fetched using phone number or scanner QR code assigned to store.
-class FetchStoreState{
+class FetchStoreState {
   PhoneNumber number = PhoneNumber(isoCode: 'IN');
   String num = "1223";
   Uint8List bytes = Uint8List(200);
+  bool isLoading = false;
 
   Widget buildFetchStore(BuildContext context){
     return OrientationBuilder(builder: (context, orientation) {
@@ -222,7 +223,6 @@ class FetchStoreState{
   Future _scan(BuildContext context) async {
     String qrcode = await scanner.scan();
     //Use QR code to get store, if store is registered, pass merchant name found, else not found
-    Navigator.pop(context);
     globals.isStorePresent  = false;
     await Store.fetchStore(qrcode);
     if (globals.isStorePresent) {
