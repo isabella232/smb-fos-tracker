@@ -6,6 +6,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+import '../merchant_info_page.dart';
+
 const double CAMERA_ZOOM = 13;
 const double CAMERA_TILT = 0;
 const double CAMERA_BEARING = 0;
@@ -118,6 +120,15 @@ class AgentPathPageState extends State<AgentPathPage> {
           Marker(
               markerId:
                   MarkerId(store.storePhone + " " + store.verificationDateTime),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            MerchantPage(
+                              storePhone: store.storePhone,
+                            )));
+              },
               position: new LatLng(
                   store.coordinates.latitude, store.coordinates.longitude),
               icon: store.status == 'grey'
