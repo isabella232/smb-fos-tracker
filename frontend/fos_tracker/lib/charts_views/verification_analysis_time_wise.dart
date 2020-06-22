@@ -98,30 +98,32 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
           chartData[category][date] = numberOfMerchants;
         });
       });
-      for (int i = 0; i < NUMBER_OF_CATEGORIES; i++) {
-        String category = categories[i];
-        List<StoresWithDate> lineData = [];
-        for (int j = 0; j < NUMBER_OF_DAYS_IN_WEEK; j++) {
-          DateTime dateIterator = startDay.add(new Duration(days: j));
-          String date = dateIterator.toString().split(" ")[0];
 
-          lineData.add(new StoresWithDate(
-              date: date, numberOfStores: chartData[category][date]));
-        }
-
-        seriesList.add(
-          new charts.Series<StoresWithDate, String>(
-              id: category,
-              seriesColor: charts.ColorUtil.fromDartColor(chartColours[i]),
-              data: lineData,
-              domainFn: (StoresWithDate numberOfStores, _) =>
-              numberOfStores.date,
-              measureFn: (StoresWithDate numberOfStores, _) =>
-              numberOfStores.numberOfStores),
-        );
-      }
     } else {
       print("Http request failed");
+    }
+
+    for (int i = 0; i < NUMBER_OF_CATEGORIES; i++) {
+      String category = categories[i];
+      List<StoresWithDate> lineData = [];
+      for (int j = 0; j < NUMBER_OF_DAYS_IN_WEEK; j++) {
+        DateTime dateIterator = startDay.add(new Duration(days: j));
+        String date = dateIterator.toString().split(" ")[0];
+
+        lineData.add(new StoresWithDate(
+            date: date, numberOfStores: chartData[category][date]));
+      }
+
+      seriesList.add(
+        new charts.Series<StoresWithDate, String>(
+            id: category,
+            seriesColor: charts.ColorUtil.fromDartColor(chartColours[i]),
+            data: lineData,
+            domainFn: (StoresWithDate numberOfStores, _) =>
+            numberOfStores.date,
+            measureFn: (StoresWithDate numberOfStores, _) =>
+            numberOfStores.numberOfStores),
+      );
     }
 
     // Sets the state as non loading when http request completes. This is done to refresh the view to show bar chart in place of circular progress indicator.
