@@ -1,3 +1,20 @@
+=======
+/*
+ * Copyright 2019 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.fostracker.servlets.FosTrackerServlet;
 
 import com.example.fostracker.models.Coordinates;
@@ -19,7 +36,7 @@ import java.io.PrintWriter;
 /**
  * Prints the Store details with status verified by particular agent from Stores table in JSON format.
  * <p>
- * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/agent/stores/status").
+ * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/agent/store/status").
  */
 
 @WebServlet(value = "/agent/stores/status/")
@@ -31,13 +48,14 @@ public class GetStoresVerifiedByAgentServlet extends HttpServlet {
     /**
      * HTTP Get method prints the query as response.
      *
-     * @param agentVerifiedStoreDetailsRequest is GET request.
-     * @param response                   is HttpServletResponse object that is used to write the response.
+     * @param agentVerifiedStoreDetailsRequest  GET request.
+     * @param response                    HttpServletResponse object that is used to write the response.
      * @throws ServletException
      * @throws IOException
      */
     @Override
-    protected void doPost(HttpServletRequest agentVerifiedStoreDetailsRequest, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest agentVerifiedStoreDetailsRequest, HttpServletResponse response)
+            throws ServletException, IOException {
 
         // Reads the json String using POST request.
         String json = agentVerifiedStoreDetailsRequest.getReader().readLine();
@@ -104,7 +122,7 @@ public class GetStoresVerifiedByAgentServlet extends HttpServlet {
     /**
      * Converts the verification status into its corresponding integer.
      *
-     * @param status is status of verification.
+     * @param status  status of verification.
      * @return returns its corresponding integer.
      */
     private static int getStatusInt(String status) {
