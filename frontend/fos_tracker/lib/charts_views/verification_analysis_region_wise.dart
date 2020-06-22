@@ -96,10 +96,10 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
   /// Sets data for bar chart using map built by [getData] function.
   void setData() {
     List<UI.Color> chartColours = [
-      Colors.green,
-      Colors.red,
-      Colors.yellow,
-      Colors.blue
+      Color.fromARGB(255, 15, 157, 88),
+      Color.fromARGB(255, 219, 68, 55),
+      Color.fromARGB(255, 244, 180, 0),
+      Color.fromARGB(255, 66, 133, 244),
     ];
     List<String> labels = [
       "Successful",
@@ -133,6 +133,7 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
     return Scaffold(
       appBar: CustomAppBar(appBarTitle: widget.title, appBarColor: Colors.blue),
       body: SlidingUpPanel(
+        backdropEnabled: true,
         // Panel shows the details in the expanded view of slide up bar.
         // It contains a form for selecting region whose verification analysis is needed.
         panel: Center(
@@ -239,7 +240,6 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
 
         // When collapsed, slide up bar panel shows the selected region.
         collapsed: Container(
-          color: Colors.blueGrey,
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -251,7 +251,7 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
             ),
           ),
         ),
-
+        minHeight: MediaQuery.of(context).size.height * 0.06,
         // Body includes the widgets that show on screen when slide panel is collapsed.
         // In includes a bar chart for showing number of merchants in different categories of verification - successful, failed, revisiting required and unvisited.
         body: Center(
@@ -282,6 +282,9 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
                     : Chart(
                   data: data,
                 ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.24,
               ),
             ],
           ),
