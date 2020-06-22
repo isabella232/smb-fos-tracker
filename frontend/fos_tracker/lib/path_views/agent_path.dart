@@ -10,6 +10,7 @@ const double CAMERA_ZOOM = 13;
 const double CAMERA_TILT = 0;
 const double CAMERA_BEARING = 0;
 
+/// Class for creating state of page for showing path taken by the entered agent.
 class AgentPathPage extends StatefulWidget {
   final String agentEmail;
   final List<StoreForAgentPath> storesInPath;
@@ -20,6 +21,7 @@ class AgentPathPage extends StatefulWidget {
   AgentPathPageState createState() => AgentPathPageState();
 }
 
+/// Class that represents the state of graph when an agent's path is plotted.
 class AgentPathPageState extends State<AgentPathPage> {
   LatLng sourceLocation;
   LatLng destinationLocation;
@@ -40,6 +42,7 @@ class AgentPathPageState extends State<AgentPathPage> {
   BitmapDescriptor destinationIcon;
   BitmapDescriptor storeSuccessFul, storeFailed, storeRevisit, storeUnvisited;
 
+  // Initializing the source location as the first verified store by agent and destination as the last verified store by agent.
   @override
   void initState() {
     Coordinates startCoordinates = widget.storesInPath.first.coordinates;
@@ -129,6 +132,8 @@ class AgentPathPageState extends State<AgentPathPage> {
     });
   }
 
+  // Sets polylines by iterating over a list of latitude longitude points of verification for the agent in order of time of verification.
+  // A path is plotted between every two consecutive verification locations.
   setPolylines() async {
     List<PointLatLng> result = new List();
 
@@ -155,15 +160,12 @@ class AgentPathPageState extends State<AgentPathPage> {
       }
     }
     if (result.isNotEmpty) {
-      // loop through all PointLatLng points and convert them
-      // to a list of LatLng, required by the Polyline
       result.forEach((PointLatLng point) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       });
     }
     setState(() {
-      // create a Polyline instance
-      // with an id, an RGB color and the list of LatLng pairs
+      // creating a Polyline instance
       Polyline polyline = Polyline(
           polylineId: PolylineId("poly"),
           color: Color.fromARGB(255, 40, 122, 198),
