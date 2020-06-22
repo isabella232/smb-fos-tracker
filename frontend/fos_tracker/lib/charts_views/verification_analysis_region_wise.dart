@@ -79,7 +79,7 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
 
     // Checks if the http post request was completed successfully.
     if (response.statusCode == 200) {
-      try{
+      try {
         Map<String, dynamic> jsonDecode = json.decode(response.body);
         jsonDecode.forEach((key, value) {
           String status = colourToStatus[key];
@@ -87,8 +87,7 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
         });
         print("Http request successful");
         setData();
-      }
-      catch(error){
+      } catch (error) {
         print("No entries of the given region in database");
       }
     } else {
@@ -104,10 +103,10 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
   /// Sets data for bar chart using map built by [getData] function.
   void setData() {
     List<UI.Color> chartColours = [
-      Color.fromARGB(255, 15, 157, 88),   // Google green
-      Color.fromARGB(255, 219, 68, 55),   // Google red
-      Color.fromARGB(255, 244, 180, 0),   // Google yellow
-      Color.fromARGB(255, 66, 133, 244),  // Google blue
+      Color.fromARGB(255, 15, 157, 88), // Google green
+      Color.fromARGB(255, 219, 68, 55), // Google red
+      Color.fromARGB(255, 244, 180, 0), // Google yellow
+      Color.fromARGB(255, 66, 133, 244), // Google blue
     ];
     List<String> labels = [
       "Successful",
@@ -360,7 +359,7 @@ class RegisteredVsVerifiedStores extends StatelessWidget {
   }
 }
 
-/// Widget for creating bar chart
+/// Widget for creating bar chart.
 class Chart extends StatelessWidget {
   final List<StatusSeries> data;
 
