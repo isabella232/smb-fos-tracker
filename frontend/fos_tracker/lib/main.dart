@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fos_tracker/path_views/agent_path.dart';
-import 'package:fos_tracker/path_views/select_agent.dart';
 
 import 'menu.dart';
 
@@ -20,7 +18,7 @@ class FosTracker extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SelectAgent(),
+      home: MenuView(),
     );
   }
 }
