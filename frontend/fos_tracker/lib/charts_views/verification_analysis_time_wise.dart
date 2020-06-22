@@ -57,11 +57,11 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
 
     List<String> categories = ["registered", "successful", "failed", "revisit"];
     List<Color> chartColours = [
-      Colors.blue,
-      Colors.green,
-      Colors.red,
-      Colors.yellow
-    ];
+      Color.fromARGB(255, 66, 133, 244),  // Google blue
+      Color.fromARGB(255, 15, 157, 88),   // Google green
+      Color.fromARGB(255, 219, 68, 55),   // Google red
+      Color.fromARGB(255, 244, 180, 0)    // Google yellow
+  ];
 
     Map<String, Map<String, int>> chartData = new Map();
 
@@ -157,7 +157,7 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
               children: <Widget>[
                 Expanded(
                   child: Container(
-                    color: Colors.blue,
+                    color: Color.fromARGB(255, 66, 133, 244),   // Google blue
                     child: Center(
                       child: Text("REGISTERED"),
                     ),
@@ -165,7 +165,7 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
                 ),
                 Expanded(
                   child: Container(
-                    color: Colors.green,
+                  color: Color.fromARGB(255, 15, 157, 88),   // Google green
                     child: Center(
                       child: Text("SUCCESSFUL"),
                     ),
@@ -177,7 +177,7 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
               children: <Widget>[
                 Expanded(
                   child: Container(
-                    color: Colors.red,
+                    color: Color.fromARGB(255, 219, 68, 55),  // Google red
                     child: Center(
                       child: Text("FAILED"),
                     ),
@@ -185,7 +185,7 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
                 ),
                 Expanded(
                   child: Container(
-                    color: Colors.yellow,
+                    color: Color.fromARGB(255, 244, 180, 0),  // Google yellow
                     child: Center(
                       child: Text("NEED REVISIT"),
                     ),

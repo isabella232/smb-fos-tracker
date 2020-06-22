@@ -104,10 +104,10 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
   /// Sets data for bar chart using map built by [getData] function.
   void setData() {
     List<UI.Color> chartColours = [
-      Color.fromARGB(255, 15, 157, 88),
-      Color.fromARGB(255, 219, 68, 55),
-      Color.fromARGB(255, 244, 180, 0),
-      Color.fromARGB(255, 66, 133, 244),
+      Color.fromARGB(255, 15, 157, 88),   // Google green
+      Color.fromARGB(255, 219, 68, 55),   // Google red
+      Color.fromARGB(255, 244, 180, 0),   // Google yellow
+      Color.fromARGB(255, 66, 133, 244),  // Google blue
     ];
     List<String> labels = [
       "Successful",
