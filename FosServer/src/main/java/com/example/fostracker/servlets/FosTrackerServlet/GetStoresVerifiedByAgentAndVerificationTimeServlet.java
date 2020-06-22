@@ -16,14 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+
 /**
- * Prints the Store details with status verified by particular agent from Stores table in JSON format.
+ * Prints the Store details with status and verification time verified by particular agent from Stores table in JSON format.
  * <p>
- * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/agent/stores/status").
+ * This Servlet converts the ResultSet into JSON object and prints to the response on @WebServlet(value = "/agent/stores/status/verificationtime").
  */
 
-@WebServlet(value = "/agent/stores/status/")
-public class GetStoresVerifiedByAgentServlet extends HttpServlet {
+@WebServlet(value = "/agent/stores/status/verificationtime")
+public class GetStoresVerifiedByAgentAndVerificationTimeServlet extends HttpServlet {
 
     // Gson object that is used to convert Strings into JSON objects
     private Gson gson = new Gson();
@@ -68,7 +69,7 @@ public class GetStoresVerifiedByAgentServlet extends HttpServlet {
 
 
             // Querying the database table for stores verified by the agent email and storing in the storeAndStatusData.
-            ResultSet storeAndStatusData = VerificationDatabaseHelper.queryStoreAndStatusDataByEmail(agentEmail);
+            ResultSet storeAndStatusData = VerificationDatabaseHelper.queryStoreAndStatusDataByEmailAndVerificationTime(agentEmail);
 
             // If storeAndStatusData is not empty then prints all the rows else prints "No data exists".
             if (storeAndStatusData.next()) {
@@ -77,6 +78,8 @@ public class GetStoresVerifiedByAgentServlet extends HttpServlet {
                         storeAndStatusData.getColumnIndex(VerificationDatabaseHelper.COLUMN_STORE_PHONE);
                 int columnStoreStatusIndex =
                         storeAndStatusData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_STATUS);
+                int columnStoreVerificationTime =
+                        storeAndStatusData.getColumnIndex(VerificationDatabaseHelper.COLUMN_VERIFICATION_TIME);
                 // Loop through all rows and stores the row data in storeAndStatusDataIterator. Converts storeAndStatusDataIterator into
                 // json object and prints to the screen.
                 do {
@@ -84,8 +87,9 @@ public class GetStoresVerifiedByAgentServlet extends HttpServlet {
                     storeAndStatusDataIterator = new Store(storeAndStatusData.getString(columnStorePhoneIndex),
                             StoreDatabaseHelper.queryStoreCoordinatesUsingStorePhone(
                                     storeAndStatusData.getString(columnStorePhoneIndex)),
-                            getStatusInt(storeAndStatusData.getString(columnStoreStatusIndex)
-                    ));
+                            getStatusInt(storeAndStatusData.getString(columnStoreStatusIndex)),
+                            storeAndStatusData.getTimestamp(columnStoreVerificationTime).toSqlTimestamp()
+                            );
                     storeAndStatusDataIteratorString = this.gson.toJson(storeAndStatusDataIterator);
                     output.println(storeAndStatusDataIteratorString);
                 } while (storeAndStatusData.next());
