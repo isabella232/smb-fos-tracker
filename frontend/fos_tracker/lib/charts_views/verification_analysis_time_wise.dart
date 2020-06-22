@@ -9,6 +9,9 @@ import 'package:fos_tracker/data_models/status_series.dart';
 import 'package:fos_tracker/data_models/stores_with_time.dart';
 import 'package:http/http.dart' as http;
 
+const int NUMBER_OF_CATEGORIES = 4;
+const int NUMBER_OF_DAYS_IN_WEEK = 7;
+
 /// Class for creating state of view of verification analysis by week.
 class TimeAnalysis extends StatefulWidget {
   final String title = "Verifications Analysis";
@@ -18,9 +21,6 @@ class TimeAnalysis extends StatefulWidget {
 
 /// Class for building the screen view for time wise verification. This includes app bar, analysis chart and calendar button for selecting a day of the week.
 class _TimeAnalysisState extends State<TimeAnalysis> {
-  static const int NUMBER_OF_CATEGORIES = 4;
-  static const int NUMBER_OF_DAYS_IN_WEEK = 7;
-
   DateTime pickedDate;
   bool _loading = true;
   List<charts.Series<StoresWithDate, String>> seriesList;
@@ -57,10 +57,10 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
 
     List<String> categories = ["registered", "successful", "failed", "revisit"];
     List<Color> chartColours = [
-      Colors.blue,
-      Colors.green,
-      Colors.red,
-      Colors.yellow
+      Color.fromARGB(255, 66, 133, 244), // Google blue
+      Color.fromARGB(255, 15, 157, 88), // Google green
+      Color.fromARGB(255, 219, 68, 55), // Google red
+      Color.fromARGB(255, 244, 180, 0) // Google yellow
     ];
 
     Map<String, Map<String, int>> chartData = new Map();
@@ -98,7 +98,6 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
           chartData[category][date] = numberOfMerchants;
         });
       });
-
     } else {
       print("Http request failed");
     }
@@ -119,10 +118,9 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
             id: category,
             seriesColor: charts.ColorUtil.fromDartColor(chartColours[i]),
             data: lineData,
-            domainFn: (StoresWithDate numberOfStores, _) =>
-            numberOfStores.date,
+            domainFn: (StoresWithDate numberOfStores, _) => numberOfStores.date,
             measureFn: (StoresWithDate numberOfStores, _) =>
-            numberOfStores.numberOfStores),
+                numberOfStores.numberOfStores),
       );
     }
 
@@ -137,7 +135,7 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
     print(seriesList);
     return Scaffold(
         appBar:
-        CustomAppBar(appBarTitle: widget.title, appBarColor: Colors.blue),
+            CustomAppBar(appBarTitle: widget.title, appBarColor: Colors.blue),
         body: ListView(
           children: <Widget>[
             SizedBox(
@@ -148,7 +146,7 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style:
-              painting.TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  painting.TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             SizedBox(
               height: 10,
@@ -157,7 +155,7 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
               children: <Widget>[
                 Expanded(
                   child: Container(
-                    color: Colors.blue,
+                    color: Color.fromARGB(255, 66, 133, 244), // Google blue
                     child: Center(
                       child: Text("REGISTERED"),
                     ),
@@ -165,7 +163,7 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
                 ),
                 Expanded(
                   child: Container(
-                    color: Colors.green,
+                    color: Color.fromARGB(255, 15, 157, 88), // Google green
                     child: Center(
                       child: Text("SUCCESSFUL"),
                     ),
@@ -177,7 +175,7 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
               children: <Widget>[
                 Expanded(
                   child: Container(
-                    color: Colors.red,
+                    color: Color.fromARGB(255, 219, 68, 55), // Google red
                     child: Center(
                       child: Text("FAILED"),
                     ),
@@ -185,7 +183,7 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
                 ),
                 Expanded(
                   child: Container(
-                    color: Colors.yellow,
+                    color: Color.fromARGB(255, 244, 180, 0), // Google yellow
                     child: Center(
                       child: Text("NEED REVISIT"),
                     ),
@@ -200,24 +198,24 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
               padding: EdgeInsets.all(20),
               child: _loading
                   ? Container(
-                child: new Center(
-                  child: new SizedBox(
-                    height: 50.0,
-                    width: 50.0,
-                    child: new CircularProgressIndicator(
-                      value: null,
-                      strokeWidth: 7.0,
-                    ),
-                  ),
-                ),
-              )
+                      child: new Center(
+                        child: new SizedBox(
+                          height: 50.0,
+                          width: 50.0,
+                          child: new CircularProgressIndicator(
+                            value: null,
+                            strokeWidth: 7.0,
+                          ),
+                        ),
+                      ),
+                    )
                   : new charts.BarChart(
-                seriesList,
-                animate: true,
-                barGroupingType: charts.BarGroupingType.grouped,
-                vertical: false,
-                animationDuration: Duration(seconds: 2),
-              ),
+                      seriesList,
+                      animate: true,
+                      barGroupingType: charts.BarGroupingType.grouped,
+                      vertical: false,
+                      animationDuration: Duration(seconds: 2),
+                    ),
             ),
             Row(
               children: <Widget>[

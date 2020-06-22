@@ -1,14 +1,17 @@
 import 'dart:convert';
 import 'dart:ui' as UI;
-import 'package:flutter/cupertino.dart';
+
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart' as painting;
 import 'package:fos_tracker/custom_widgets/app_bar.dart';
 import 'package:fos_tracker/data_models/status_chart.dart';
 import 'package:fos_tracker/data_models/status_series.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/painting.dart' as painting;
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+const int NUMBER_OF_STATUS_CATEGORIES = 4;
 
 /// Class for creating state of view of verification analysis by region
 class RegionalAnalysis extends StatefulWidget {
@@ -19,8 +22,6 @@ class RegionalAnalysis extends StatefulWidget {
 
 /// Class for building the screen view for regional verification. This includes app bar, analysis chart and scroll up menu for selecting region
 class _RegionalAnalysisState extends State<RegionalAnalysis> {
-  static const int NUMBER_OF_STATUS_CATEGORIES = 4;
-
   String regionCategory;
   String regionValue;
   List<charts.Series> seriesList;
@@ -63,6 +64,8 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
     }
     setData();
 
+    regionValue = regionValue.toUpperCase();
+
     final http.Response response = await http.post(
       'https://fos-tracker-278709.an.r.appspot.com/number_of_stores_per_status_by_region',
       headers: <String, String>{
@@ -76,13 +79,17 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
 
     // Checks if the http post request was completed successfully.
     if (response.statusCode == 200) {
-      Map<String, dynamic> jsonDecode = json.decode(response.body);
-      jsonDecode.forEach((key, value) {
-        String status = colourToStatus[key];
-        statusToNumberOfStoresMap[status] = value;
-      });
-      print("Http request successful");
-      setData();
+      try {
+        Map<String, dynamic> jsonDecode = json.decode(response.body);
+        jsonDecode.forEach((key, value) {
+          String status = colourToStatus[key];
+          statusToNumberOfStoresMap[status] = value;
+        });
+        print("Http request successful");
+        setData();
+      } catch (error) {
+        print("No entries of the given region in database");
+      }
     } else {
       print("Http request failed");
     }
@@ -96,10 +103,10 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
   /// Sets data for bar chart using map built by [getData] function.
   void setData() {
     List<UI.Color> chartColours = [
-      Colors.green,
-      Colors.red,
-      Colors.yellow,
-      Colors.blue
+      Color.fromARGB(255, 15, 157, 88), // Google green
+      Color.fromARGB(255, 219, 68, 55), // Google red
+      Color.fromARGB(255, 244, 180, 0), // Google yellow
+      Color.fromARGB(255, 66, 133, 244), // Google blue
     ];
     List<String> labels = [
       "Successful",
@@ -133,6 +140,7 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
     return Scaffold(
       appBar: CustomAppBar(appBarTitle: widget.title, appBarColor: Colors.blue),
       body: SlidingUpPanel(
+        backdropEnabled: true,
         // Panel shows the details in the expanded view of slide up bar.
         // It contains a form for selecting region whose verification analysis is needed.
         panel: Center(
@@ -142,7 +150,7 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: 10,
+                  height: 50,
                 ),
                 Text(
                   "Choose Region",
@@ -196,6 +204,9 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
                                 ? "Name of Region Selected"
                                 : "Press Select")),
                         validator: (value) {
+                          if (dropDownValue == null) {
+                            return "Please select a category from drop down list";
+                          }
                           if (value.isEmpty && dropDownValue != "ALL") {
                             return 'Please enter some text';
                           } else {
@@ -223,6 +234,7 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
                               setState(() {
                                 _loading = true;
                               });
+                              FocusScope.of(context).requestFocus(FocusNode());
                               getData();
                             }
                           },
@@ -236,7 +248,6 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
 
         // When collapsed, slide up bar panel shows the selected region.
         collapsed: Container(
-          color: Colors.blueGrey,
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -248,7 +259,8 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
             ),
           ),
         ),
-
+        minHeight: MediaQuery.of(context).size.height * 0.06,
+        maxHeight: MediaQuery.of(context).size.height * 0.4,
         // Body includes the widgets that show on screen when slide panel is collapsed.
         // In includes a bar chart for showing number of merchants in different categories of verification - successful, failed, revisiting required and unvisited.
         body: Center(
@@ -264,21 +276,24 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
               Container(
                 child: _loading
                     ? Container(
-                  height: 400,
-                  child: new Center(
-                    child: new SizedBox(
-                      height: 50.0,
-                      width: 50.0,
-                      child: new CircularProgressIndicator(
-                        value: null,
-                        strokeWidth: 7.0,
-                      ),
-                    ),
-                  ),
-                )
+                        height: 400,
+                        child: new Center(
+                          child: new SizedBox(
+                            height: 50.0,
+                            width: 50.0,
+                            child: new CircularProgressIndicator(
+                              value: null,
+                              strokeWidth: 7.0,
+                            ),
+                          ),
+                        ),
+                      )
                     : Chart(
-                  data: data,
-                ),
+                        data: data,
+                      ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.24,
               ),
             ],
           ),
@@ -344,7 +359,7 @@ class RegisteredVsVerifiedStores extends StatelessWidget {
   }
 }
 
-/// Widget for creating bar chart
+/// Widget for creating bar chart.
 class Chart extends StatelessWidget {
   final List<StatusSeries> data;
 

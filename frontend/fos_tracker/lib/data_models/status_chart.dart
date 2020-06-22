@@ -26,6 +26,7 @@ class StatusChart extends StatelessWidget {
     return charts.BarChart(
       series,
       animate: true,
+      animationDuration: Duration(seconds: 2),
     );
   }
 }
