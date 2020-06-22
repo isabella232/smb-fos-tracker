@@ -28,6 +28,8 @@ dependencies:
   permission_handler: ^3.0.1
   sliding_up_panel: ^1.0.2
   http: ^0.12.1
+  geocoder: ^0.2.1
+  flutter_polyline_points: ^0.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
