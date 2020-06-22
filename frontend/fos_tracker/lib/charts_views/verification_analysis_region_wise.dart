@@ -64,6 +64,8 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
     }
     setData();
 
+    regionValue = regionValue.toUpperCase();
+
     final http.Response response = await http.post(
       'https://fos-tracker-278709.an.r.appspot.com/number_of_stores_per_status_by_region',
       headers: <String, String>{
@@ -77,13 +79,18 @@ class _RegionalAnalysisState extends State<RegionalAnalysis> {
 
     // Checks if the http post request was completed successfully.
     if (response.statusCode == 200) {
-      Map<String, dynamic> jsonDecode = json.decode(response.body);
-      jsonDecode.forEach((key, value) {
-        String status = colourToStatus[key];
-        statusToNumberOfStoresMap[status] = value;
-      });
-      print("Http request successful");
-      setData();
+      try{
+        Map<String, dynamic> jsonDecode = json.decode(response.body);
+        jsonDecode.forEach((key, value) {
+          String status = colourToStatus[key];
+          statusToNumberOfStoresMap[status] = value;
+        });
+        print("Http request successful");
+        setData();
+      }
+      catch(error){
+        print("No entries of the given region in database");
+      }
     } else {
       print("Http request failed");
     }
