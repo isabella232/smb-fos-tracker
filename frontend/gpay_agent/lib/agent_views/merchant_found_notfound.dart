@@ -10,7 +10,7 @@ class MerchantNotFound extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(globals.agent.getName(), Colors.white),
+      appBar: CustomAppBar(globals.agent.getName(), Colors.white, context),
       body: ListView(children: <Widget>[
         Container(
           height: 600,
@@ -53,7 +53,7 @@ class MerchantFound extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(globals.agent.getName(), Colors.white),
+      appBar: CustomAppBar(globals.agent.getName(), Colors.white, context),
       body: ListView(
         children: <Widget>[
           SizedBox(
