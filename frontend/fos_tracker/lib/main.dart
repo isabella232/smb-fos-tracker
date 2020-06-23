@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'main_view.dart';
+import 'menu.dart';
 
 void main() {
   runApp(FosTracker());
 }
 
+/// Class for the root stateless widget of application.
+/// It calls the main menu view.
 class FosTracker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class FosTracker extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MainView(),
+      home: MenuView(),
     );
   }
 }
