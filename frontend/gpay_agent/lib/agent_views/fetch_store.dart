@@ -1,12 +1,13 @@
 import 'dart:typed_data';
 import 'package:agent_app/agent_datamodels/store.dart';
+import 'package:agent_app/agent_datamodels/store_status.dart';
 import 'package:agent_app/agent_views/merchant_found_notfound.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:agent_app/globals.dart' as globals;
-
+import 'package:agent_app/agent_views/merchant_verified_view.dart';
 
 /// Builds the UI elements for fetching store information for verification.
 /// Store can be fetched using phone number or scanner QR code assigned to store.
@@ -16,7 +17,7 @@ class FetchStoreState {
   Uint8List bytes = Uint8List(200);
   bool isLoading = false;
 
-  Widget buildFetchStore(BuildContext context){
+  Widget buildFetchStore(BuildContext context) {
     return OrientationBuilder(builder: (context, orientation) {
       if (orientation == Orientation.portrait) {
         return _buildFetchStorePortraitView(context);
@@ -59,7 +60,8 @@ class FetchStoreState {
   }
 
   /// Fetches store details using phone number of store.
-  /// If store number is registered in database, it calls [MerchantFound]
+  /// If store number is registered in database and verified it calls [MerchantVerifiedView]
+  /// If store number is registered in database and not verified it calls [MerchantFound]
   /// interface otherwise it calls [MerchantNotFound] interface.
   Widget _buildPhoneChild(BuildContext context) {
     return Expanded(
@@ -90,61 +92,73 @@ class FetchStoreState {
                 ),
                 Expanded(
                   flex: 1,
-                  child:Align(
+                  child: Align(
                     alignment: Alignment.topCenter,
-                  child: Text(
-                    "Enter the phone number with which the merchant registered the store.",
-                    textAlign: TextAlign.left,
+                    child: Text(
+                      "Enter the phone number with which the merchant registered the store.",
+                      textAlign: TextAlign.left,
+                    ),
                   ),
-                ),
                 ),
                 Expanded(
                   flex: 2,
-                    child:Align(
-                      alignment: Alignment.topCenter,
-                      child: InternationalPhoneNumberInput(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: InternationalPhoneNumberInput(
                       onInputChanged: (PhoneNumber number) {
                         num = (number.phoneNumber).toString();
                       },
                       initialValue: number,
                     ),
                   ),
-
                 ),
                 Expanded(
                   flex: 1,
                   child: Center(
-                    child:Align(
+                    child: Align(
                       alignment: Alignment.center,
-                    child: ButtonTheme(
-                      minWidth: 200,
-                      height: 50,
-                      child: FlatButton(
-                        textColor: Colors.white,
-                        color: Colors.blue,
-                        child: new Text("Submit"),
-                        onPressed: () async {
-                          await Store.fetchStore(num.substring(3));
-                          if (globals.isStorePresent) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MerchantFound(
-                                  name: globals.store.ownerName.getName(),
+                      child: ButtonTheme(
+                        minWidth: 200,
+                        height: 50,
+                        child: FlatButton(
+                          textColor: Colors.white,
+                          color: Colors.blue,
+                          child: new Text("Submit"),
+                          onPressed: () async {
+                            // Taking substring to remove +91 from phone number.
+                            await Store.fetchStore(num.substring(3));
+                            if (globals.isStorePresent) {
+                              await StoreStatus.fetchStoreStatus(
+                                  num.substring(3));
+                              if (globals.isStoreVerified) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        MerchantVerifiedView(),
+                                  ),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MerchantFound(
+                                      name: globals.store.ownerName.getName(),
+                                    ),
+                                  ),
+                                );
+                              }
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MerchantNotFound(),
                                 ),
-                              ),
-                            );
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MerchantNotFound(),
-                              ),
-                            );
-                          }
-                        },
+                              );
+                            }
+                          },
+                        ),
                       ),
-                    ),
                     ),
                   ),
                 )
@@ -187,7 +201,7 @@ class FetchStoreState {
                       "QR Code is generated when the merchant registers the store using merchant app",
                       style: TextStyle(
 //                        fontSize: 17,
-                      ),
+                          ),
                     ),
                   )),
               /*SizedBox(
@@ -204,7 +218,7 @@ class FetchStoreState {
                         child: FlatButton(
                           onPressed: () async {
                             await _scan(context);
-                            },
+                          },
                           textColor: Colors.white,
                           color: Colors.blue,
                           child: new Text("Scan QR Code"),
@@ -223,15 +237,29 @@ class FetchStoreState {
   Future _scan(BuildContext context) async {
     String qrcode = await scanner.scan();
     //Use QR code to get store, if store is registered, pass merchant name found, else not found
-    globals.isStorePresent  = false;
+    globals.isStorePresent = false;
     await Store.fetchStore(qrcode);
     if (globals.isStorePresent) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MerchantFound(name: globals.store.ownerName.getName()),
-        ),
-      );
+      await StoreStatus.fetchStoreStatus(
+          num.substring(3));
+      if (globals.isStoreVerified) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                MerchantVerifiedView(),
+          ),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MerchantFound(
+              name: globals.store.ownerName.getName(),
+            ),
+          ),
+        );
+      }
     } else {
       Navigator.push(
         context,
