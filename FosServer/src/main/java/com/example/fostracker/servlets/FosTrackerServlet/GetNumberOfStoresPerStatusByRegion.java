@@ -89,7 +89,8 @@ public class GetNumberOfStoresPerStatusByRegion extends HttpServlet {
         try {
             if (validCategories.contains(regionCategoryValue.regionCategory)) {
                 String query = "SELECT VerificationStatus, COUNT(*) AS NumberOfStores FROM Verifications FULL JOIN Stores ON Stores.StorePhone = Verifications.StorePhone" +
-                        " WHERE UPPER(STORE" + regionCategoryValue.regionCategory + ") = \"" + regionCategoryValue.regionValue + "\" GROUP BY VerificationStatus";
+                        " WHERE  UPPER( STORE" + regionCategoryValue.regionCategory + " ) = \"" + regionCategoryValue.regionValue + "\" GROUP BY VerificationStatus";
+
                 resultSet = databaseClient.singleUse().executeQuery(Statement.of(query));
             } else {
                 resultSet = databaseClient.singleUse().executeQuery(Statement.of("SELECT VerificationStatus, COUNT(*) AS NumberOfStores FROM Verifications FULL JOIN Stores " +

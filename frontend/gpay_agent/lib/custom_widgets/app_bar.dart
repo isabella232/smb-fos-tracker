@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:agent_app/globals.dart';
 
 /// Creates custom app bar for agent application.
 /// It has back button on the left, agent name in the centre and settings
@@ -10,10 +11,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Color appBarColor;
   @override
   final Size preferredSize = Size.fromHeight(60);
+  BuildContext context1;
 
-  CustomAppBar(String appBarTitle, Color appBarColor) {
+  CustomAppBar(String appBarTitle, Color appBarColor, BuildContext context) {
     this.appBarTitle = appBarTitle;
     this.appBarColor = appBarColor;
+    this.context1 = context;
   }
 
   @override
@@ -55,13 +58,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ],
     );
   }
-}
 
-void handleClick(String value) {
-  switch (value) {
-    case 'Logout':
-      {
-        // TODO: Sign out agent and go to login page
-      }
+
+  void handleClick(String value) {
+    switch (value) {
+      case 'Logout':
+        {
+          googleSignIn.signOut();
+          Navigator.pop(context1);
+        }
+    }
   }
 }

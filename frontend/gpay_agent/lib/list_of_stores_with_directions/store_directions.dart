@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ffi';
 import 'package:agent_app/agent_views/fetch_store.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:agent_app/list_of_stores_with_directions/store.dart';
 import 'package:flutter/painting.dart';
@@ -11,6 +12,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:agent_app/business_verification_views/business_verification_view.dart';
 import 'package:agent_app/agent_datamodels/store.dart' as GlobalStore;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// VerifyStoresView displays two view, one contains list of stores other has an option to select store by phone.
 ///
@@ -63,12 +65,25 @@ class VerifyStoresViewState extends State<VerifyStoresView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        title: Text(
+          _selectedIndex == 0 ? 'List of Stores' : 'Enter Store Details',
+          style: GoogleFonts.montserrat(
+            color: Colors.black,
+            fontSize: 17,
+          ),
+        ),
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: Icon(
-          Icons.arrow_back,
-          color: Colors.black,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: Center(

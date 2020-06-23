@@ -3,6 +3,7 @@ package com.example.fostracker.models;
 import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 /**
  * Serves as a model for store objects that will be used in to communicate information about GPay Merchants' stores
@@ -16,6 +17,7 @@ public class Store {
     String phone;
     String storeName;
     Timestamp creationDateTime;
+    String verificationDateTime;
     String verificationStatus;
 
     /**
@@ -105,6 +107,18 @@ public class Store {
         this.phone = storePhone;
         this.coordinates = storeCoordinates;
         this.verificationStatus = getStoreVerificationString(verificationStatus);
+    }
+
+    /**
+     * @param storePhone              - the store phone number that was verified
+     * @param storeCoordinates        - the location the store
+     * @param verificationStatus      - whether the verification was successful/unsuccessful/incomplete
+     */
+    public Store(String storePhone, Coordinates storeCoordinates, int verificationStatus, Timestamp verificationTime) {
+        this.phone = storePhone;
+        this.coordinates = storeCoordinates;
+        this.verificationStatus = getStoreVerificationString(verificationStatus);
+        this.verificationDateTime = verificationTime.toString();
     }
 
     //Based on the status integral value it sets to required status string

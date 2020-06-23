@@ -24,7 +24,7 @@ class LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: "Sign In",
-        home: Scaffold(
+        home:  Scaffold(
           body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
