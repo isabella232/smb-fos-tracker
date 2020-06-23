@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fos_tracker/charts_views/verification_analysis_time_wise.dart';
 import 'package:fos_tracker/charts_views/verification_analysis_region_wise.dart';
 import 'package:fos_tracker/main_view.dart';
+import 'package:fos_tracker/path_views/select_agent.dart';
 
-/// Class for rendering the main menu page having option for either tracking live location of agents or viewing verification status charts based on region and week.
+/// Class for rendering the main menu page having option for either tracking live location of agents or viewing verification status charts based on region and week or getting path of agent.
 class MenuView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,18 @@ class MenuView extends StatelessWidget {
                   size: 30,
                 ),
                 function: new TimeAnalysis(),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              CustomButton(
+                title: "Retrieve Agent Path",
+                icon: Icon(
+                  Icons.map,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                function: new SelectAgent(),
               ),
             ]),
           ],

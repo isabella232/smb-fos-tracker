@@ -244,12 +244,14 @@ class _TimeAnalysisState extends State<TimeAnalysis> {
                           firstDate: DateTime(2010),
                           lastDate: DateTime(2100),
                         ).then((value) {
-                          pickedDate = value;
+                          if (value != null) {
+                            pickedDate = value;
+                            setState(() {
+                              _loading = true;
+                            });
+                            getData();
+                          }
                         });
-                        setState(() {
-                          _loading = true;
-                        });
-                        getData();
                       })
                 ],
               ),

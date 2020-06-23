@@ -10,6 +10,6 @@ class StatusSeries {
 
   StatusSeries(
       {@required this.status,
-        @required this.merchantNumber,
-        @required this.color});
+      @required this.merchantNumber,
+      @required this.color});
 }
