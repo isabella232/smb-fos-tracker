@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fos_tracker/data_models/status_series.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
+
 /// Class that defines features of the complete chart i.e. domain and measure of bar
 class StatusChart extends StatelessWidget {
   final List<StatusSeries> data;
