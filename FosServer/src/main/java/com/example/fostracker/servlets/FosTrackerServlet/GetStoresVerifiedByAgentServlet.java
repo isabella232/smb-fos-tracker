@@ -1,4 +1,3 @@
-=======
 /*
  * Copyright 2019 Google LLC
  *
@@ -98,7 +97,7 @@ public class GetStoresVerifiedByAgentServlet extends HttpServlet {
                 // Loop through all rows and stores the row data in storeAndStatusDataIterator. Converts storeAndStatusDataIterator into
                 // json object and prints to the screen.
                 do {
-                  
+
                     storeAndStatusDataIterator = new Store(storeAndStatusData.getString(columnStorePhoneIndex),
                             StoreDatabaseHelper.queryStoreCoordinatesUsingStorePhone(
                                     storeAndStatusData.getString(columnStorePhoneIndex)),
