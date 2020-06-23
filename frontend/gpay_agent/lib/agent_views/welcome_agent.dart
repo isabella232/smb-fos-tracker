@@ -83,7 +83,7 @@ class _WelcomeAgentState extends State<WelcomeAgent> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar("Welcome " + globals.agent.AgentName.firstName, Colors.white),
+      appBar: CustomAppBar("Welcome " + globals.agent.AgentName.firstName, Colors.white, this.context),
       body: ListView(padding: const EdgeInsets.all(8.0), children: <Widget>[
         Image.asset(
           "assets/agent_beginning_images/using_gpay.png",
