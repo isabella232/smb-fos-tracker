@@ -240,14 +240,12 @@ class FetchStoreState {
     globals.isStorePresent = false;
     await Store.fetchStore(qrcode);
     if (globals.isStorePresent) {
-      await StoreStatus.fetchStoreStatus(
-          num.substring(3));
+      await StoreStatus.fetchStoreStatus(qrcode);
       if (globals.isStoreVerified) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                MerchantVerifiedView(),
+            builder: (context) => MerchantVerifiedView(),
           ),
         );
       } else {
