@@ -1,6 +1,5 @@
-package com.example.fostracker.servlets.AgentServlet;
 /*
- * Copyright 2019 Google LLC
+ * Copyright 2020 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +14,7 @@ package com.example.fostracker.servlets.AgentServlet;
  * limitations under the License.
  */
 
+package com.example.fostracker.servlets.AgentServlet;
 import com.google.cloud.spanner.*;
 
 import javax.servlet.http.HttpServletResponse;
